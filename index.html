@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TERRAFIT | Move. Claim. Compete.</title>
+
+    <!-- TERRAFIT CSS -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <!-- Leaflet Map CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         NAVBAR
+    ================================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <div class="logo-mark">
+                T
+            </div>
+
+            <span>
+                TERRAFIT
+            </span>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="#how">
+                How It Works
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <button
+                class="login-btn"
+                id="loginBtn"
+            >
+                LOG IN
+            </button>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =================================
+         LOGIN / SIGN UP MODAL
+    ================================== -->
+
+    <div
+        class="auth-overlay"
+        id="authOverlay"
+    >
+
+        <div class="auth-box">
+
+
+            <!-- CLOSE BUTTON -->
+
+            <button
+                class="auth-close"
+                id="authClose"
+            >
+                ×
+            </button>
+
+
+            <!-- AUTH HEADER -->
+
+            <div class="auth-header">
+
+                <div class="auth-logo">
+                    T
+                </div>
+
+                <span class="auth-label">
+                    TERRAFIT ACCOUNT
+                </span>
+
+                <h2 id="authTitle">
+                    WELCOME BACK.
+                </h2>
+
+                <p id="authSubtitle">
+                    Log in to continue your journey.
+                </p>
+
+            </div>
+
+
+
+            <!-- AUTH TABS -->
+
+            <div class="auth-tabs">
+
+                <button
+                    class="auth-tab active"
+                    id="loginTab"
+                >
+                    LOG IN
+                </button>
+
+
+                <button
+                    class="auth-tab"
+                    id="signupTab"
+                >
+                    SIGN UP
+                </button>
+
+            </div>
+
+
+
+            <!-- AUTH FORM -->
+
+            <form
+                id="authForm"
+            >
+
+
+                <!-- NAME -->
+
+                <div
+                    class="auth-field"
+                    id="nameField"
+                    style="display:none;"
+                >
+
+                    <label for="authName">
+                        FULL NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        id="authName"
+                        placeholder="Enter your name"
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="auth-field">
+
+                    <label for="authEmail">
+                        EMAIL
+                    </label>
+
+                    <input
+                        type="email"
+                        id="authEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="auth-field">
+
+                    <label for="authPassword">
+                        PASSWORD
+                    </label>
+
+                    <input
+                        type="password"
+                        id="authPassword"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div
+                    class="auth-field"
+                    id="confirmPasswordField"
+                    style="display:none;"
+                >
+
+                    <label for="authConfirmPassword">
+                        CONFIRM PASSWORD
+                    </label>
+
+                    <input
+                        type="password"
+                        id="authConfirmPassword"
+                        placeholder="Confirm your password"
+                    >
+
+                </div>
+
+
+
+                <!-- LOGIN OPTIONS -->
+
+                <div
+                    class="auth-options"
+                    id="loginOptions"
+                >
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                        >
+
+                        <span>
+                            Remember me
+                        </span>
+
+                    </label>
+
+
+                    <button
+                        type="button"
+                        id="forgotPassword"
+                    >
+                        Forgot password?
+                    </button>
+
+                </div>
+
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    class="auth-message"
+                    id="authMessage"
+                ></div>
+
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                    id="authSubmit"
+                >
+                    LOG IN
+                </button>
+
+
+            </form>
+
+
+
+            <!-- DEMO LOGIN -->
+
+            <button
+                class="demo-login"
+                id="demoLogin"
+                type="button"
+            >
+
+                CONTINUE WITH DEMO ACCOUNT
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================
+         LANDING PAGE
+    ================================== -->
+
+    <main
+        class="hero"
+        id="landingPage"
+    >
+
+        <div class="hero-content">
+
+
+            <div class="badge">
+
+                <span></span>
+
+                FITNESS, REIMAGINED
+
+            </div>
+
+
+            <h1>
+
+                MOVE.<br>
+
+                <span>
+                    CLAIM.
+                </span><br>
+
+                COMPETE.
+
+            </h1>
+
+
+            <p>
+
+                Turn your walks, runs and rides
+                into territory. Capture the map,
+                build your empire and compete
+                with your community.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+
+                <button
+                    class="primary-btn"
+                    id="startBtn"
+                >
+
+                    START YOUR JOURNEY
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="secondary-btn"
+                    id="demoBtn"
+                >
+
+                    EXPLORE TERRAFIT
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================
+             HERO VISUAL
+        ================================== -->
+
+        <div class="hero-visual">
+
+            <div class="map-card">
+
+
+                <div class="map-header">
+
+                    <span>
+                        LIVE TERRITORY
+                    </span>
+
+
+                    <span class="live">
+
+                        <i></i>
+
+                        LIVE
+
+                    </span>
+
+                </div>
+
+
+                <div class="territory-map">
+
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell blue"></div>
+                    <div class="grid-cell blue"></div>
+                    <div class="grid-cell"></div>
+
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell blue"></div>
+                    <div class="grid-cell blue"></div>
+                    <div class="grid-cell red"></div>
+                    <div class="grid-cell"></div>
+
+                    <div class="grid-cell blue"></div>
+                    <div class="grid-cell blue"></div>
+                    <div class="grid-cell blue"></div>
+                    <div class="grid-cell red"></div>
+                    <div class="grid-cell red"></div>
+
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell blue"></div>
+                    <div class="grid-cell blue"></div>
+                    <div class="grid-cell red"></div>
+                    <div class="grid-cell"></div>
+
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell blue"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+
+                </div>
+
+
+                <div class="map-footer">
+
+
+                    <div>
+
+                        <small>
+                            YOUR TERRITORY
+                        </small>
+
+                        <strong>
+                            24 CELLS
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            RANK
+                        </small>
+
+                        <strong>
+                            #07
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            XP
+                        </small>
+
+                        <strong>
+                            2,840
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =================================
+         HOW IT WORKS
+    ================================== -->
+
+    <section
+        class="info-section"
+        id="how"
+    >
+
+        <div class="section-title">
+
+            <span>
+                THE GAME
+            </span>
+
+
+            <h2>
+
+                EVERY STEP<br>
+
+                CHANGES THE MAP.
+
+            </h2>
+
+        </div>
+
+
+        <div class="steps">
+
+
+            <div class="step">
+
+                <b>
+                    01
+                </b>
+
+                <h3>
+                    MOVE
+                </h3>
+
+                <p>
+
+                    Walk, run or cycle while
+                    TERRAFIT tracks your activity.
+
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <b>
+                    02
+                </b>
+
+                <h3>
+                    CLAIM
+                </h3>
+
+                <p>
+
+                    Your activity converts into
+                    virtual territory on the map.
+
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <b>
+                    03
+                </b>
+
+                <h3>
+                    COMPETE
+                </h3>
+
+                <p>
+
+                    Build your territory,
+                    challenge others and climb
+                    the leaderboard.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================
+         DASHBOARD
+    ================================== -->
+
+    <section
+        class="dashboard"
+        id="dashboard"
+    >
+
+
+        <!-- Dashboard Header -->
+
+        <div class="dashboard-top">
+
+
+            <div>
+
+                <span class="dashboard-label">
+                    PLAYER DASHBOARD
+                </span>
+
+
+                <h2>
+
+                    WELCOME BACK,
+
+                    <span id="playerName">
+                        PLAYER.
+                    </span>
+
+                </h2>
+
+            </div>
+
+
+            <div class="rank-box">
+
+                <small>
+                    CURRENT RANK
+                </small>
+
+                <strong>
+                    #07
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             PLAYER STATS
+        ================================== -->
+
+        <div class="stats">
+
+
+            <div class="stat-card">
+
+                <small>
+                    TERRITORY
+                </small>
+
+                <strong id="territoryCount">
+                    0
+                </strong>
+
+                <span>
+                    CELLS
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <small>
+                    TOTAL XP
+                </small>
+
+                <strong id="xpCount">
+                    0
+                </strong>
+
+                <span>
+                    XP
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <small>
+                    ACTIVITY
+                </small>
+
+                <strong id="activityCount">
+                    0.0
+                </strong>
+
+                <span>
+                    KM
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <small>
+                    STREAK
+                </small>
+
+                <strong id="streakCount">
+                    0
+                </strong>
+
+                <span>
+                    DAYS
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             DASHBOARD MAIN GRID
+        ================================== -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- ACTIVITY PANEL -->
+
+            <div class="activity-panel">
+
+
+                <div class="panel-heading">
+
+                    <div>
+
+                        <small>
+                            ACTIVITY
+                        </small>
+
+                        <h3>
+                            START MOVING
+                        </h3>
+
+                    </div>
+
+
+                    <div
+                        class="activity-status"
+                        id="activityStatus"
+                    >
+                        READY
+                    </div>
+
+                </div>
+
+
+
+                <!-- Activity Selection -->
+
+                <div class="activity-types">
+
+
+                    <button
+                        class="activity-type active"
+                        data-type="Walking"
+                    >
+
+                        🚶
+
+                        <span>
+                            WALK
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="activity-type"
+                        data-type="Running"
+                    >
+
+                        🏃
+
+                        <span>
+                            RUN
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="activity-type"
+                        data-type="Cycling"
+                    >
+
+                        🚴
+
+                        <span>
+                            CYCLE
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- Activity Statistics -->
+
+                <div class="activity-data">
+
+
+                    <div>
+
+                        <small>
+                            DISTANCE
+                        </small>
+
+                        <strong id="distance">
+                            0.00 KM
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            TIME
+                        </small>
+
+                        <strong id="timer">
+                            00:00
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- GPS Status -->
+
+                <div
+                    class="gps-status"
+                    id="gpsStatus"
+                >
+
+                    <span class="gps-dot"></span>
+
+                    GPS READY
+
+                </div>
+
+
+
+                <!-- Activity Button -->
+
+                <button
+                    class="activity-btn"
+                    id="activityBtn"
+                >
+
+                    START ACTIVITY
+
+                </button>
+
+
+            </div>
+
+
+
+            <!-- =================================
+                 TERRITORY MAP
+            ================================== -->
+
+            <div class="territory-panel">
+
+
+                <div class="panel-heading">
+
+
+                    <div>
+
+                        <small>
+                            YOUR TERRITORY
+                        </small>
+
+                        <h3>
+                            CONTROL MAP
+                        </h3>
+
+                    </div>
+
+
+                    <span class="map-live">
+                        ● LIVE
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- REAL LEAFLET MAP -->
+
+                <div
+                    id="realMap"
+                ></div>
+
+
+
+                <!-- Map Legend -->
+
+                <div class="map-legend">
+
+
+                    <span>
+
+                        <i class="your-cell"></i>
+
+                        YOUR TERRITORY
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="enemy-cell"></i>
+
+                        OPPONENT
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="neutral-cell"></i>
+
+                        NEUTRAL
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="route-cell"></i>
+
+                        YOUR ROUTE
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             TERRITORY INFORMATION
+        ================================== -->
+
+        <div class="territory-info">
+
+
+            <div>
+
+                <small>
+                    STRONGEST TERRITORY
+                </small>
+
+                <strong>
+                    ZONE 000
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <small>
+                    STRENGTH
+                </small>
+
+                <strong id="territoryStrength">
+                    0%
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <small>
+                    LAST ACTIVITY
+                </small>
+
+                <strong id="lastActivity">
+                    NO ACTIVITY
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <small>
+                    STATUS
+                </small>
+
+                <strong
+                    class="stable"
+                    id="territoryStatus"
+                >
+                    READY
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================
+         FOOTER
+    ================================== -->
+
+    <footer id="about">
+
+
+        <div class="logo">
+
+            <div class="logo-mark">
+                T
+            </div>
+
+            TERRAFIT
+
+        </div>
+
+
+        <p>
+            Move. Claim. Compete.
+        </p>
+
+
+    </footer>
+
+
+
+    <!-- =================================
+         LEAFLET JS
+    ================================== -->
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    ></script>
+
+
+    <!-- =================================
+         TERRAFIT JS
+    ================================== -->
+
+    <script
+        src="script.js"
+    ></script>
+
+
+</body>
+
+</html>

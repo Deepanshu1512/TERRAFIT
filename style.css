@@ -1,0 +1,3409 @@
+/* =========================================================
+   TERRAFIT
+   COMPLETE STYLE SHEET
+   Dark / Premium / Minimal Fitness Territory UI
+========================================================= */
+
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+
+    --bg: #050505;
+    --surface: #0c0c0c;
+    --surface-2: #111111;
+    --surface-3: #171717;
+
+    --border: #242424;
+    --border-light: #333333;
+
+    --text: #ffffff;
+    --text-soft: #b8b8b8;
+    --text-muted: #777777;
+
+    --white: #ffffff;
+    --black: #000000;
+
+    --green: #8cff00;
+    --green-soft: rgba(140, 255, 0, 0.12);
+
+    --blue: #4d8dff;
+    --red: #ff4d4d;
+
+    --danger: #ff5555;
+
+    --container: 1240px;
+
+    --transition: 0.25s ease;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    line-height: 1.5;
+
+    overflow-x: hidden;
+
+}
+
+
+button,
+input {
+
+    font-family: inherit;
+
+}
+
+
+button {
+
+    cursor: pointer;
+
+}
+
+
+a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+
+::selection {
+
+    background: #ffffff;
+
+    color: #000000;
+
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+
+    width: 7px;
+
+}
+
+
+::-webkit-scrollbar-track {
+
+    background: #050505;
+
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background: #333333;
+
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: #555555;
+
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+
+    width: 100%;
+
+    height: 78px;
+
+    padding: 0 5%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: rgba(5, 5, 5, 0.88);
+
+    border-bottom: 1px solid #181818;
+
+    position: relative;
+
+    z-index: 1000;
+
+    backdrop-filter: blur(14px);
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+}
+
+
+.logo-mark {
+
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+}
+
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+
+.nav-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 34px;
+
+}
+
+
+.nav-links a {
+
+    color: #999999;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.4px;
+
+    transition: var(--transition);
+
+}
+
+
+.nav-links a:hover {
+
+    color: #ffffff;
+
+}
+
+
+.login-btn {
+
+    padding: 11px 20px;
+
+    border: 1px solid #444444;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    transition: var(--transition);
+
+}
+
+
+.login-btn:hover {
+
+    background: #ffffff;
+
+    color: #000000;
+
+    border-color: #ffffff;
+
+}
+
+
+/* =========================================================
+   AUTH OVERLAY
+========================================================= */
+
+.auth-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0, 0, 0, 0.82);
+
+    backdrop-filter: blur(10px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+
+}
+
+
+.auth-overlay.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+}
+
+
+/* =========================================================
+   AUTH BOX
+========================================================= */
+
+.auth-box {
+
+    width: min(460px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    position: relative;
+
+    padding: 38px;
+
+    background: #0c0c0c;
+
+    border: 1px solid #292929;
+
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.85);
+
+    transform: translateY(15px) scale(0.98);
+
+    transition: transform 0.25s ease;
+
+}
+
+
+.auth-overlay.active .auth-box {
+
+    transform:
+        translateY(0)
+        scale(1);
+
+}
+
+
+/* =========================================================
+   AUTH CLOSE
+========================================================= */
+
+.auth-close {
+
+    position: absolute;
+
+    top: 18px;
+
+    right: 18px;
+
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid #333333;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 24px;
+
+    font-weight: 300;
+
+    line-height: 1;
+
+    transition: var(--transition);
+
+}
+
+
+.auth-close:hover {
+
+    background: #ffffff;
+
+    color: #000000;
+
+}
+
+
+/* =========================================================
+   AUTH HEADER
+========================================================= */
+
+.auth-header {
+
+    text-align: center;
+
+    margin-bottom: 28px;
+
+}
+
+
+.auth-logo {
+
+    width: 42px;
+
+    height: 42px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-weight: 900;
+
+    font-size: 20px;
+
+}
+
+
+.auth-label {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #777777;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+}
+
+
+.auth-header h2 {
+
+    margin-bottom: 7px;
+
+    color: #ffffff;
+
+    font-size: 27px;
+
+    font-weight: 900;
+
+    letter-spacing: -0.8px;
+
+}
+
+
+.auth-header p {
+
+    color: #777777;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   AUTH TABS
+========================================================= */
+
+.auth-tabs {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid #292929;
+
+}
+
+
+.auth-tab {
+
+    padding: 13px 10px;
+
+    border: none;
+
+    border-bottom: 2px solid transparent;
+
+    background: transparent;
+
+    color: #666666;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    transition: var(--transition);
+
+}
+
+
+.auth-tab:hover {
+
+    color: #ffffff;
+
+}
+
+
+.auth-tab.active {
+
+    color: #ffffff;
+
+    border-bottom-color: #ffffff;
+
+}
+
+
+/* =========================================================
+   AUTH FIELDS
+========================================================= */
+
+.auth-field {
+
+    margin-bottom: 18px;
+
+}
+
+
+.auth-field label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #777777;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.auth-field input {
+
+    width: 100%;
+
+    padding: 14px 15px;
+
+    background: #151515;
+
+    border: 1px solid #292929;
+
+    outline: none;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    transition: var(--transition);
+
+}
+
+
+.auth-field input::placeholder {
+
+    color: #555555;
+
+}
+
+
+.auth-field input:focus {
+
+    border-color: #777777;
+
+    background: #181818;
+
+}
+
+
+/* =========================================================
+   AUTH OPTIONS
+========================================================= */
+
+.auth-options {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin: 4px 0 18px;
+
+}
+
+
+.auth-options label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #777777;
+
+    font-size: 10px;
+
+}
+
+
+.auth-options input {
+
+    accent-color: #ffffff;
+
+}
+
+
+#forgotPassword {
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: #999999;
+
+    font-size: 10px;
+
+}
+
+
+#forgotPassword:hover {
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================================
+   AUTH MESSAGE
+========================================================= */
+
+.auth-message {
+
+    min-height: 18px;
+
+    margin-bottom: 12px;
+
+    color: #8cff00;
+
+    text-align: center;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   AUTH SUBMIT
+========================================================= */
+
+.auth-submit {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: 1px solid #ffffff;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    transition: var(--transition);
+
+}
+
+
+.auth-submit:hover {
+
+    background: #000000;
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================================
+   DEMO LOGIN
+========================================================= */
+
+.demo-login {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 14px;
+
+    border: 1px solid #292929;
+
+    background: #111111;
+
+    color: #777777;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+
+    transition: var(--transition);
+
+}
+
+
+.demo-login:hover {
+
+    border-color: #555555;
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    width: 100%;
+
+    min-height: calc(100vh - 78px);
+
+    padding: 80px 5%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(420px, 0.9fr);
+
+    align-items: center;
+
+    gap: 80px;
+
+    max-width: 1500px;
+
+    margin: 0 auto;
+
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content {
+
+    max-width: 620px;
+
+}
+
+
+.badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 25px;
+
+    color: #777777;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+}
+
+
+.badge span {
+
+    width: 7px;
+
+    height: 7px;
+
+    display: inline-block;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 5px rgba(255,255,255,0.08);
+
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.hero h1 {
+
+    margin-bottom: 25px;
+
+    color: #ffffff;
+
+    font-size: clamp(60px, 8vw, 112px);
+
+    font-weight: 900;
+
+    line-height: 0.84;
+
+    letter-spacing: -6px;
+
+}
+
+
+.hero h1 span {
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.hero-content > p {
+
+    max-width: 500px;
+
+    margin-bottom: 32px;
+
+    color: #777777;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.hero-buttons {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.primary-btn,
+.secondary-btn {
+
+    min-height: 50px;
+
+    padding: 0 23px;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    transition: var(--transition);
+
+}
+
+
+.primary-btn {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    border: 1px solid #ffffff;
+
+    background: #ffffff;
+
+    color: #000000;
+
+}
+
+
+.primary-btn span {
+
+    font-size: 17px;
+
+}
+
+
+.primary-btn:hover {
+
+    background: transparent;
+
+    color: #ffffff;
+
+}
+
+
+.secondary-btn {
+
+    border: 1px solid #333333;
+
+    background: transparent;
+
+    color: #ffffff;
+
+}
+
+
+.secondary-btn:hover {
+
+    border-color: #777777;
+
+    background: #111111;
+
+}
+
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.hero-visual {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+
+/* =========================================================
+   MAP CARD
+========================================================= */
+
+.map-card {
+
+    width: min(500px, 100%);
+
+    background: #0d0d0d;
+
+    border: 1px solid #252525;
+
+    box-shadow:
+        0 35px 90px rgba(0,0,0,0.45);
+
+}
+
+
+/* =========================================================
+   MAP HEADER
+========================================================= */
+
+.map-header {
+
+    height: 55px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid #242424;
+
+}
+
+
+.map-header > span:first-child {
+
+    color: #777777;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.8px;
+
+}
+
+
+.live {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #ffffff;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+}
+
+
+.live i {
+
+    width: 6px;
+
+    height: 6px;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 10px rgba(255,255,255,0.8);
+
+}
+
+
+/* =========================================================
+   TERRITORY MAP PREVIEW
+========================================================= */
+
+.territory-map {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    aspect-ratio: 1 / 0.78;
+
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0b0b0b,
+            #111111
+        );
+
+}
+
+
+.grid-cell {
+
+    min-height: 45px;
+
+    border: 1px solid #202020;
+
+    background: rgba(255,255,255,0.015);
+
+    transition: var(--transition);
+
+}
+
+
+.grid-cell:hover {
+
+    background: rgba(255,255,255,0.08);
+
+}
+
+
+.grid-cell.blue {
+
+    background:
+        rgba(77,141,255,0.35);
+
+    border-color:
+        rgba(77,141,255,0.55);
+
+}
+
+
+.grid-cell.red {
+
+    background:
+        rgba(255,77,77,0.30);
+
+    border-color:
+        rgba(255,77,77,0.50);
+
+}
+
+
+/* =========================================================
+   MAP FOOTER
+========================================================= */
+
+.map-footer {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    border-top: 1px solid #242424;
+
+}
+
+
+.map-footer > div {
+
+    padding: 18px;
+
+    border-right: 1px solid #242424;
+
+}
+
+
+.map-footer > div:last-child {
+
+    border-right: none;
+
+}
+
+
+.map-footer small {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #666666;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.2px;
+
+}
+
+
+.map-footer strong {
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 900;
+
+}
+
+
+/* =========================================================
+   INFO SECTION
+========================================================= */
+
+.info-section {
+
+    max-width: var(--container);
+
+    margin: 0 auto;
+
+    padding: 120px 5%;
+
+    border-top: 1px solid #161616;
+
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section-title {
+
+    margin-bottom: 75px;
+
+}
+
+
+.section-title > span {
+
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #666666;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+}
+
+
+.section-title h2 {
+
+    color: #ffffff;
+
+    font-size: clamp(42px, 6vw, 78px);
+
+    font-weight: 900;
+
+    line-height: 0.9;
+
+    letter-spacing: -4px;
+
+}
+
+
+/* =========================================================
+   STEPS
+========================================================= */
+
+.steps {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 1px;
+
+    background: #222222;
+
+    border: 1px solid #222222;
+
+}
+
+
+.step {
+
+    min-height: 270px;
+
+    padding: 32px;
+
+    background: #080808;
+
+    transition: var(--transition);
+
+}
+
+
+.step:hover {
+
+    background: #101010;
+
+}
+
+
+.step b {
+
+    display: block;
+
+    margin-bottom: 65px;
+
+    color: #555555;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.step h3 {
+
+    margin-bottom: 12px;
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    letter-spacing: -0.5px;
+
+}
+
+
+.step p {
+
+    max-width: 270px;
+
+    color: #666666;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard {
+
+    display: none;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 90px 5% 120px;
+
+    border-top: 1px solid #161616;
+
+}
+
+
+/* =========================================================
+   DASHBOARD TOP
+========================================================= */
+
+.dashboard-top {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 35px;
+
+}
+
+
+.dashboard-label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #666666;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+}
+
+
+.dashboard-top h2 {
+
+    color: #ffffff;
+
+    font-size: clamp(28px, 4vw, 48px);
+
+    font-weight: 900;
+
+    letter-spacing: -2px;
+
+}
+
+
+.dashboard-top h2 span {
+
+    color: #777777;
+
+}
+
+
+.rank-box {
+
+    min-width: 130px;
+
+    padding: 15px 18px;
+
+    border: 1px solid #282828;
+
+    background: #0d0d0d;
+
+    text-align: right;
+
+}
+
+
+.rank-box small {
+
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #666666;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+}
+
+
+.rank-box strong {
+
+    color: #ffffff;
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 1px;
+
+    margin-bottom: 25px;
+
+    background: #222222;
+
+    border: 1px solid #222222;
+
+}
+
+
+.stat-card {
+
+    min-height: 145px;
+
+    padding: 25px;
+
+    background: #0b0b0b;
+
+    transition: var(--transition);
+
+}
+
+
+.stat-card:hover {
+
+    background: #101010;
+
+}
+
+
+.stat-card small {
+
+    display: block;
+
+    margin-bottom: 14px;
+
+    color: #666666;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.stat-card strong {
+
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 38px;
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    letter-spacing: -2px;
+
+}
+
+
+.stat-card span {
+
+    display: block;
+
+    margin-top: 6px;
+
+    color: #555555;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* =========================================================
+   DASHBOARD GRID
+========================================================= */
+
+.dashboard-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(300px, 0.72fr)
+        minmax(500px, 1.4fr);
+
+    gap: 25px;
+
+}
+
+
+/* =========================================================
+   COMMON PANELS
+========================================================= */
+
+.activity-panel,
+.territory-panel {
+
+    min-width: 0;
+
+    background: #0b0b0b;
+
+    border: 1px solid #242424;
+
+}
+
+
+/* =========================================================
+   PANEL HEADING
+========================================================= */
+
+.panel-heading {
+
+    min-height: 80px;
+
+    padding: 18px 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border-bottom: 1px solid #242424;
+
+}
+
+
+.panel-heading small {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #666666;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.panel-heading h3 {
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+    letter-spacing: -0.4px;
+
+}
+
+
+.activity-status {
+
+    padding: 7px 10px;
+
+    border: 1px solid #303030;
+
+    color: #777777;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+}
+
+
+.map-live {
+
+    color: #ffffff;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* =========================================================
+   ACTIVITY TYPES
+========================================================= */
+
+.activity-types {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+
+    padding: 20px 22px;
+
+}
+
+
+.activity-type {
+
+    min-height: 70px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    border: 1px solid #292929;
+
+    background: #111111;
+
+    color: #777777;
+
+    font-size: 21px;
+
+    transition: var(--transition);
+
+}
+
+
+.activity-type span {
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+}
+
+
+.activity-type:hover {
+
+    border-color: #555555;
+
+    color: #ffffff;
+
+}
+
+
+.activity-type.active {
+
+    border-color: #ffffff;
+
+    background: #ffffff;
+
+    color: #000000;
+
+}
+
+
+/* =========================================================
+   ACTIVITY DATA
+========================================================= */
+
+.activity-data {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    margin: 0 22px;
+
+    border-top: 1px solid #242424;
+
+    border-bottom: 1px solid #242424;
+
+}
+
+
+.activity-data > div {
+
+    padding: 22px 0;
+
+}
+
+
+.activity-data > div:first-child {
+
+    border-right: 1px solid #242424;
+
+    padding-right: 15px;
+
+}
+
+
+.activity-data > div:last-child {
+
+    padding-left: 20px;
+
+}
+
+
+.activity-data small {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #666666;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+.activity-data strong {
+
+    color: #ffffff;
+
+    font-size: 23px;
+
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+}
+
+
+/* =========================================================
+   GPS STATUS
+========================================================= */
+
+.gps-status {
+
+    min-height: 45px;
+
+    margin: 20px 22px;
+
+    padding: 12px 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    background: #111111;
+
+    border: 1px solid #222222;
+
+    color: #777777;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.3px;
+
+}
+
+
+.gps-dot {
+
+    width: 7px;
+
+    height: 7px;
+
+    display: inline-block;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #777777;
+
+}
+
+
+.activity-panel:has(.gps-status) .gps-dot {
+
+    animation:
+        gpsPulse 1.8s infinite;
+
+}
+
+
+@keyframes gpsPulse {
+
+    0% {
+
+        box-shadow:
+            0 0 0 0 rgba(255,255,255,0.25);
+
+    }
+
+    70% {
+
+        box-shadow:
+            0 0 0 7px rgba(255,255,255,0);
+
+    }
+
+    100% {
+
+        box-shadow:
+            0 0 0 0 rgba(255,255,255,0);
+
+    }
+
+}
+
+
+/* =========================================================
+   ACTIVITY BUTTON
+========================================================= */
+
+.activity-btn {
+
+    width: calc(100% - 44px);
+
+    margin: 0 22px 22px;
+
+    min-height: 54px;
+
+    border: 1px solid #ffffff;
+
+    background: #ffffff;
+
+    color: #000000;
+
+    font-size: 9px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    transition: var(--transition);
+
+}
+
+
+.activity-btn:hover {
+
+    background: transparent;
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================================
+   REAL MAP
+========================================================= */
+
+#realMap {
+
+    width: 100%;
+
+    height: 480px;
+
+    background: #111111;
+
+}
+
+
+.leaflet-container {
+
+    background: #111111;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+}
+
+
+/* =========================================================
+   LEAFLET POPUP
+========================================================= */
+
+.leaflet-popup-content-wrapper {
+
+    background: #0d0d0d;
+
+    color: #ffffff;
+
+    border:
+        1px solid #333333;
+
+    border-radius: 0;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.5);
+
+}
+
+
+.leaflet-popup-tip {
+
+    background: #0d0d0d;
+
+}
+
+
+.leaflet-popup-content {
+
+    margin: 14px;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+}
+
+
+.leaflet-popup-close-button {
+
+    color: #ffffff !important;
+
+}
+
+
+/* =========================================================
+   LEAFLET CONTROLS
+========================================================= */
+
+.leaflet-control-zoom a {
+
+    background: #0d0d0d !important;
+
+    color: #ffffff !important;
+
+    border-color: #333333 !important;
+
+}
+
+
+.leaflet-control-zoom a:hover {
+
+    background: #1a1a1a !important;
+
+}
+
+
+.leaflet-control-attribution {
+
+    background: rgba(0,0,0,0.7) !important;
+
+    color: #777777 !important;
+
+    font-size: 8px !important;
+
+}
+
+
+.leaflet-control-attribution a {
+
+    color: #999999 !important;
+
+}
+
+
+/* =========================================================
+   MAP LEGEND
+========================================================= */
+
+.map-legend {
+
+    min-height: 58px;
+
+    padding: 15px 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+    border-top: 1px solid #242424;
+
+}
+
+
+.map-legend span {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #666666;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 0.7px;
+
+}
+
+
+.map-legend i {
+
+    width: 9px;
+
+    height: 9px;
+
+    display: inline-block;
+
+    border: 1px solid #444444;
+
+}
+
+
+.your-cell {
+
+    background: #666666;
+
+    border-color: #ffffff !important;
+
+}
+
+
+.enemy-cell {
+
+    background: #333333;
+
+}
+
+
+.neutral-cell {
+
+    background: #111111;
+
+}
+
+
+.route-cell {
+
+    width: 18px !important;
+
+    height: 3px !important;
+
+    border: none !important;
+
+    background: #ffffff;
+
+}
+
+
+/* =========================================================
+   TERRITORY INFO
+========================================================= */
+
+.territory-info {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 1px;
+
+    margin-top: 25px;
+
+    background: #222222;
+
+    border: 1px solid #222222;
+
+}
+
+
+.territory-info > div {
+
+    min-height: 110px;
+
+    padding: 22px;
+
+    background: #0b0b0b;
+
+}
+
+
+.territory-info small {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #666666;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.3px;
+
+}
+
+
+.territory-info strong {
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+}
+
+
+.territory-info strong.stable {
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    min-height: 150px;
+
+    padding: 35px 5%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-top: 1px solid #1b1b1b;
+
+    background: #050505;
+
+}
+
+
+footer .logo {
+
+    font-size: 15px;
+
+}
+
+
+footer .logo-mark {
+
+    width: 30px;
+
+    height: 30px;
+
+    font-size: 15px;
+
+}
+
+
+footer p {
+
+    color: #555555;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+/* =========================================================
+   LOCATION SETUP
+   JavaScript creates this dynamically.
+========================================================= */
+
+#locationSetup {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+}
+
+
+#locationSetup input {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+}
+
+
+#locationSetup button {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    transition: var(--transition);
+
+}
+
+
+#locationSetup button:hover {
+
+    filter: brightness(0.9);
+
+}
+
+
+#locationSetup button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+}
+
+
+/* =========================================================
+   PLAYER LOCATION MARKER
+========================================================= */
+
+.player-location {
+
+    background: transparent !important;
+
+    border: none !important;
+
+}
+
+
+/* =========================================================
+   MAP TERRITORY ANIMATION
+========================================================= */
+
+.leaflet-interactive {
+
+    transition:
+        fill-opacity 0.2s ease,
+        stroke-width 0.2s ease;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+
+    .hero {
+
+        grid-template-columns: 1fr;
+
+        gap: 60px;
+
+        padding-top: 70px;
+
+        padding-bottom: 90px;
+
+    }
+
+
+    .hero-content {
+
+        max-width: 700px;
+
+    }
+
+
+    .hero-visual {
+
+        justify-content: flex-start;
+
+    }
+
+
+    .map-card {
+
+        max-width: 560px;
+
+    }
+
+
+    .dashboard-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    #realMap {
+
+        height: 500px;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET SMALL
+========================================================= */
+
+@media (max-width: 800px) {
+
+
+    .navbar {
+
+        height: 70px;
+
+        padding: 0 22px;
+
+    }
+
+
+    .nav-links {
+
+        gap: 15px;
+
+    }
+
+
+    .nav-links a {
+
+        display: none;
+
+    }
+
+
+    .hero {
+
+        padding:
+            60px 22px
+            80px;
+
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            clamp(55px, 14vw, 90px);
+
+        letter-spacing: -4px;
+
+    }
+
+
+    .info-section {
+
+        padding:
+            90px 22px;
+
+    }
+
+
+    .steps {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .step {
+
+        min-height: auto;
+
+    }
+
+
+    .step b {
+
+        margin-bottom: 35px;
+
+    }
+
+
+    .dashboard {
+
+        padding:
+            70px 22px
+            100px;
+
+    }
+
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .territory-info {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .dashboard-top {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .rank-box {
+
+        text-align: left;
+
+    }
+
+
+    footer {
+
+        padding:
+            30px 22px;
+
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 560px) {
+
+
+    .navbar {
+
+        height: 64px;
+
+    }
+
+
+    .logo {
+
+        gap: 8px;
+
+        font-size: 15px;
+
+        letter-spacing: 2px;
+
+    }
+
+
+    .logo-mark {
+
+        width: 30px;
+
+        height: 30px;
+
+        font-size: 15px;
+
+    }
+
+
+    .login-btn {
+
+        padding:
+            9px 13px;
+
+    }
+
+
+    .hero {
+
+        min-height:
+            calc(100vh - 64px);
+
+        padding:
+            45px 18px
+            65px;
+
+    }
+
+
+    .badge {
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .hero h1 {
+
+        margin-bottom: 22px;
+
+        font-size:
+            clamp(50px, 16vw, 78px);
+
+        letter-spacing: -3px;
+
+    }
+
+
+    .hero-content > p {
+
+        font-size: 12px;
+
+        line-height: 1.7;
+
+    }
+
+
+    .hero-buttons {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .primary-btn,
+    .secondary-btn {
+
+        width: 100%;
+
+        justify-content: center;
+
+    }
+
+
+    .map-card {
+
+        width: 100%;
+
+    }
+
+
+    .territory-map {
+
+        padding: 12px;
+
+    }
+
+
+    .grid-cell {
+
+        min-height: 32px;
+
+    }
+
+
+    .map-footer > div {
+
+        padding:
+            13px 10px;
+
+    }
+
+
+    .map-footer strong {
+
+        font-size: 13px;
+
+    }
+
+
+    .info-section {
+
+        padding:
+            70px 18px;
+
+    }
+
+
+    .section-title {
+
+        margin-bottom: 45px;
+
+    }
+
+
+    .section-title h2 {
+
+        font-size:
+            clamp(40px, 12vw, 60px);
+
+        letter-spacing: -3px;
+
+    }
+
+
+    .dashboard {
+
+        padding:
+            60px 18px
+            80px;
+
+    }
+
+
+    .dashboard-top h2 {
+
+        font-size: 30px;
+
+    }
+
+
+    .stats {
+
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+
+    .stat-card {
+
+        min-height: 125px;
+
+        padding: 18px;
+
+    }
+
+
+    .stat-card strong {
+
+        font-size: 29px;
+
+    }
+
+
+    .activity-types {
+
+        padding:
+            16px;
+
+    }
+
+
+    .activity-type {
+
+        min-height: 60px;
+
+        font-size: 18px;
+
+    }
+
+
+    .activity-data {
+
+        margin:
+            0 16px;
+
+    }
+
+
+    .activity-data strong {
+
+        font-size: 18px;
+
+    }
+
+
+    .gps-status {
+
+        margin:
+            16px;
+
+    }
+
+
+    .activity-btn {
+
+        width:
+            calc(100% - 32px);
+
+        margin:
+            0 16px 16px;
+
+    }
+
+
+    #realMap {
+
+        height: 390px;
+
+    }
+
+
+    .map-legend {
+
+        gap: 10px;
+
+        padding:
+            13px;
+
+    }
+
+
+    .territory-info {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+
+    .territory-info > div {
+
+        min-height: 95px;
+
+        padding: 16px;
+
+    }
+
+
+    .territory-info strong {
+
+        font-size: 14px;
+
+    }
+
+
+    footer {
+
+        min-height: 130px;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        gap: 15px;
+
+    }
+
+
+    .auth-box {
+
+        padding: 28px 20px;
+
+    }
+
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — VERY SMALL
+========================================================= */
+
+@media (max-width: 380px) {
+
+
+    .stats {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .territory-info {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .map-footer {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .map-footer > div {
+
+        border-right: none;
+
+        border-bottom: 1px solid #242424;
+
+    }
+
+
+    .map-footer > div:last-child {
+
+        border-bottom: none;
+
+    }
+
+
+    .activity-types {
+
+        gap: 5px;
+
+    }
+
+
+    .activity-type span {
+
+        font-size: 7px;
+
+    }
+
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+
+    outline:
+        2px solid #ffffff;
+
+    outline-offset: 3px;
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+
+    * {
+
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+
+    }
+
+}/* =========================================================
+   AUTH OVERLAY
+========================================================= */
+
+.auth-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+}
+
+
+/* OPEN STATE */
+
+.auth-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   AUTH BOX
+========================================================= */
+
+.auth-box {
+    position: relative;
+
+    width: min(440px, 100%);
+
+    background: #101010;
+
+    border: 1px solid #2d2d2d;
+
+    padding: 38px;
+
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.75);
+
+    transform: translateY(15px) scale(0.98);
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+.auth-overlay.active .auth-box {
+    transform: translateY(0) scale(1);
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.auth-close {
+    position: absolute;
+
+    top: 16px;
+    right: 18px;
+
+    width: 32px;
+    height: 32px;
+
+    background: transparent;
+
+    border: none;
+
+    color: #777;
+
+    font-size: 26px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.auth-close:hover {
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   AUTH HEADER
+========================================================= */
+
+.auth-header {
+    text-align: center;
+
+    margin-bottom: 28px;
+}
+
+
+.auth-logo {
+    width: 42px;
+    height: 42px;
+
+    margin: 0 auto 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff;
+
+    color: #000;
+
+    font-size: 20px;
+    font-weight: 900;
+}
+
+
+.auth-label {
+    display: block;
+
+    color: #666;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+}
+
+
+.auth-header h2 {
+    margin: 0;
+
+    color: #fff;
+
+    font-size: 28px;
+
+    letter-spacing: -1px;
+}
+
+
+.auth-header p {
+    margin: 9px 0 0;
+
+    color: #777;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   AUTH TABS
+========================================================= */
+
+.auth-tabs {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    border-bottom: 1px solid #292929;
+
+    margin-bottom: 24px;
+}
+
+
+.auth-tab {
+    padding: 13px 10px;
+
+    background: transparent;
+
+    border: none;
+
+    border-bottom: 2px solid transparent;
+
+    color: #666;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+}
+
+
+.auth-tab.active {
+    color: #fff;
+
+    border-bottom-color: #fff;
+}
+
+
+/* =========================================================
+   AUTH FIELDS
+========================================================= */
+
+.auth-field {
+    margin-bottom: 18px;
+}
+
+
+.auth-field label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #777;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.auth-field input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 14px 15px;
+
+    background: #181818;
+
+    border: 1px solid #303030;
+
+    outline: none;
+
+    color: #fff;
+
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.auth-field input::placeholder {
+    color: #555;
+}
+
+
+.auth-field input:focus {
+    border-color: #777;
+
+    background: #1c1c1c;
+}
+
+
+/* =========================================================
+   AUTH OPTIONS
+========================================================= */
+
+.auth-options {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 4px 0 20px;
+
+    font-size: 10px;
+}
+
+
+.auth-options label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #777;
+
+    cursor: pointer;
+}
+
+
+.auth-options input {
+    accent-color: #fff;
+}
+
+
+.auth-options button {
+    background: transparent;
+
+    border: none;
+
+    color: #888;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+    padding: 0;
+}
+
+
+.auth-options button:hover {
+    color: #fff;
+}
+
+
+/* =========================================================
+   AUTH MESSAGE
+========================================================= */
+
+.auth-message {
+    min-height: 18px;
+
+    margin-bottom: 12px;
+
+    color: #aaa;
+
+    font-size: 11px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   AUTH SUBMIT
+========================================================= */
+
+.auth-submit {
+    width: 100%;
+
+    padding: 16px;
+
+    background: #fff;
+
+    color: #000;
+
+    border: none;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.auth-submit:hover {
+    background: #ddd;
+
+    transform: translateY(-1px);
+}
+
+
+.auth-submit:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   DEMO LOGIN
+========================================================= */
+
+.demo-login {
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 13px;
+
+    background: transparent;
+
+    border: 1px solid #303030;
+
+    color: #777;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.demo-login:hover {
+    border-color: #666;
+
+    color: #fff;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .auth-box {
+        padding: 30px 22px;
+    }
+
+    .auth-header h2 {
+        font-size: 24px;
+    }
+
+}
