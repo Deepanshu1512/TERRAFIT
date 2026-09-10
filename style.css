@@ -2677,3 +2677,54 @@ footer {
         font-size: 9px;
     }
 }
+/* =========================================================
+   TERRITORY HOVER EFFECT
+========================================================= */
+
+.leaflet-overlay-pane svg path.territory-hover-lift {
+    transform-box: fill-box;
+    transform-origin: center;
+
+    transform: translateY(-7px) scale(1.025);
+
+    filter: drop-shadow(
+        0 0 8px rgba(0, 255, 136, 0.45)
+    );
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease;
+}
+.speed-limits {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 18px;
+}
+
+.speed-limit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 12px;
+
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 9px;
+
+    font-size: 11px;
+    opacity: .55;
+
+    transition: .2s ease;
+}
+
+.speed-limit-item strong {
+    font-size: 12px;
+    opacity: 1;
+}
+
+.speed-limit-item.active {
+    opacity: 1;
+    border-color: rgba(0,255,136,.35);
+    background: rgba(0,255,136,.06);
+}

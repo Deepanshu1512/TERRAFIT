@@ -557,7 +557,42 @@
                     </div>
                     <span class="map-live">● LIVE SATELLITE</span>
                 </div>
+<div class="speed-monitor-card">
 
+    <div class="speed-monitor-header">
+        <div>
+            <span class="speed-monitor-label">SPEED MONITOR</span>
+            <h3 id="liveSpeed">0.0 <small>km/h</small></h3>
+        </div>
+
+        <div class="speed-status-dot" id="speedStatusDot"></div>
+    </div>
+
+    <div class="speed-limits">
+
+        <div class="speed-limit-item" data-speed-activity="walking">
+            <span>🚶 WALKING</span>
+            <strong>6 km/h</strong>
+        </div>
+
+        <div class="speed-limit-item" data-speed-activity="running">
+            <span>🏃 RUNNING</span>
+            <strong>11 km/h</strong>
+        </div>
+
+        <div class="speed-limit-item" data-speed-activity="cycling">
+            <span>🚴 CYCLING</span>
+            <strong>30 km/h</strong>
+        </div>
+
+    </div>
+
+    <div class="speed-bottom">
+        <span id="speedActivity">WALKING</span>
+        <span id="speedStatusText">● WITHIN LIMIT</span>
+    </div>
+
+</div>
                 <!-- REAL LEAFLET MAP -->
                 <div id="realMap"></div>
 

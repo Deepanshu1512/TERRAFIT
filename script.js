@@ -62,7 +62,13 @@ const territoryStatus =
 
 const playerName =
     document.getElementById("playerName");
-
+const liveSpeedDisplay = document.getElementById("liveSpeed");
+const speedLimitDisplay = document.getElementById("speedLimit");
+const speedProgressBar = document.getElementById("speedProgressBar");
+const speedActivityDisplay = document.getElementById("speedActivity");
+const speedStatusText = document.getElementById("speedStatusText");
+const speedStatusDot = document.getElementById("speedStatusDot");
+const speedMonitorCard = document.querySelector(".speed-monitor-card");
 
 /* =========================================================
    LEADERBOARD
@@ -1905,153 +1911,86 @@ function updatePlayerLocation(
 }
 
 
-/* =========================================================
-   ADD ROUTE POINT
-========================================================= */
+function addRoutePoint(lat, lon) {
 
-function addRoutePoint(
-    latitude,
-    longitude
-) {
+    if (!activityRunning) return;
 
-    const point = [
-        latitude,
-        longitude
-    ];
+    const now = Date.now();
 
+    // First GPS point
+    if (routePoints.length === 0) {
+        routePoints.push({
+            lat: lat,
+            lon: lon,
+            time: now
+        });
 
-    if (
-        routeCoordinates.length ===
-        0
-    ) {
-
-        routeCoordinates.push(
-            point
-        );
-
-
-        routeLine =
-            L.polyline(
-                routeCoordinates,
-                {
-
-                    color:
-                        "#00ff88",
-
-                    weight:
-                        4,
-
-                    opacity:
-                        0.95
-
-                }
-            )
-            .addTo(map);
-
-
-        map.panTo(
-            point
-        );
-
+        lastPointTime = now;
+        lastPointLat = lat;
+        lastPointLon = lon;
 
         return;
-
     }
 
+    // Time difference in seconds
+    const timeDiff = (now - lastPointTime) / 1000;
 
-    const previous =
-        routeCoordinates[
-            routeCoordinates.length - 1
-        ];
+    // Ignore invalid GPS timestamps
+    if (timeDiff <= 0) return;
 
-
-    const movement =
-        calculateDistance(
-
-            previous[0],
-            previous[1],
-
-            latitude,
-            longitude
-
-        );
-
-
-    /*
-        Ignore GPS noise
-    */
-
-    if (
-        movement < 0.003
-    ) {
-
-        return;
-
-    }
-
-
-    /*
-        Ignore impossible GPS jump
-    */
-
-    if (
-        movement > 1
-    ) {
-
-        return;
-
-    }
-
-
-    distance +=
-        movement;
-
-
-    routeCoordinates.push(
-        point
+    // Calculate distance from previous point
+    const distance = haversineDistance(
+        lastPointLat,
+        lastPointLon,
+        lat,
+        lon
     );
 
+    // Calculate current speed in km/h
+    const speed = (distance / timeDiff) * 3600;
 
-    if (routeLine) {
+    // Speed limits
+    let maxSpeed = 6; // Walking
 
-        routeLine.setLatLngs(
-            routeCoordinates
+    if (selectedActivity === "running") {
+        maxSpeed = 11;
+    } 
+    else if (selectedActivity === "cycling") {
+        maxSpeed = 30;
+    }
+
+    // Anti-cheat speed check
+    if (speed > maxSpeed) {
+
+        console.warn(
+            `TERRAFIT: Suspicious speed detected: ${speed.toFixed(2)} km/h`
         );
 
+        // Do NOT add this GPS point
+        // Do NOT increase distance
+        // Do NOT capture territory
+
+        return;
     }
 
+    // Valid movement
+    routePoints.push({
+        lat: lat,
+        lon: lon,
+        time: now
+    });
 
-    if (distanceDisplay) {
+    // Add valid distance
+    totalDistance += distance;
 
-        distanceDisplay.textContent =
-            distance.toFixed(2) +
-            " KM";
+    // Update last valid point
+    lastPointTime = now;
+    lastPointLat = lat;
+    lastPointLon = lon;
 
-    }
-
-
-    checkRouteTerritories(
-        point
-    );
-
-
-    if (map) {
-
-        map.panTo(
-            point,
-            {
-                animate:
-                    true,
-
-                duration:
-                    0.3
-            }
-        );
-
-    }
-
+    // Update UI
+    updateDistanceDisplay();
 }
-
 
 /* =========================================================
    HAVERSINE DISTANCE
@@ -3885,217 +3824,500 @@ console.log(
     "TERRAFIT initialized successfully."
 );
 /* =========================================================
-   TERRAFIT LOADING SCREEN
-   ========================================================= */
+   TERRAFIT LOADING SCREEN — SINGLE CONTROLLER
+========================================================= */
 
-const terraLoading = document.getElementById("terraLoading");
-const loadingProgressBar = document.getElementById("loadingProgressBar");
-const loadingPercent = document.getElementById("loadingPercent");
-const loadingStatus = document.getElementById("loadingStatus");
+(function initTerraFitLoading() {
 
-const safetyMessage = document.getElementById("safetyMessage");
-const safetySubMessage = document.getElementById("safetySubMessage");
-const safetyDots = document.querySelectorAll(".safety-dots i");
+    const loadingScreen = document.getElementById("terraLoading");
+    const progressBar = document.getElementById("loadingProgressBar");
+    const percentText = document.getElementById("loadingPercent");
+    const statusText = document.getElementById("loadingStatus");
+
+    const safetyText = document.getElementById("safetyMessage");
+    const safetySubText = document.getElementById("safetySubMessage");
+    const safetyDots = document.querySelectorAll(".safety-dots i");
+
+    /* =========================
+       SAFETY MESSAGES
+    ========================= */
+
+    const safetyMessages = [
+        {
+            title: "DON'T WALK ON BUSY ROADS",
+            text: "Use sidewalks, footpaths, or designated safe routes."
+        },
+        {
+            title: "FOLLOW TRAFFIC SIGNALS",
+            text: "Cross only at safe and designated crossings."
+        },
+        {
+            title: "STAY AWARE OF YOUR SURROUNDINGS",
+            text: "Keep your attention on traffic and your surroundings."
+        },
+        {
+            title: "AVOID UNSAFE OR POORLY LIT AREAS",
+            text: "Choose familiar, well-lit routes whenever possible."
+        },
+        {
+            title: "DON'T USE YOUR PHONE WHILE MOVING",
+            text: "Stop somewhere safe before checking your phone."
+        },
+        {
+            title: "SAFETY > TERRITORY",
+            text: "Your safety always comes before capturing territory."
+        },
+        {
+            title: "KNOW YOUR LIMITS",
+            text: "Take a break if you feel tired or uncomfortable."
+        },
+        {
+            title: "RIDE RESPONSIBLY",
+            text: "If cycling, wear a properly fitted helmet and follow local rules."
+        }
+    ];
 
 
-/* SAFETY MESSAGES */
+    /* =========================
+       SHUFFLE FUNCTION
+    ========================= */
 
-const safetyMessages = [
-    {
-        title: "DON'T WALK ON BUSY ROADS",
-        text: "Use sidewalks, footpaths, or designated safe routes."
-    },
+    function shuffle(array) {
 
-    {
-        title: "FOLLOW TRAFFIC SIGNALS",
-        text: "Cross only at safe and designated crossings."
-    },
+        const result = [...array];
 
-    {
-        title: "STAY AWARE OF YOUR SURROUNDINGS",
-        text: "Keep your attention on traffic and your environment."
-    },
+        for (let i = result.length - 1; i > 0; i--) {
 
-    {
-        title: "AVOID UNSAFE OR POORLY LIT AREAS",
-        text: "Choose familiar, well-lit routes whenever possible."
-    },
+            const j = Math.floor(Math.random() * (i + 1));
 
-    {
-        title: "DON'T USE YOUR PHONE WHILE MOVING",
-        text: "Stop somewhere safe before checking your phone."
-    },
+            [result[i], result[j]] =
+            [result[j], result[i]];
+        }
 
-    {
-        title: "SAFETY > TERRITORY",
-        text: "Your safety always comes before capturing territory."
-    },
-
-    {
-        title: "KNOW YOUR LIMITS",
-        text: "Take a break if you feel tired or uncomfortable."
-    },
-
-    {
-        title: "RIDE RESPONSIBLY",
-        text: "If cycling, wear a properly fitted helmet and follow local rules."
+        return result;
     }
-];
 
 
-/* SHUFFLE */
+    let messages = shuffle(safetyMessages);
+    let messageIndex = 0;
 
-function shuffleSafetyMessages() {
 
-    const shuffled = [...safetyMessages];
+    /* =========================
+       SHOW SAFETY MESSAGE
+    ========================= */
 
-    for (let i = shuffled.length - 1; i > 0; i--) {
+    function showSafetyMessage() {
 
-        const j = Math.floor(Math.random() * (i + 1));
+        if (!safetyText || !safetySubText) {
+            return;
+        }
 
-        [shuffled[i], shuffled[j]] =
-            [shuffled[j], shuffled[i]];
+        const message = messages[messageIndex];
+
+        safetyText.classList.add("change");
+
+        setTimeout(() => {
+
+            safetyText.textContent = message.title;
+            safetySubText.textContent = message.text;
+
+            safetyText.classList.remove("change");
+
+        }, 250);
+
+
+        safetyDots.forEach((dot, index) => {
+
+            dot.classList.toggle(
+                "active",
+                index === messageIndex % safetyDots.length
+            );
+
+        });
+
     }
 
-    return shuffled;
+
+    /* =========================
+       ELEMENT CHECK
+    ========================= */
+
+    if (
+        !loadingScreen ||
+        !progressBar ||
+        !percentText ||
+        !statusText
+    ) {
+
+        console.error(
+            "TERRAFIT: Loading elements missing."
+        );
+
+        return;
+    }
+
+
+    /* =========================
+       INITIAL STATE
+    ========================= */
+
+    progressBar.style.width = "0%";
+    percentText.textContent = "0%";
+    statusText.textContent = "INITIALIZING TERRAFIT...";
+
+    showSafetyMessage();
+
+
+    /* =========================
+       SAFETY MESSAGE ROTATION
+    ========================= */
+
+    const safetyInterval = setInterval(() => {
+
+        messageIndex++;
+
+        if (messageIndex >= messages.length) {
+
+            messages = shuffle(safetyMessages);
+            messageIndex = 0;
+
+        }
+
+        showSafetyMessage();
+
+    }, 2500);
+
+
+    /* =========================
+       LOADING STAGES
+    ========================= */
+
+    const stages = [
+
+        {
+            percent: 0,
+            text: "INITIALIZING TERRAFIT..."
+        },
+
+        {
+            percent: 20,
+            text: "CONNECTING GPS..."
+        },
+
+        {
+            percent: 40,
+            text: "LOADING MAP ENGINE..."
+        },
+
+        {
+            percent: 60,
+            text: "BUILDING TERRITORY GRID..."
+        },
+
+        {
+            percent: 80,
+            text: "CHECKING SAFETY PROTOCOL..."
+        },
+
+        {
+            percent: 100,
+            text: "READY."
+        }
+
+    ];
+
+
+    function updateStage(progress) {
+
+        let currentStage = stages[0];
+
+        for (const stage of stages) {
+
+            if (progress >= stage.percent) {
+
+                currentStage = stage;
+
+            }
+
+        }
+
+        statusText.textContent =
+            currentStage.text;
+
+    }
+/* =========================================================
+   TERRAFIT SPEED LIMIT SYSTEM
+========================================================= */
+
+const TERRAFIT_SPEED_LIMITS = {
+    walking: 6,
+    running: 11,
+    cycling: 30
+};
+
+let currentSpeedKmh = 0;
+let lastSpeedPoint = null;
+
+function getSpeedLimit() {
+
+    const activity =
+        String(selectedActivity || "walking").toLowerCase();
+
+    return TERRAFIT_SPEED_LIMITS[activity] || 6;
 }
 
+function getActivityName() {
 
-let shuffledSafety = shuffleSafetyMessages();
+    const activity =
+        String(selectedActivity || "walking").toLowerCase();
 
-let safetyIndex = 0;
+    if (activity === "running") return "RUNNING";
+    if (activity === "cycling") return "CYCLING";
+
+    return "WALKING";
+}
+
+function calculateGpsSpeed(lat, lon, timestamp) {
+
+    if (!lastSpeedPoint) {
+
+        lastSpeedPoint = {
+            lat: lat,
+            lon: lon,
+            time: timestamp
+        };
+
+        return 0;
+    }
+
+    const timeSeconds =
+        (timestamp - lastSpeedPoint.time) / 1000;
+
+    // Ignore invalid / extremely small intervals
+    if (timeSeconds <= 0.5) {
+        return currentSpeedKmh;
+    }
+
+    const distanceKm = haversineDistance(
+        lastSpeedPoint.lat,
+        lastSpeedPoint.lon,
+        lat,
+        lon
+    );
+
+    const speedKmh =
+        (distanceKm / timeSeconds) * 3600;
+
+    lastSpeedPoint = {
+        lat: lat,
+        lon: lon,
+        time: timestamp
+    };
+
+    return speedKmh;
+}
+
+function updateSpeedUI(speed) {
+
+    const limit = getSpeedLimit();
+
+    currentSpeedKmh = Math.max(0, speed);
+
+    /* =========================================
+       CURRENT SPEED
+    ========================================= */
+
+    if (liveSpeedDisplay) {
+        liveSpeedDisplay.innerHTML =
+            `${currentSpeedKmh.toFixed(1)} <small>km/h</small>`;
+    }
 
 
-/* SHOW SAFETY MESSAGE */
+    /* =========================================
+       HIGHLIGHT CURRENT ACTIVITY
+    ========================================= */
 
-function showSafetyMessage(index) {
+    const activityItems = document.querySelectorAll(
+        ".speed-limit-item"
+    );
 
-    if (!safetyMessage || !safetySubMessage) return;
+    const currentActivity =
+        String(selectedActivity || "walking").toLowerCase();
 
-    const message = shuffledSafety[index];
+    activityItems.forEach(item => {
 
-    safetyMessage.classList.add("change");
+        const activity =
+            String(item.dataset.speedActivity || "")
+                .toLowerCase();
 
-    setTimeout(() => {
-
-        safetyMessage.textContent = message.title;
-        safetySubMessage.textContent = message.text;
-
-        safetyMessage.classList.remove("change");
-
-    }, 250);
-
-
-    safetyDots.forEach((dot, i) => {
-
-        dot.classList.toggle(
+        item.classList.toggle(
             "active",
-            i === index % safetyDots.length
+            activity === currentActivity
         );
 
     });
-}
 
 
-/* CHANGE MESSAGE EVERY 2.5 SECONDS */
+    /* =========================================
+       CURRENT ACTIVITY NAME
+    ========================================= */
 
-let safetyInterval = setInterval(() => {
+    if (speedActivityDisplay) {
 
-    safetyIndex++;
+        speedActivityDisplay.textContent =
+            getActivityName();
 
-    if (safetyIndex >= shuffledSafety.length) {
-
-        shuffledSafety = shuffleSafetyMessages();
-
-        safetyIndex = 0;
     }
 
-    showSafetyMessage(safetyIndex);
 
-}, 2500);
+    /* =========================================
+       SPEED PROGRESS
+    ========================================= */
+
+    const percentage =
+        Math.min(
+            (currentSpeedKmh / limit) * 100,
+            100
+        );
+
+    if (speedProgressBar) {
+
+        speedProgressBar.style.width =
+            `${percentage}%`;
+
+    }
 
 
-/* LOADING */
+    /* =========================================
+       SPEED STATUS
+    ========================================= */
 
-function startTerraFitLoading() {
+    if (
+        speedMonitorCard &&
+        speedStatusText &&
+        speedStatusDot
+    ) {
 
-    if (!terraLoading) return;
+        speedMonitorCard.classList.remove(
+            "speed-warning",
+            "speed-danger"
+        );
+
+
+        /* SPEED ABOVE LIMIT */
+
+        if (currentSpeedKmh > limit) {
+
+            speedMonitorCard.classList.add(
+                "speed-danger"
+            );
+
+            speedStatusText.textContent =
+                "● SPEED ANOMALY";
+
+            speedStatusDot.style.background =
+                "#ff4646";
+
+            speedStatusDot.style.boxShadow =
+                "0 0 12px rgba(255,70,70,.7)";
+
+        }
+
+
+        /* CLOSE TO LIMIT */
+
+        else if (
+            currentSpeedKmh >= limit * 0.8
+        ) {
+
+            speedMonitorCard.classList.add(
+                "speed-warning"
+            );
+
+            speedStatusText.textContent =
+                "● NEAR LIMIT";
+
+            speedStatusDot.style.background =
+                "#ffaa00";
+
+            speedStatusDot.style.boxShadow =
+                "0 0 12px rgba(255,170,0,.7)";
+
+        }
+
+
+        /* NORMAL SPEED */
+
+        else {
+
+            speedStatusText.textContent =
+                "● WITHIN LIMIT";
+
+            speedStatusDot.style.background =
+                "#00ff88";
+
+            speedStatusDot.style.boxShadow =
+                "0 0 12px rgba(0,255,136,.7)";
+
+        }
+
+    }
+
+}
+
+    /* =========================
+       PROGRESS ANIMATION
+    ========================= */
 
     let progress = 0;
 
-    const loadingSteps = [
-        "INITIALIZING TERRAFIT...",
-        "CONNECTING GPS...",
-        "LOADING MAP ENGINE...",
-        "BUILDING TERRITORY GRID...",
-        "CHECKING SAFETY PROTOCOL...",
-        "READY."
-    ];
+    const progressInterval = setInterval(() => {
 
-    let step = 0;
+        const increment =
+            Math.floor(Math.random() * 4) + 2;
 
-    const loadingInterval = setInterval(() => {
+        progress += increment;
 
-        progress += Math.floor(
-            Math.random() * 5
-        ) + 2;
-
-        if (progress > 100) {
-            progress = 100;
-        }
-
-        if (loadingProgressBar) {
-            loadingProgressBar.style.width =
-                progress + "%";
-        }
-
-        if (loadingPercent) {
-            loadingPercent.textContent =
-                progress + "%";
-        }
-
-
-        /* STATUS TEXT */
-
-        if (progress > 15) step = 1;
-        if (progress > 35) step = 2;
-        if (progress > 55) step = 3;
-        if (progress > 75) step = 4;
-        if (progress >= 100) step = 5;
-
-        if (loadingStatus) {
-            loadingStatus.textContent =
-                loadingSteps[step];
-        }
-
-
-        /* FINISH */
 
         if (progress >= 100) {
 
-            clearInterval(loadingInterval);
+            progress = 100;
+
+        }
+
+
+        progressBar.style.width =
+            `${progress}%`;
+
+        percentText.textContent =
+            `${progress}%`;
+
+        updateStage(progress);
+
+
+        /* =========================
+           LOADING COMPLETE
+        ========================= */
+
+        if (progress >= 100) {
+
+            clearInterval(progressInterval);
+            clearInterval(safetyInterval);
+
+            statusText.textContent = "READY.";
+
+            progressBar.style.width = "100%";
+            percentText.textContent = "100%";
+
 
             setTimeout(() => {
 
-                terraLoading.classList.add("hide");
+                loadingScreen.classList.add("hide");
 
-            }, 500);
+            }, 700);
+
         }
 
     }, 100);
-}
 
-
-/* RUN WHEN PAGE LOADS */
-
-window.addEventListener("load", () => {
-
-    shuffledSafety = shuffleSafetyMessages();
-
-    safetyIndex = 0;
-
-    showSafetyMessage(0);
-
-    startTerraFitLoading();
-
-});
+})();
