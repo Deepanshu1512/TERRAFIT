@@ -595,7 +595,7 @@ function showLocationSetup() {
         <div style="
             position:fixed;
             inset:0;
-            background:rgba(4,4,6,.85);
+            background:rgba(15,23,42,.6);
             backdrop-filter:blur(12px);
             -webkit-backdrop-filter:blur(12px);
             z-index:99999;
@@ -607,19 +607,19 @@ function showLocationSetup() {
 
             <div style="
                 width:min(460px,100%);
-                background:#0e0e13;
-                border:1px solid rgba(255,255,255,.14);
+                background:#ffffff;
+                border:1px solid rgba(15,23,42,.12);
                 border-radius:14px;
                 padding:34px;
-                color:#f4f4f6;
+                color:#0f172a;
                 font-family:'Inter',-apple-system,sans-serif;
-                box-shadow:0 25px 80px rgba(0,0,0,.85);
+                box-shadow:0 25px 80px rgba(15,23,42,.2);
             ">
 
                 <div style="
                     font-family:'Space Grotesk',monospace;
                     font-size:11px;
-                    color:#00ff88;
+                    color:#0066ff;
                     font-weight:700;
                     letter-spacing:2px;
                     margin-bottom:10px;
@@ -634,14 +634,14 @@ function showLocationSetup() {
                     font-size:26px;
                     font-weight:800;
                     margin:0 0 10px;
-                    color:#fff;
+                    color:#0f172a;
                 ">
                     Initialize Sector
                 </h2>
 
 
                 <p style="
-                    color:#9e9ea8;
+                    color:#475569;
                     font-size:13px;
                     line-height:1.6;
                     margin-bottom:24px;
@@ -657,8 +657,8 @@ function showLocationSetup() {
                     style="
                         width:100%;
                         padding:15px;
-                        background:#00ff88;
-                        color:#000;
+                        background:#0066ff;
+                        color:#fff;
                         border:none;
                         border-radius:10px;
                         font-family:'Space Grotesk',monospace;
@@ -666,7 +666,7 @@ function showLocationSetup() {
                         font-size:12px;
                         letter-spacing:1px;
                         cursor:pointer;
-                        box-shadow:0 4px 20px rgba(0,255,136,.3);
+                        box-shadow:0 4px 20px rgba(0,102,255,.3);
                     "
                 >
                     📍 ACQUIRE GPS LOCK
@@ -676,7 +676,7 @@ function showLocationSetup() {
                 <div style="
                     text-align:center;
                     margin:18px 0;
-                    color:#5e5e6c;
+                    color:#94a3b8;
                     font-family:'Space Grotesk',monospace;
                     font-size:11px;
                     font-weight:700;
@@ -698,9 +698,9 @@ function showLocationSetup() {
                         style="
                             flex:1;
                             padding:13px 16px;
-                            background:#14141b;
-                            color:#fff;
-                            border:1px solid rgba(255,255,255,.1);
+                            background:#f8fafc;
+                            color:#0f172a;
+                            border:1px solid rgba(15,23,42,.15);
                             border-radius:8px;
                             font-size:13px;
                             outline:none;
@@ -712,9 +712,9 @@ function showLocationSetup() {
                         id="manualLocationBtn"
                         style="
                             padding:13px 18px;
-                            background:#1c1c24;
-                            color:#fff;
-                            border:1px solid rgba(255,255,255,.14);
+                            background:#f1f5f9;
+                            color:#0f172a;
+                            border:1px solid rgba(15,23,42,.15);
                             border-radius:8px;
                             font-family:'Space Grotesk',monospace;
                             font-weight:700;
@@ -733,7 +733,7 @@ function showLocationSetup() {
                     style="
                         min-height:20px;
                         margin-top:14px;
-                        color:#9e9ea8;
+                        color:#475569;
                         font-size:12px;
                         text-align:center;
                     "
@@ -1008,12 +1008,12 @@ function createOrUpdatePlayerMarker(
                 <div style="
                     width:20px;
                     height:20px;
-                    background:#00ff88;
-                    border:3px solid #000;
+                    background:#0066ff;
+                    border:3px solid #ffffff;
                     border-radius:50%;
                     box-shadow:
-                        0 0 14px rgba(0,255,136,.9),
-                        0 0 0 6px rgba(0,255,136,.25);
+                        0 0 14px rgba(0,102,255,.9),
+                        0 0 0 6px rgba(0,102,255,.25);
                 "></div>
 
             `,
@@ -1045,13 +1045,13 @@ function createOrUpdatePlayerMarker(
                 font-family:'Space Grotesk',monospace;
                 padding:4px;
             ">
-                <b style="color:#00ff88;">
+                <b style="color:#0066ff;">
                     YOU ARE HERE
                 </b>
                 <br>
                 <span style="
                     font-size:11px;
-                    color:#aaa;
+                    color:#475569;
                 ">
                     TERRAFIT Live Operative
                 </span>
@@ -1095,13 +1095,13 @@ function createAccuracyCircle(
                         radius,
 
                     color:
-                        "#00ff88",
+                        "#0066ff",
 
                     weight:
                         1,
 
                     fillColor:
-                        "#00ff88",
+                        "#0066ff",
 
                     fillOpacity:
                         0.08
@@ -1502,13 +1502,13 @@ function getTerritoryStyle(
         return {
 
             color:
-                "#00ff88",
+                "#0066ff",
 
             weight:
                 2,
 
             fillColor:
-                "#00ff88",
+                "#0066ff",
 
             fillOpacity:
                 0.35
@@ -1526,13 +1526,13 @@ function getTerritoryStyle(
         return {
 
             color:
-                "#ff4757",
+                "#ef4444",
 
             weight:
                 2,
 
             fillColor:
-                "#ff4757",
+                "#ef4444",
 
             fillOpacity:
                 0.30
@@ -1545,16 +1545,16 @@ function getTerritoryStyle(
     return {
 
         color:
-            "rgba(255,255,255,.12)",
+            "rgba(15,23,42,.12)",
 
         weight:
             1,
 
         fillColor:
-            "#000000",
+            "#cbd5e1",
 
         fillOpacity:
-            0.12
+            0.20
 
     };
 
@@ -1573,7 +1573,7 @@ function showTerritoryInfo(
         "NEUTRAL (UNCLAIMED)";
 
     let badgeColor =
-        "#9e9ea8";
+        "#64748b";
 
 
     if (
@@ -1585,7 +1585,7 @@ function showTerritoryInfo(
             "YOUR TERRITORY";
 
         badgeColor =
-            "#00ff88";
+            "#0066ff";
 
     }
 
@@ -1599,7 +1599,7 @@ function showTerritoryInfo(
             "OPPONENT SECTOR";
 
         badgeColor =
-            "#ff4757";
+            "#ef4444";
 
     }
 
@@ -1614,7 +1614,7 @@ function showTerritoryInfo(
 
             <div style="
                 font-size:10px;
-                color:#666;
+                color:#64748b;
                 letter-spacing:1px;
                 margin-bottom:4px;
             ">
@@ -1624,7 +1624,7 @@ function showTerritoryInfo(
 
             <strong style="
                 font-size:14px;
-                color:#fff;
+                color:#0f172a;
                 display:block;
                 margin-bottom:8px;
             ">
@@ -2296,7 +2296,7 @@ function captureTerritory(
             ">
 
                 <b style="
-                    color:#00ff88;
+                    color:#0066ff;
                 ">
                     TERRITORY CAPTURED!
                 </b>
@@ -2305,7 +2305,7 @@ function captureTerritory(
 
                 <span style="
                     font-size:11px;
-                    color:#fff;
+                    color:#0f172a;
                 ">
                     +100 XP Sovereign Bonus
                 </span>
@@ -4254,10 +4254,10 @@ function updateSpeedUI(speed) {
                 "● WITHIN LIMIT";
 
             speedStatusDot.style.background =
-                "#00ff88";
+                "#0066ff";
 
             speedStatusDot.style.boxShadow =
-                "0 0 12px rgba(0,255,136,.7)";
+                "0 0 12px rgba(0,102,255,.7)";
 
         }
 
