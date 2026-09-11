@@ -6,31 +6,31 @@
 
 /* --- CSS VARIABLES & TOKENS --- */
 :root {
-    --bg-canvas: #060608;
-    --bg-surface: #0e0e13;
-    --bg-surface-elevated: #14141b;
-    --bg-surface-hover: #1c1c24;
-    --bg-surface-glass: rgba(14, 14, 19, 0.75);
+    --bg-canvas: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-surface-elevated: #ffffff;
+    --bg-surface-hover: #f1f5f9;
+    --bg-surface-glass: rgba(255, 255, 255, 0.85);
 
-    --border-subtle: rgba(255, 255, 255, 0.07);
-    --border-medium: rgba(255, 255, 255, 0.14);
-    --border-strong: rgba(255, 255, 255, 0.28);
-    --border-accent: rgba(0, 255, 136, 0.35);
+    --border-subtle: rgba(15, 23, 42, 0.08);
+    --border-medium: rgba(15, 23, 42, 0.14);
+    --border-strong: rgba(15, 23, 42, 0.26);
+    --border-accent: rgba(0, 102, 255, 0.35);
 
-    --text-primary: #f4f4f6;
-    --text-secondary: #9e9ea8;
-    --text-muted: #5e5e6c;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
 
-    --accent-neon: #00ff88;
-    --accent-neon-dim: rgba(0, 255, 136, 0.12);
-    --accent-neon-glow: rgba(0, 255, 136, 0.25);
+    --accent-neon: #0066ff;
+    --accent-neon-dim: rgba(0, 102, 255, 0.10);
+    --accent-neon-glow: rgba(0, 102, 255, 0.25);
     
-    --accent-enemy: #ff4757;
-    --accent-enemy-dim: rgba(255, 71, 87, 0.12);
+    --accent-enemy: #ef4444;
+    --accent-enemy-dim: rgba(239, 68, 68, 0.12);
     
-    --accent-warning: #ffa502;
-    --accent-blue: #3742fa;
-    --accent-blue-dim: rgba(55, 66, 250, 0.15);
+    --accent-warning: #f59e0b;
+    --accent-blue: #0066ff;
+    --accent-blue-dim: rgba(0, 102, 255, 0.15);
 
     --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'Space Grotesk', ui-monospace, SFMono-Regular, monospace;
@@ -41,9 +41,9 @@
     --radius-xl: 20px;
     --radius-pill: 9999px;
 
-    --shadow-card: 0 10px 35px -8px rgba(0, 0, 0, 0.65);
-    --shadow-glow: 0 0 20px -3px rgba(0, 255, 136, 0.2);
-    --shadow-popup: 0 20px 60px rgba(0, 0, 0, 0.85);
+    --shadow-card: 0 10px 30px -8px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(0, 0, 0, 0.03);
+    --shadow-glow: 0 0 20px -3px rgba(0, 102, 255, 0.25);
+    --shadow-popup: 0 20px 60px rgba(15, 23, 42, 0.16);
 
     --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-slow: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -60,7 +60,7 @@
 
 html {
     scroll-behavior: smooth;
-    color-scheme: dark;
+    color-scheme: light;
     font-size: 16px;
 }
 
@@ -82,8 +82,8 @@ body::before {
     position: fixed;
     inset: 0;
     background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        linear-gradient(rgba(0, 102, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 102, 255, 0.04) 1px, transparent 1px);
     background-size: 48px 48px;
     pointer-events: none;
     z-index: 0;
@@ -108,7 +108,7 @@ a {
 
 ::selection {
     background: var(--accent-neon);
-    color: #000;
+    color: #fff;
 }
 
 /* Custom Scrollbar */
@@ -120,11 +120,11 @@ a {
     background: var(--bg-canvas);
 }
 ::-webkit-scrollbar-thumb {
-    background: #25252e;
+    background: #cbd5e1;
     border-radius: var(--radius-pill);
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #3a3a46;
+    background: #94a3b8;
 }
 
 /* --- ACCESSIBILITY FOCUS --- */
@@ -173,7 +173,7 @@ a {
     font-size: 16px;
     font-weight: 700;
     position: relative;
-    box-shadow: 0 0 12px rgba(0, 255, 136, 0.1);
+    box-shadow: 0 0 12px rgba(0, 102, 255, 0.12);
     transition: var(--transition);
 }
 
@@ -223,13 +223,13 @@ a {
 }
 
 .nav-link:hover {
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.04);
+    color: var(--accent-neon);
+    background: rgba(0, 102, 255, 0.06);
 }
 
 .nav-link.active {
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.06);
+    color: var(--accent-neon);
+    background: rgba(0, 102, 255, 0.10);
 }
 
 .nav-link.active::after {
@@ -287,9 +287,9 @@ a {
 
 .login-btn:hover {
     border-color: var(--accent-neon);
-    color: var(--accent-neon);
-    background: var(--accent-neon-dim);
-    box-shadow: 0 0 16px rgba(0, 255, 136, 0.15);
+    color: #ffffff;
+    background: var(--accent-neon);
+    box-shadow: 0 0 16px rgba(0, 102, 255, 0.25);
 }
 
 /* Mobile Toggle */
@@ -394,7 +394,7 @@ a {
 
 .hero h1 .accent-text {
     color: var(--accent-neon);
-    text-shadow: 0 0 25px rgba(0, 255, 136, 0.3);
+    text-shadow: 0 0 25px rgba(0, 102, 255, 0.3);
 }
 
 .hero-description {
@@ -420,21 +420,21 @@ a {
     gap: 12px;
     min-height: 52px;
     padding: 0 30px;
-    background: var(--text-primary);
-    color: #000;
+    background: var(--accent-neon);
+    color: #ffffff;
     font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 1px;
     border-radius: var(--radius-md);
     transition: var(--transition);
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 102, 255, 0.25);
 }
 
 .primary-btn:hover {
-    background: var(--accent-neon);
-    color: #000;
-    box-shadow: 0 6px 28px rgba(0, 255, 136, 0.35);
+    background: #0052cc;
+    color: #ffffff;
+    box-shadow: 0 6px 28px rgba(0, 102, 255, 0.35);
     transform: translateY(-2px);
 }
 
@@ -524,7 +524,7 @@ a {
 
 .map-card:hover {
     border-color: var(--border-strong);
-    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8), 0 0 30px -5px rgba(0, 255, 136, 0.1);
+    box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12), 0 0 30px -5px rgba(0, 102, 255, 0.12);
 }
 
 .map-header {
@@ -575,34 +575,34 @@ a {
     padding: 22px;
     aspect-ratio: 1 / 0.85;
     background: 
-        radial-gradient(circle at center, rgba(0, 255, 136, 0.04) 0%, transparent 70%),
+        radial-gradient(circle at center, rgba(0, 102, 255, 0.05) 0%, transparent 70%),
         var(--bg-canvas);
     position: relative;
 }
 
 .grid-cell {
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: rgba(15, 23, 42, 0.02);
     border-radius: var(--radius-sm);
     transition: var(--transition);
     min-height: 48px;
 }
 
 .grid-cell:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 102, 255, 0.05);
+    border-color: rgba(0, 102, 255, 0.25);
 }
 
 .grid-cell.blue {
-    background: rgba(0, 255, 136, 0.2);
+    background: rgba(0, 102, 255, 0.18);
     border-color: var(--accent-neon);
-    box-shadow: inset 0 0 12px rgba(0, 255, 136, 0.25);
+    box-shadow: inset 0 0 12px rgba(0, 102, 255, 0.25);
 }
 
 .grid-cell.red {
-    background: rgba(255, 71, 87, 0.2);
+    background: rgba(239, 68, 68, 0.18);
     border-color: var(--accent-enemy);
-    box-shadow: inset 0 0 12px rgba(255, 71, 87, 0.25);
+    box-shadow: inset 0 0 12px rgba(239, 68, 68, 0.25);
 }
 
 .map-footer {
@@ -1015,7 +1015,7 @@ a {
     border-color: var(--accent-neon);
     background: var(--accent-neon-dim);
     color: var(--text-primary);
-    box-shadow: 0 0 16px rgba(0, 255, 136, 0.15);
+    box-shadow: 0 0 16px rgba(0, 102, 255, 0.18);
 }
 
 .activity-icon-wrapper {
@@ -1118,19 +1118,20 @@ a {
     border: 1px solid var(--accent-neon);
     border-radius: var(--radius-md);
     background: var(--accent-neon);
-    color: #000;
+    color: #ffffff;
     font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 800;
     letter-spacing: 1.5px;
     transition: var(--transition);
-    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.25);
+    box-shadow: 0 4px 20px rgba(0, 102, 255, 0.25);
 }
 
 .activity-btn:hover {
-    background: #fff;
-    border-color: #fff;
-    box-shadow: 0 6px 28px rgba(255, 255, 255, 0.35);
+    background: #0052cc;
+    border-color: #0052cc;
+    color: #ffffff;
+    box-shadow: 0 6px 28px rgba(0, 102, 255, 0.35);
     transform: translateY(-2px);
 }
 
@@ -1152,16 +1153,16 @@ a {
 #realMap {
     width: 100%;
     height: 480px;
-    background: #08080a;
+    background: #f8fafc;
 }
 
-/* Dark theme filter on Leaflet tiles */
+/* Light clean theme on Leaflet tiles */
 .leaflet-tile-pane {
-    filter: brightness(0.65) invert(1) contrast(3) hue-rotate(200deg) saturate(0.25) brightness(0.68);
+    filter: contrast(1.04) brightness(1.01);
 }
 
 .leaflet-container {
-    background: #08080a !important;
+    background: #f8fafc !important;
     font-family: var(--font-ui) !important;
 }
 
@@ -1190,7 +1191,7 @@ a {
 }
 
 .leaflet-control-attribution {
-    background: rgba(6, 6, 8, 0.8) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
     backdrop-filter: blur(8px);
     color: var(--text-muted) !important;
     font-size: 9px !important;
@@ -1263,27 +1264,27 @@ a {
 }
 
 .your-cell {
-    background: rgba(0, 255, 136, 0.35);
+    background: rgba(0, 102, 255, 0.25);
     border: 1.5px solid var(--accent-neon);
-    box-shadow: 0 0 6px rgba(0, 255, 136, 0.4);
+    box-shadow: 0 0 6px rgba(0, 102, 255, 0.4);
 }
 
 .enemy-cell {
-    background: rgba(255, 71, 87, 0.3);
+    background: rgba(239, 68, 68, 0.25);
     border: 1.5px solid var(--accent-enemy);
 }
 
 .neutral-cell {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(15, 23, 42, 0.14);
 }
 
 .route-cell {
     width: 22px !important;
     height: 3px !important;
     border-radius: var(--radius-pill);
-    background: #fff;
-    box-shadow: 0 0 8px #fff;
+    background: #0066ff;
+    box-shadow: 0 0 8px rgba(0, 102, 255, 0.45);
 }
 
 /* =========================================================
@@ -1385,7 +1386,7 @@ a {
 }
 
 .filter-tab.active {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(0, 102, 255, 0.10);
     color: var(--accent-neon);
     border-color: var(--border-accent);
 }
@@ -1409,18 +1410,18 @@ a {
     color: var(--text-muted);
     text-transform: uppercase;
     border-bottom: 1px solid var(--border-subtle);
-    background: rgba(255, 255, 255, 0.01);
+    background: rgba(15, 23, 42, 0.02);
 }
 
 .leaderboard-table td {
     padding: 16px 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
     color: var(--text-secondary);
     vertical-align: middle;
 }
 
 .leaderboard-table tr:hover td {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(0, 102, 255, 0.04);
 }
 
 .leaderboard-table tr.current-user td {
@@ -1444,17 +1445,17 @@ a {
 
 .rank-1 {
     background: rgba(255, 215, 0, 0.15);
-    color: #ffd700;
+    color: #b45309;
     border: 1px solid rgba(255, 215, 0, 0.4);
 }
 .rank-2 {
-    background: rgba(192, 192, 192, 0.15);
-    color: #e0e0e0;
-    border: 1px solid rgba(192, 192, 192, 0.4);
+    background: rgba(148, 163, 184, 0.15);
+    color: #475569;
+    border: 1px solid rgba(148, 163, 184, 0.4);
 }
 .rank-3 {
     background: rgba(205, 127, 50, 0.15);
-    color: #cd7f32;
+    color: #9a3412;
     border: 1px solid rgba(205, 127, 50, 0.4);
 }
 .rank-other {
@@ -1486,7 +1487,7 @@ a {
 .current-user .player-avatar {
     border-color: var(--accent-neon);
     color: var(--accent-neon);
-    background: rgba(0, 255, 136, 0.15);
+    background: rgba(0, 102, 255, 0.12);
 }
 
 .player-info-name {
@@ -1598,7 +1599,7 @@ a {
 .progress-bar-fill {
     width: 68%;
     height: 100%;
-    background: linear-gradient(90deg, #00b060, var(--accent-neon));
+    background: linear-gradient(90deg, #0284c7, var(--accent-neon));
     border-radius: var(--radius-pill);
     box-shadow: 0 0 10px var(--accent-neon);
     transition: width 0.5s ease;
@@ -1697,7 +1698,7 @@ a {
     align-items: center;
     justify-content: center;
     font-size: 16px;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(15, 23, 42, 0.04);
     border: 1px solid var(--border-subtle);
 }
 
@@ -1723,7 +1724,7 @@ a {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(15, 23, 42, 0.55);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     opacity: 0;
@@ -1774,7 +1775,7 @@ a {
 }
 
 .auth-close:hover {
-    color: #fff;
+    color: var(--text-primary);
     border-color: var(--border-strong);
     transform: rotate(90deg);
 }
@@ -1853,7 +1854,7 @@ a {
 .auth-tab.active {
     background: var(--bg-surface);
     color: var(--accent-neon);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
 }
 
 .auth-field {
@@ -1889,7 +1890,7 @@ a {
 .auth-field input:focus {
     border-color: var(--accent-neon);
     background: var(--bg-surface-hover);
-    box-shadow: 0 0 12px rgba(0, 255, 136, 0.15);
+    box-shadow: 0 0 12px rgba(0, 102, 255, 0.15);
 }
 
 .auth-options {
@@ -1934,20 +1935,20 @@ a {
 .auth-submit {
     width: 100%;
     padding: 15px;
-    background: var(--text-primary);
-    color: #000;
+    background: var(--accent-neon);
+    color: #ffffff;
     border-radius: var(--radius-md);
     font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 800;
     letter-spacing: 1.5px;
     transition: var(--transition);
-    box-shadow: 0 4px 18px rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 18px rgba(0, 102, 255, 0.25);
 }
 
 .auth-submit:hover {
-    background: var(--accent-neon);
-    box-shadow: 0 6px 24px rgba(0, 255, 136, 0.35);
+    background: #0052cc;
+    box-shadow: 0 6px 24px rgba(0, 102, 255, 0.35);
     transform: translateY(-1px);
 }
 
@@ -2031,13 +2032,13 @@ footer {
 ========================================================= */
 @keyframes radarPulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.5);
+        box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.5);
     }
     70% {
-        box-shadow: 0 0 0 8px rgba(0, 255, 136, 0);
+        box-shadow: 0 0 0 8px rgba(0, 102, 255, 0);
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
+        box-shadow: 0 0 0 0 rgba(0, 102, 255, 0);
     }
 }
 
@@ -2154,8 +2155,8 @@ footer {
     align-items: center;
     justify-content: center;
 
-    background: #020605;
-    color: #fff;
+    background: #ffffff;
+    color: #0f172a;
 
     overflow: hidden;
 
@@ -2181,8 +2182,8 @@ footer {
     inset: 0;
 
     background-image:
-        linear-gradient(rgba(0,255,136,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,136,.035) 1px, transparent 1px);
+        linear-gradient(rgba(0,102,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,102,255,.05) 1px, transparent 1px);
 
     background-size: 55px 55px;
 }
@@ -2198,11 +2199,11 @@ footer {
 
     top: 0;
 
-    background: #00ff88;
+    background: #0066ff;
 
     box-shadow:
-        0 0 10px #00ff88,
-        0 0 30px #00ff88;
+        0 0 10px #0066ff,
+        0 0 30px #0066ff;
 
     opacity: .5;
 
@@ -2238,20 +2239,20 @@ footer {
     width: 40px;
     height: 40px;
 
-    border: 2px solid #00ff88;
+    border: 2px solid #0066ff;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    color: #00ff88;
+    color: #0066ff;
 
     font-size: 25px;
     font-weight: 900;
 
     transform: skew(-10deg);
 
-    box-shadow: 0 0 20px rgba(0,255,136,.2);
+    box-shadow: 0 0 20px rgba(0,102,255,.2);
 }
 
 .loading-brand-name {
@@ -2261,11 +2262,11 @@ footer {
 }
 
 .loading-brand-name span {
-    color: #00ff88;
+    color: #0066ff;
 }
 
 .loading-tagline {
-    color: #77817c;
+    color: #64748b;
     font-size: 8px;
     letter-spacing: 2px;
 }
@@ -2281,9 +2282,11 @@ footer {
 
     padding: 12px 18px;
 
-    border: 1px solid rgba(0,255,136,.3);
+    border: 1px solid rgba(0,102,255,.25);
+    background: #f8fafc;
+    border-radius: 6px;
 
-    color: #aeb8b3;
+    color: #475569;
 
     font-size: 10px;
     letter-spacing: 2px;
@@ -2301,7 +2304,7 @@ footer {
 }
 
 .loading-small-title {
-    color: #b8c0bc;
+    color: #64748b;
 
     font-size: 11px;
     letter-spacing: 7px;
@@ -2310,7 +2313,7 @@ footer {
 .loading-header h1 {
     margin: 5px 0;
 
-    color: #00ff88;
+    color: #0066ff;
 
     font-size: clamp(45px, 5vw, 72px);
 
@@ -2318,13 +2321,13 @@ footer {
 
     letter-spacing: 12px;
 
-    text-shadow: 0 0 20px rgba(0,255,136,.4);
+    text-shadow: 0 0 25px rgba(0,102,255,.3);
 }
 
 .loading-header p {
     margin: 0;
 
-    color: #9ca6a1;
+    color: #64748b;
 
     font-size: 11px;
     letter-spacing: 5px;
@@ -2343,17 +2346,19 @@ footer {
 
     padding: 20px 24px;
 
-    border-left: 1px solid #00ff88;
+    border-left: 2px solid #0066ff;
 
-    border-top: 1px solid rgba(0,255,136,.3);
-    border-right: 1px solid rgba(0,255,136,.1);
-    border-bottom: 1px solid rgba(0,255,136,.1);
+    border-top: 1px solid rgba(0,102,255,.2);
+    border-right: 1px solid rgba(0,102,255,.1);
+    border-bottom: 1px solid rgba(0,102,255,.1);
+    border-radius: 8px;
 
-    background: rgba(0,255,136,.025);
+    background: rgba(248, 250, 252, 0.9);
+    box-shadow: 0 10px 30px rgba(15,23,42,0.06);
 }
 
 .system-title {
-    color: #00ff88;
+    color: #0066ff;
 
     font-size: 12px;
     font-weight: 800;
@@ -2369,16 +2374,16 @@ footer {
 
     padding: 8px 0;
 
-    color: #aeb8b3;
+    color: #475569;
 
     font-size: 10px;
     letter-spacing: 1px;
 
-    border-bottom: 1px solid rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(15,23,42,.06);
 }
 
 .system-row b {
-    color: #00ff88;
+    color: #0066ff;
 }
 
 
@@ -2455,7 +2460,7 @@ footer {
     right: 7%;
     top: 38%;
 
-    color: #aab4af;
+    color: #64748b;
 
     font-size: 12px;
     line-height: 2;
@@ -2464,7 +2469,7 @@ footer {
 }
 
 .loading-info div:first-child {
-    color: #00ff88;
+    color: #0066ff;
 }
 
 
@@ -2492,30 +2497,30 @@ footer {
 .loading-progress {
     height: 13px;
 
-    border: 1px solid rgba(0,255,136,.5);
+    border: 1px solid rgba(0,102,255,.35);
 
     border-radius: 20px;
 
     overflow: hidden;
 
-    background: rgba(0,255,136,.03);
+    background: rgba(0,102,255,.04);
 }
 
 #loadingProgressBar {
     width: 0%;
     height: 100%;
 
-    background: #00ff88;
+    background: #0066ff;
 
     box-shadow:
-        0 0 15px #00ff88,
-        0 0 30px rgba(0,255,136,.5);
+        0 0 15px #0066ff,
+        0 0 30px rgba(0,102,255,.4);
 
     transition: width .15s linear;
 }
 
 #loadingPercent {
-    color: #00ff88;
+    color: #0066ff;
 
     font-size: 13px;
     font-weight: 800;
@@ -2526,7 +2531,7 @@ footer {
 
     text-align: center;
 
-    color: #00ff88;
+    color: #0066ff;
 
     font-size: 11px;
     letter-spacing: 4px;
@@ -2551,7 +2556,7 @@ footer {
 
     gap: 18px;
 
-    color: #aeb8b3;
+    color: #64748b;
 
     font-size: 11px;
 
@@ -2562,13 +2567,13 @@ footer {
     flex: 1;
     height: 1px;
 
-    background: rgba(0,255,136,.35);
+    background: rgba(0,102,255,.25);
 }
 
 #safetyMessage {
     margin-top: 15px;
 
-    color: #fff;
+    color: #0f172a;
 
     font-size: 13px;
     font-weight: 700;
@@ -2586,7 +2591,7 @@ footer {
 #safetySubMessage {
     margin-top: 6px;
 
-    color: #707b75;
+    color: #64748b;
 
     font-size: 10px;
 }
@@ -2606,13 +2611,13 @@ footer {
 
     border-radius: 50%;
 
-    background: #26332d;
+    background: #e2e8f0;
 }
 
 .safety-dots i.active {
-    background: #00ff88;
+    background: #0066ff;
 
-    box-shadow: 0 0 10px #00ff88;
+    box-shadow: 0 0 10px #0066ff;
 }
 
 
@@ -2676,4 +2681,421 @@ footer {
     #safetyMessage {
         font-size: 9px;
     }
+}
+/* =========================================================
+   TERRITORY HOVER EFFECT
+========================================================= */
+
+.leaflet-overlay-pane svg path.territory-hover-lift {
+    transform-box: fill-box;
+    transform-origin: center;
+
+    transform: translateY(-7px) scale(1.025);
+
+    filter: drop-shadow(
+        0 0 8px rgba(0, 102, 255, 0.45)
+    );
+
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease;
+}
+.speed-limits {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 18px;
+}
+
+.speed-limit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 12px;
+
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 9px;
+
+    font-size: 11px;
+    opacity: .75;
+
+    transition: .2s ease;
+}
+
+.speed-limit-item strong {
+    font-size: 12px;
+    opacity: 1;
+}
+
+.speed-limit-item.active {
+    opacity: 1;
+    border-color: rgba(0, 102, 255, 0.35);
+    background: rgba(0, 102, 255, 0.08);
+    color: #0066ff;
+}
+/* =========================================================
+   TERRAFIT — 3D UI EXPERIENCE
+========================================================= */
+
+/* ---------- GLOBAL DEPTH ---------- */
+
+.dashboard,
+.landing-page {
+    perspective: 1400px;
+}
+
+
+/* ---------- HERO / MAIN CARDS ---------- */
+
+.hero-card,
+.dashboard-card,
+.activity-card,
+.speed-monitor-card,
+.stat-card,
+.map-card,
+.leaderboard-card,
+.profile-card {
+    transform-style: preserve-3d;
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+
+
+/* ---------- FLOATING CARD EFFECT ---------- */
+
+.hero-card:hover,
+.dashboard-card:hover,
+.activity-card:hover,
+.speed-monitor-card:hover,
+.stat-card:hover,
+.map-card:hover,
+.leaderboard-card:hover,
+.profile-card:hover {
+
+    transform:
+        translateY(-7px)
+        rotateX(1.5deg)
+        rotateY(-1.5deg);
+
+    box-shadow:
+        0 20px 40px rgba(15, 23, 42, 0.08),
+        0 0 25px rgba(0, 102, 255, 0.08);
+}
+
+
+/* ---------- INNER 3D DEPTH ---------- */
+
+.hero-card > *,
+.dashboard-card > *,
+.activity-card > *,
+.speed-monitor-card > *,
+.map-card > *,
+.leaderboard-card > *,
+.profile-card > * {
+    transform: translateZ(12px);
+}
+
+
+/* ---------- GLASS DEPTH ---------- */
+
+.hero-card,
+.dashboard-card,
+.activity-card,
+.speed-monitor-card,
+.stat-card,
+.map-card,
+.leaderboard-card,
+.profile-card {
+
+    background: #ffffff;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border:
+        1px solid rgba(15, 23, 42, 0.08);
+
+}
+
+
+/* ---------- 3D MAP ---------- */
+
+#realMap,
+#map {
+
+    transform:
+        perspective(1000px)
+        rotateX(2deg);
+
+    transform-origin: center;
+
+    box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.12),
+        inset 0 0 30px rgba(0, 0, 0, 0.04);
+
+}
+
+
+/* ---------- MAP DEPTH EDGE ---------- */
+
+.map-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 10px;
+    right: 10px;
+    bottom: -8px;
+
+    height: 12px;
+
+    border-radius: 0 0 14px 14px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 102, 255, 0.10),
+            rgba(255, 255, 255, 0)
+        );
+
+    transform:
+        translateZ(-10px);
+
+    pointer-events: none;
+}
+
+
+/* ---------- FLOATING STATS ---------- */
+
+.stat-card {
+
+    transform:
+        translateZ(0);
+
+}
+
+.stat-card:hover {
+
+    transform:
+        translateY(-8px)
+        translateZ(20px)
+        rotateX(2deg);
+
+}
+
+
+/* ---------- SPEED MONITOR DEPTH ---------- */
+
+.speed-monitor-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.speed-monitor-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -80px;
+    right: -80px;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 102, 255, 0.10),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* ---------- SPEED LIMIT ROWS ---------- */
+
+.speed-limit-item {
+
+    transform:
+        translateZ(5px);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.speed-limit-item:hover {
+
+    transform:
+        translateX(5px)
+        translateZ(12px);
+
+    background:
+        rgba(0, 102, 255, 0.04);
+
+}
+
+
+/* ---------- ACTIVE SPEED ROW ---------- */
+
+.speed-limit-item.active {
+
+    transform:
+        translateZ(15px);
+
+    box-shadow:
+        0 5px 20px rgba(0, 102, 255, 0.12);
+
+}
+
+
+/* ---------- BUTTON 3D ---------- */
+
+button,
+.btn,
+.start-btn,
+.demo-btn {
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+button:hover,
+.btn:hover,
+.start-btn:hover,
+.demo-btn:hover {
+
+    transform:
+        translateY(-3px)
+        translateZ(8px);
+
+    box-shadow:
+        0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+button:active,
+.btn:active,
+.start-btn:active,
+.demo-btn:active {
+
+    transform:
+        translateY(1px)
+        scale(0.98);
+
+}
+
+
+/* ---------- NAVBAR DEPTH ---------- */
+
+.navbar,
+nav {
+
+    box-shadow:
+        0 8px 30px rgba(15, 23, 42, 0.06);
+
+}
+
+
+/* ---------- TERRITORY 3D FEEL ---------- */
+
+.leaflet-overlay-pane svg path {
+
+    transition:
+        filter 0.25s ease,
+        opacity 0.25s ease;
+}
+
+
+/* ---------- TERRITORY HOVER ---------- */
+
+.leaflet-overlay-pane svg path.territory-hover-lift {
+
+    transform-box: fill-box;
+    transform-origin: center;
+
+    transform:
+        translateY(-7px)
+        scale(1.035);
+
+    filter:
+        drop-shadow(
+            0 8px 12px rgba(0, 102, 255, 0.28)
+        );
+
+}
+
+
+/* ---------- 3D GLOW ---------- */
+
+.hero-card::before,
+.map-card::before,
+.dashboard-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -100px;
+    right: -80px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 102, 255, 0.08),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 768px) {
+
+    .hero-card:hover,
+    .dashboard-card:hover,
+    .activity-card:hover,
+    .speed-monitor-card:hover,
+    .stat-card:hover,
+    .map-card:hover,
+    .leaderboard-card:hover,
+    .profile-card:hover {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+    #realMap,
+    #map {
+
+        transform:
+            perspective(1000px)
+            rotateX(1deg);
+
+    }
+
 }

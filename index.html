@@ -557,7 +557,42 @@
                     </div>
                     <span class="map-live">● LIVE SATELLITE</span>
                 </div>
+<div class="speed-monitor-card">
 
+    <div class="speed-monitor-header">
+        <div>
+            <span class="speed-monitor-label">SPEED MONITOR</span>
+            <h3 id="liveSpeed">0.0 <small>km/h</small></h3>
+        </div>
+
+        <div class="speed-status-dot" id="speedStatusDot"></div>
+    </div>
+
+    <div class="speed-limits">
+
+        <div class="speed-limit-item" data-speed-activity="walking">
+            <span>🚶 WALKING</span>
+            <strong>6 km/h</strong>
+        </div>
+
+        <div class="speed-limit-item" data-speed-activity="running">
+            <span>🏃 RUNNING</span>
+            <strong>11 km/h</strong>
+        </div>
+
+        <div class="speed-limit-item" data-speed-activity="cycling">
+            <span>🚴 CYCLING</span>
+            <strong>30 km/h</strong>
+        </div>
+
+    </div>
+
+    <div class="speed-bottom">
+        <span id="speedActivity">WALKING</span>
+        <span id="speedStatusText">● WITHIN LIMIT</span>
+    </div>
+
+</div>
                 <!-- REAL LEAFLET MAP -->
                 <div id="realMap"></div>
 
@@ -850,6 +885,21 @@
     ================================== -->
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- =========================================================
+     SUPABASE
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+    const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
+    const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+</script>
 
     <!-- TERRAFIT Application JS -->
     <script src="script.js"></script>
