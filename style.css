@@ -2728,3 +2728,373 @@ footer {
     border-color: rgba(0,255,136,.35);
     background: rgba(0,255,136,.06);
 }
+/* =========================================================
+   TERRAFIT — 3D UI EXPERIENCE
+========================================================= */
+
+/* ---------- GLOBAL DEPTH ---------- */
+
+.dashboard,
+.landing-page {
+    perspective: 1400px;
+}
+
+
+/* ---------- HERO / MAIN CARDS ---------- */
+
+.hero-card,
+.dashboard-card,
+.activity-card,
+.speed-monitor-card,
+.stat-card,
+.map-card,
+.leaderboard-card,
+.profile-card {
+    transform-style: preserve-3d;
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+
+
+/* ---------- FLOATING CARD EFFECT ---------- */
+
+.hero-card:hover,
+.dashboard-card:hover,
+.activity-card:hover,
+.speed-monitor-card:hover,
+.stat-card:hover,
+.map-card:hover,
+.leaderboard-card:hover,
+.profile-card:hover {
+
+    transform:
+        translateY(-7px)
+        rotateX(1.5deg)
+        rotateY(-1.5deg);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45),
+        0 0 30px rgba(0, 255, 136, 0.06);
+}
+
+
+/* ---------- INNER 3D DEPTH ---------- */
+
+.hero-card > *,
+.dashboard-card > *,
+.activity-card > *,
+.speed-monitor-card > *,
+.map-card > *,
+.leaderboard-card > *,
+.profile-card > * {
+    transform: translateZ(12px);
+}
+
+
+/* ---------- GLASS DEPTH ---------- */
+
+.hero-card,
+.dashboard-card,
+.activity-card,
+.speed-monitor-card,
+.stat-card,
+.map-card,
+.leaderboard-card,
+.profile-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.055),
+            rgba(255,255,255,0.015)
+        );
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border:
+        1px solid rgba(255,255,255,0.10);
+
+}
+
+
+/* ---------- 3D MAP ---------- */
+
+#realMap,
+#map {
+
+    transform:
+        perspective(1000px)
+        rotateX(2deg);
+
+    transform-origin: center;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.55),
+        inset 0 0 40px rgba(0,0,0,0.35);
+
+}
+
+
+/* ---------- MAP DEPTH EDGE ---------- */
+
+.map-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 10px;
+    right: 10px;
+    bottom: -8px;
+
+    height: 12px;
+
+    border-radius: 0 0 14px 14px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,255,136,0.10),
+            rgba(0,0,0,0)
+        );
+
+    transform:
+        translateZ(-10px);
+
+    pointer-events: none;
+}
+
+
+/* ---------- FLOATING STATS ---------- */
+
+.stat-card {
+
+    transform:
+        translateZ(0);
+
+}
+
+.stat-card:hover {
+
+    transform:
+        translateY(-8px)
+        translateZ(20px)
+        rotateX(2deg);
+
+}
+
+
+/* ---------- SPEED MONITOR DEPTH ---------- */
+
+.speed-monitor-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.35);
+}
+
+.speed-monitor-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -80px;
+    right: -80px;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,255,136,0.12),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* ---------- SPEED LIMIT ROWS ---------- */
+
+.speed-limit-item {
+
+    transform:
+        translateZ(5px);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.speed-limit-item:hover {
+
+    transform:
+        translateX(5px)
+        translateZ(12px);
+
+    background:
+        rgba(255,255,255,0.035);
+
+}
+
+
+/* ---------- ACTIVE SPEED ROW ---------- */
+
+.speed-limit-item.active {
+
+    transform:
+        translateZ(15px);
+
+    box-shadow:
+        0 5px 20px rgba(0,255,136,0.08);
+
+}
+
+
+/* ---------- BUTTON 3D ---------- */
+
+button,
+.btn,
+.start-btn,
+.demo-btn {
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+button:hover,
+.btn:hover,
+.start-btn:hover,
+.demo-btn:hover {
+
+    transform:
+        translateY(-3px)
+        translateZ(8px);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.35);
+}
+
+button:active,
+.btn:active,
+.start-btn:active,
+.demo-btn:active {
+
+    transform:
+        translateY(1px)
+        scale(0.98);
+
+}
+
+
+/* ---------- NAVBAR DEPTH ---------- */
+
+.navbar,
+nav {
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.28);
+
+}
+
+
+/* ---------- TERRITORY 3D FEEL ---------- */
+
+.leaflet-overlay-pane svg path {
+
+    transition:
+        filter 0.25s ease,
+        opacity 0.25s ease;
+}
+
+
+/* ---------- TERRITORY HOVER ---------- */
+
+.leaflet-overlay-pane svg path.territory-hover-lift {
+
+    transform-box: fill-box;
+    transform-origin: center;
+
+    transform:
+        translateY(-7px)
+        scale(1.035);
+
+    filter:
+        drop-shadow(
+            0 8px 12px rgba(0,255,136,0.28)
+        );
+
+}
+
+
+/* ---------- 3D GLOW ---------- */
+
+.hero-card::before,
+.map-card::before,
+.dashboard-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -100px;
+    right: -80px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,255,136,0.08),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 768px) {
+
+    .hero-card:hover,
+    .dashboard-card:hover,
+    .activity-card:hover,
+    .speed-monitor-card:hover,
+    .stat-card:hover,
+    .map-card:hover,
+    .leaderboard-card:hover,
+    .profile-card:hover {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+    #realMap,
+    #map {
+
+        transform:
+            perspective(1000px)
+            rotateX(1deg);
+
+    }
+
+}
