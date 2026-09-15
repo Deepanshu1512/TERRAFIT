@@ -2,907 +2,2249 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>TERRAFIT | Move. Claim. Compete.</title>
 
-    <!-- Google Fonts: Inter & Space Grotesk -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Leaflet Map CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
 
-    <!-- TERRAFIT CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         LEAFLET CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+
+    <!-- =====================================================
+         TERRAFIT CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-    <div id="terraLoading" class="terra-loading">
 
-    <div class="loading-grid"></div>
-    <div class="loading-scanline"></div>
+    <!-- =====================================================
+         TERRAFIT LOADING SCREEN
+    ====================================================== -->
 
-    <!-- BRAND -->
-    <div class="loading-brand">
-        <div class="loading-logo">T</div>
+    <div
+        id="terraLoading"
+        class="terra-loading"
+    >
 
-        <div>
-            <div class="loading-brand-name">
-                TERRA<span>FIT</span>
-            </div>
-            <div class="loading-tagline">
-                MOVE • CLAIM • COMPETE
-            </div>
-        </div>
-    </div>
+        <div class="loading-grid"></div>
 
-    <!-- TOP STATUS -->
-    <div class="loading-top-status">
-        GPS // MAP // TERRITORY // ACTIVITY
-    </div>
+        <div class="loading-scanline"></div>
 
-    <!-- TITLE -->
-    <div class="loading-header">
-        <div class="loading-small-title">
-            INITIALIZING YOUR
-        </div>
 
-        <h1>TERRITORY</h1>
+        <!-- BRAND -->
 
-        <p>POWERED BY YOUR MOVEMENT</p>
-    </div>
+        <div class="loading-brand">
 
-    <!-- SYSTEM CHECK -->
-    <div class="system-check">
-
-        <div class="system-title">
-            SYSTEM CHECK
-        </div>
-
-        <div class="system-row">
-            <span>◉ GPS SYSTEM</span>
-            <b>READY</b>
-        </div>
-
-        <div class="system-row">
-            <span>▣ MAP ENGINE</span>
-            <b>READY</b>
-        </div>
-
-        <div class="system-row">
-            <span>⌗ TERRITORY GRID</span>
-            <b>READY</b>
-        </div>
-
-        <div class="system-row">
-            <span>◇ SAFETY PROTOCOL</span>
-            <b>READY</b>
-        </div>
-
-    </div>
-
-    <!-- WALKING PERSON -->
-    <div class="walker-area">
-
-        <div class="walker-glow"></div>
-
-        <div class="walker">
-
-            <div class="walker-head"></div>
-            <div class="walker-body"></div>
-
-            <div class="walker-arm arm-left"></div>
-            <div class="walker-arm arm-right"></div>
-
-            <div class="walker-leg leg-left"></div>
-            <div class="walker-leg leg-right"></div>
-
-        </div>
-
-        <div class="walker-ground"></div>
-
-    </div>
-
-    <!-- RIGHT INFO -->
-    <div class="loading-info">
-        <div>› SAME YOU.</div>
-        <div>› SAFER JOURNEYS.</div>
-        <div>› BIGGER TERRITORIES.</div>
-    </div>
-
-    <!-- PROGRESS -->
-    <div class="loading-progress-area">
-
-        <div class="loading-progress">
-            <div id="loadingProgressBar"></div>
-        </div>
-
-        <div id="loadingPercent">0%</div>
-
-        <div id="loadingStatus">
-            INITIALIZING TERRAFIT...
-        </div>
-
-    </div>
-
-    <!-- SAFETY -->
-    <div class="safety-section">
-
-        <div class="safety-heading">
-            <span></span>
-            SAFETY PROTOCOL
-            <span></span>
-        </div>
-
-        <div id="safetyMessage">
-            STAY AWARE OF YOUR SURROUNDINGS
-        </div>
-
-        <div id="safetySubMessage">
-            Your safety comes first.
-        </div>
-
-        <div class="safety-dots">
-            <i class="active"></i>
-            <i></i>
-            <i></i>
-            <i></i>
-        </div>
-
-    </div>
-
-</div>
-
-    <!-- =================================
-         NAVBAR
-    ================================== -->
-    <nav class="navbar" id="mainNavbar">
-        <div class="logo" id="brandLogo">
-            <div class="logo-mark">T</div>
-            <div class="logo-text-group">
-                <span class="logo-text">TERRAFIT</span>
-                <span class="logo-sub">GPS MESH</span>
-            </div>
-        </div>
-
-        <div class="nav-links">
-            <a href="#dashboard" class="nav-link active" id="navDashboard">Dashboard</a>
-            <a href="#activity-section" class="nav-link" id="navActivity">Activity</a>
-            <a href="#territory-section" class="nav-link" id="navTerritory">Territory</a>
-            <a href="#leaderboard-section" class="nav-link" id="navLeaderboard">Leaderboard</a>
-            <a href="#profile-section" class="nav-link" id="navProfile">Profile</a>
-        </div>
-
-        <div class="nav-actions">
-            <div class="header-gps-badge" id="headerGpsBadge">
-                <span class="header-gps-dot"></span>
-                <span id="headerGpsText">GPS ACTIVE</span>
+            <div class="loading-logo">
+                T
             </div>
 
-            <button class="login-btn" id="loginBtn">LOG IN</button>
-            <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation">☰</button>
-        </div>
-    </nav>
+            <div>
 
-    <!-- Mobile Navigation Drawer -->
-    <div class="mobile-nav-drawer" id="mobileNavDrawer">
-        <a href="#dashboard" class="nav-link" id="mobNavDashboard">Dashboard <span>→</span></a>
-        <a href="#activity-section" class="nav-link" id="mobNavActivity">Activity <span>→</span></a>
-        <a href="#territory-section" class="nav-link" id="mobNavTerritory">Territory <span>→</span></a>
-        <a href="#leaderboard-section" class="nav-link" id="mobNavLeaderboard">Leaderboard <span>→</span></a>
-        <a href="#profile-section" class="nav-link" id="mobNavProfile">Profile <span>→</span></a>
-    </div>
-
-    <!-- =================================
-         LOGIN / SIGN UP MODAL
-    ================================== -->
-    <div class="auth-overlay" id="authOverlay">
-        <div class="auth-box">
-            <!-- CLOSE BUTTON -->
-            <button class="auth-close" id="authClose">×</button>
-
-            <!-- AUTH HEADER -->
-            <div class="auth-header">
-                <div class="auth-logo">T</div>
-                <span class="auth-label">TERRAFIT PROTOCOL</span>
-                <h2 id="authTitle">WELCOME BACK.</h2>
-                <p id="authSubtitle">Log in to continue your territory conquest.</p>
-            </div>
-
-            <!-- AUTH TABS -->
-            <div class="auth-tabs">
-                <button class="auth-tab active" id="loginTab">LOG IN</button>
-                <button class="auth-tab" id="signupTab">SIGN UP</button>
-            </div>
-
-            <!-- AUTH FORM -->
-            <form id="authForm">
-                <!-- NAME (Signup only) -->
-                <div class="auth-field" id="nameField" style="display:none;">
-                    <label for="authName">FULL NAME / CALLSIGN</label>
-                    <input type="text" id="authName" placeholder="Enter your operator name">
+                <div class="loading-brand-name">
+                    TERRA<span>FIT</span>
                 </div>
 
-                <!-- EMAIL -->
-                <div class="auth-field">
-                    <label for="authEmail">EMAIL ADDRESS</label>
-                    <input type="email" id="authEmail" placeholder="operator@terrafit.app" required>
+                <div class="loading-tagline">
+                    MOVE • CLAIM • COMPETE
                 </div>
 
-                <!-- PASSWORD -->
-                <div class="auth-field">
-                    <label for="authPassword">PASSWORD</label>
-                    <input type="password" id="authPassword" placeholder="••••••••••••" required>
-                </div>
+            </div>
 
-                <!-- CONFIRM PASSWORD (Signup only) -->
-                <div class="auth-field" id="confirmPasswordField" style="display:none;">
-                    <label for="authConfirmPassword">CONFIRM PASSWORD</label>
-                    <input type="password" id="authConfirmPassword" placeholder="••••••••••••">
-                </div>
-
-                <!-- LOGIN OPTIONS -->
-                <div class="auth-options" id="loginOptions">
-                    <label>
-                        <input type="checkbox" id="rememberMe">
-                        <span>Remember credentials</span>
-                    </label>
-                    <button type="button" id="forgotPassword">Forgot password?</button>
-                </div>
-
-                <!-- MESSAGE -->
-                <div class="auth-message" id="authMessage"></div>
-
-                <!-- SUBMIT -->
-                <button type="submit" class="auth-submit" id="authSubmit">LOG IN</button>
-            </form>
-
-            <!-- DEMO LOGIN -->
-            <button class="demo-login" id="demoLogin" type="button">
-                CONTINUE WITH DEMO OPERATOR
-            </button>
         </div>
-    </div>
 
-    <!-- =================================
-         HERO / LANDING PAGE
-    ================================== -->
-    <main class="hero" id="landingPage">
-        <div class="hero-content">
-            <div class="badge">
-                <span></span>
-                TACTICAL FITNESS REIMAGINED
+
+        <!-- TOP STATUS -->
+
+        <div class="loading-top-status">
+            GPS // MAP // TERRITORY // ACTIVITY
+        </div>
+
+
+        <!-- TITLE -->
+
+        <div class="loading-header">
+
+            <div class="loading-small-title">
+                INITIALIZING YOUR
             </div>
 
             <h1>
-                MOVE.<br>
-                <span class="accent-text">CLAIM.</span><br>
-                COMPETE.
+                TERRITORY
             </h1>
 
-            <p class="hero-description">
-                Turn your real-world miles into sovereign territory. Walk, run, or cycle across town to capture virtual GPS sectors, harvest XP, defend borders, and dominate your regional leaderboard.
+            <p>
+                POWERED BY YOUR MOVEMENT
             </p>
 
-            <div class="hero-buttons">
-                <button class="primary-btn" id="startBtn">
-                    START ACTIVITY
-                    <span>→</span>
-                </button>
-                <button class="secondary-btn" id="demoBtn">
-                    HOW IT WORKS
-                </button>
+        </div>
+
+
+        <!-- SYSTEM CHECK -->
+
+        <div class="system-check">
+
+            <div class="system-title">
+                SYSTEM CHECK
             </div>
+
+
+            <div class="system-row">
+
+                <span>
+                    ◉ GPS SYSTEM
+                </span>
+
+                <b>
+                    READY
+                </b>
+
+            </div>
+
+
+            <div class="system-row">
+
+                <span>
+                    ▣ MAP ENGINE
+                </span>
+
+                <b>
+                    READY
+                </b>
+
+            </div>
+
+
+            <div class="system-row">
+
+                <span>
+                    ⌗ TERRITORY GRID
+                </span>
+
+                <b>
+                    READY
+                </b>
+
+            </div>
+
+
+            <div class="system-row">
+
+                <span>
+                    ◇ SAFETY PROTOCOL
+                </span>
+
+                <b>
+                    READY
+                </b>
+
+            </div>
+
+        </div>
+
+
+        <!-- WALKING PERSON -->
+
+        <div class="walker-area">
+
+            <div class="walker-glow"></div>
+
+
+            <div class="walker">
+
+                <div class="walker-head"></div>
+
+                <div class="walker-body"></div>
+
+                <div class="walker-arm arm-left"></div>
+
+                <div class="walker-arm arm-right"></div>
+
+                <div class="walker-leg leg-left"></div>
+
+                <div class="walker-leg leg-right"></div>
+
+            </div>
+
+
+            <div class="walker-ground"></div>
+
+        </div>
+
+
+        <!-- RIGHT INFO -->
+
+        <div class="loading-info">
+
+            <div>
+                › SAME YOU.
+            </div>
+
+            <div>
+                › SAFER JOURNEYS.
+            </div>
+
+            <div>
+                › BIGGER TERRITORIES.
+            </div>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+
+        <div class="loading-progress-area">
+
+            <div class="loading-progress">
+
+                <div
+                    id="loadingProgressBar"
+                ></div>
+
+            </div>
+
+
+            <div id="loadingPercent">
+                0%
+            </div>
+
+
+            <div id="loadingStatus">
+                INITIALIZING TERRAFIT...
+            </div>
+
+        </div>
+
+
+        <!-- SAFETY -->
+
+        <div class="safety-section">
+
+            <div class="safety-heading">
+
+                <span></span>
+
+                SAFETY PROTOCOL
+
+                <span></span>
+
+            </div>
+
+
+            <div id="safetyMessage">
+                STAY AWARE OF YOUR SURROUNDINGS
+            </div>
+
+
+            <div id="safetySubMessage">
+                Your safety comes first.
+            </div>
+
+
+            <div class="safety-dots">
+
+                <i class="active"></i>
+                <i></i>
+                <i></i>
+                <i></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav
+        class="navbar"
+        id="mainNavbar"
+    >
+
+        <!-- LOGO -->
+
+        <div
+            class="logo"
+            id="brandLogo"
+        >
+
+            <div class="logo-mark">
+                T
+            </div>
+
+            <div class="logo-text-group">
+
+                <span class="logo-text">
+                    TERRAFIT
+                </span>
+
+                <span class="logo-sub">
+                    GPS MESH
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- DESKTOP NAV -->
+
+        <div class="nav-links">
+
+            <a
+                href="#dashboard"
+                class="nav-link active"
+                id="navDashboard"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="#activity-section"
+                class="nav-link"
+                id="navActivity"
+            >
+                Activity
+            </a>
+
+
+            <a
+                href="#territory-section"
+                class="nav-link"
+                id="navTerritory"
+            >
+                Territory
+            </a>
+
+
+            <a
+                href="#leaderboard-section"
+                class="nav-link"
+                id="navLeaderboard"
+            >
+                Leaderboard
+            </a>
+
+
+            <a
+                href="#profile-section"
+                class="nav-link"
+                id="navProfile"
+            >
+                Profile
+            </a>
+
+        </div>
+
+
+        <!-- NAV ACTIONS -->
+
+        <div class="nav-actions">
+
+            <div
+                class="header-gps-badge"
+                id="headerGpsBadge"
+            >
+
+                <span class="header-gps-dot"></span>
+
+                <span id="headerGpsText">
+                    LOCATION REQUIRED
+                </span>
+
+            </div>
+
+
+            <button
+                class="login-btn"
+                id="loginBtn"
+                type="button"
+            >
+                LOG IN
+            </button>
+
+
+            <button
+                class="login-btn"
+                id="logoutBtn"
+                type="button"
+                style="display:none;"
+            >
+                LOG OUT
+            </button>
+
+
+            <button
+                class="mobile-toggle"
+                id="mobileMenuToggle"
+                type="button"
+                aria-label="Toggle Navigation"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =====================================================
+         MOBILE NAVIGATION
+    ====================================================== -->
+
+    <div
+        class="mobile-nav-drawer"
+        id="mobileNavDrawer"
+    >
+
+        <a
+            href="#dashboard"
+            class="nav-link"
+            id="mobNavDashboard"
+        >
+            Dashboard
+            <span>→</span>
+        </a>
+
+
+        <a
+            href="#activity-section"
+            class="nav-link"
+            id="mobNavActivity"
+        >
+            Activity
+            <span>→</span>
+        </a>
+
+
+        <a
+            href="#territory-section"
+            class="nav-link"
+            id="mobNavTerritory"
+        >
+            Territory
+            <span>→</span>
+        </a>
+
+
+        <a
+            href="#leaderboard-section"
+            class="nav-link"
+            id="mobNavLeaderboard"
+        >
+            Leaderboard
+            <span>→</span>
+        </a>
+
+
+        <a
+            href="#profile-section"
+            class="nav-link"
+            id="mobNavProfile"
+        >
+            Profile
+            <span>→</span>
+        </a>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         AUTHENTICATION MODAL
+    ====================================================== -->
+
+    <div
+        class="auth-overlay"
+        id="authOverlay"
+    >
+
+        <div class="auth-box">
+
+
+            <!-- CLOSE -->
+
+            <button
+                class="auth-close"
+                id="authClose"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+
+            <!-- AUTH HEADER -->
+
+            <div class="auth-header">
+
+                <div class="auth-logo">
+                    T
+                </div>
+
+                <span class="auth-label">
+                    TERRAFIT PROTOCOL
+                </span>
+
+                <h2 id="authTitle">
+                    WELCOME BACK.
+                </h2>
+
+                <p id="authSubtitle">
+                    Log in to continue your territory conquest.
+                </p>
+
+            </div>
+
+
+            <!-- AUTH TABS -->
+
+            <div class="auth-tabs">
+
+                <button
+                    class="auth-tab active"
+                    id="loginTab"
+                    type="button"
+                >
+                    LOG IN
+                </button>
+
+
+                <button
+                    class="auth-tab"
+                    id="signupTab"
+                    type="button"
+                >
+                    SIGN UP
+                </button>
+
+            </div>
+
+
+            <!-- AUTH FORM -->
+
+            <form id="authForm">
+
+
+                <!-- NAME -->
+
+                <div
+                    class="auth-field"
+                    id="nameField"
+                    style="display:none;"
+                >
+
+                    <label for="authName">
+                        FULL NAME / CALLSIGN
+                    </label>
+
+                    <input
+                        type="text"
+                        id="authName"
+                        placeholder="Enter your operator name"
+                        autocomplete="name"
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="auth-field">
+
+                    <label for="authEmail">
+                        EMAIL ADDRESS
+                    </label>
+
+                    <input
+                        type="email"
+                        id="authEmail"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="auth-field">
+
+                    <label for="authPassword">
+                        PASSWORD
+                    </label>
+
+                    <input
+                        type="password"
+                        id="authPassword"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div
+                    class="auth-field"
+                    id="confirmPasswordField"
+                    style="display:none;"
+                >
+
+                    <label for="authConfirmPassword">
+                        CONFIRM PASSWORD
+                    </label>
+
+                    <input
+                        type="password"
+                        id="authConfirmPassword"
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                    >
+
+                </div>
+
+
+                <!-- LOGIN OPTIONS -->
+
+                <div
+                    class="auth-options"
+                    id="loginOptions"
+                >
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                        >
+
+                        <span>
+                            Keep session active
+                        </span>
+
+                    </label>
+
+
+                    <button
+                        type="button"
+                        id="forgotPassword"
+                    >
+                        Forgot password?
+                    </button>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    class="auth-message"
+                    id="authMessage"
+                    aria-live="polite"
+                ></div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                    id="authSubmit"
+                >
+                    LOG IN
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         HERO / LANDING PAGE
+    ====================================================== -->
+
+    <main
+        class="hero"
+        id="landingPage"
+    >
+
+        <div class="hero-content">
+
+
+            <div class="badge">
+
+                <span></span>
+
+                TACTICAL FITNESS REIMAGINED
+
+            </div>
+
+
+            <h1>
+
+                MOVE.<br>
+
+                <span class="accent-text">
+                    CLAIM.
+                </span><br>
+
+                COMPETE.
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Turn your real-world miles into
+                virtual territory. Walk, run, or
+                cycle across your surroundings to
+                capture GPS sectors, earn XP,
+                build streaks, and compete with
+                other operators.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <button
+                    class="primary-btn"
+                    id="startBtn"
+                    type="button"
+                >
+
+                    START ACTIVITY
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="secondary-btn"
+                    id="demoBtn"
+                    type="button"
+                >
+
+                    HOW IT WORKS
+
+                </button>
+
+            </div>
+
+
+            <!-- REAL DATA ONLY -->
 
             <div class="hero-stats-strip">
+
+
                 <div class="hero-stat-item">
-                    <span class="val">1,420+</span>
-                    <span class="lbl">Active Operators</span>
+
+                    <span class="val">
+                        —
+                    </span>
+
+                    <span class="lbl">
+                        Active Operators
+                    </span>
+
                 </div>
+
+
                 <div class="hero-stat-item">
-                    <span class="val">84.9K</span>
-                    <span class="lbl">KM Conquered</span>
+
+                    <span class="val">
+                        —
+                    </span>
+
+                    <span class="lbl">
+                        KM Conquered
+                    </span>
+
                 </div>
+
+
                 <div class="hero-stat-item">
-                    <span class="val">99.8%</span>
-                    <span class="lbl">GPS Mesh Uptime</span>
+
+                    <span class="val">
+                        LIVE
+                    </span>
+
+                    <span class="lbl">
+                        GPS Mesh
+                    </span>
+
                 </div>
+
+
             </div>
+
         </div>
 
-        <!-- HERO VISUAL: TACTICAL RADAR CARD -->
+
+
+        <!-- =================================================
+             HERO TACTICAL MAP
+        ================================================== -->
+
         <div class="hero-visual">
+
             <div class="map-card">
+
+
                 <div class="map-header">
-                    <span class="hud-title">LIVE SECTOR RADAR • SECTOR 07</span>
-                    <span class="live">
-                        <i></i>
-                        LIVE MESH
+
+                    <span class="hud-title">
+                        TACTICAL MAP PREVIEW
                     </span>
+
+                    <span class="live">
+
+                        <i></i>
+
+                        LIVE MESH
+
+                    </span>
+
                 </div>
+
+
+                <!-- GRID -->
 
                 <div class="territory-map">
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell"></div>
-                    <div class="grid-cell blue"></div>
-                    <div class="grid-cell blue"></div>
-                    <div class="grid-cell"></div>
 
                     <div class="grid-cell"></div>
-                    <div class="grid-cell blue"></div>
-                    <div class="grid-cell blue"></div>
-                    <div class="grid-cell red"></div>
                     <div class="grid-cell"></div>
-
-                    <div class="grid-cell blue"></div>
-                    <div class="grid-cell blue"></div>
-                    <div class="grid-cell blue"></div>
-                    <div class="grid-cell red"></div>
-                    <div class="grid-cell red"></div>
-
                     <div class="grid-cell"></div>
-                    <div class="grid-cell blue"></div>
-                    <div class="grid-cell blue"></div>
-                    <div class="grid-cell red"></div>
+                    <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
 
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
-                    <div class="grid-cell blue"></div>
                     <div class="grid-cell"></div>
                     <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+
                 </div>
+
+
+                <!-- MAP FOOTER -->
 
                 <div class="map-footer">
+
+
                     <div>
-                        <small>YOUR TERRITORY</small>
-                        <strong>24 CELLS</strong>
+
+                        <small>
+                            YOUR TERRITORY
+                        </small>
+
+                        <strong>
+                            0 CELLS
+                        </strong>
+
                     </div>
+
+
                     <div>
-                        <small>SECTOR RANK</small>
-                        <strong>#07</strong>
+
+                        <small>
+                            SECTOR RANK
+                        </small>
+
+                        <strong>
+                            —
+                        </strong>
+
                     </div>
+
+
                     <div>
-                        <small>TOTAL XP</small>
-                        <strong>2,840</strong>
+
+                        <small>
+                            TOTAL XP
+                        </small>
+
+                        <strong>
+                            0
+                        </strong>
+
                     </div>
+
+
                 </div>
+
             </div>
+
         </div>
+
     </main>
 
-    <!-- =================================
+
+
+    <!-- =====================================================
          HOW IT WORKS
-    ================================== -->
-    <section class="info-section" id="how">
+    ====================================================== -->
+
+    <section
+        class="info-section"
+        id="how"
+    >
+
         <div class="section-header-wrap">
-            <span class="section-eyebrow">TACTICAL BRIEFING</span>
+
+            <span class="section-eyebrow">
+                TACTICAL BRIEFING
+            </span>
+
             <h2 class="section-heading">
+
                 EVERY MOVEMENT<br>
+
                 REDEFINES THE MAP.
+
             </h2>
+
         </div>
+
 
         <div class="steps">
-            <div class="step">
-                <div class="step-num-badge">PHASE 01</div>
-                <h3>01. MOVE</h3>
-                <p>
-                    Lace up and head outside. Walk, run, or cycle while TERRAFIT streams high-frequency GPS telemetry to quantify your velocity, distance, and heading in real time.
-                </p>
-            </div>
+
+
+            <!-- PHASE 01 -->
 
             <div class="step">
-                <div class="step-num-badge">PHASE 02</div>
-                <h3>02. CLAIM</h3>
+
+                <div class="step-num-badge">
+                    PHASE 01
+                </div>
+
+                <h3>
+                    01. MOVE
+                </h3>
+
                 <p>
-                    Traverse unmapped or contested ground. Crossing sector boundaries immediately locks and paints virtual grid zones into your color, granting instant XP yields.
+
+                    Choose walking, running, or
+                    cycling and let TERRAFIT track
+                    your movement using GPS.
+
                 </p>
+
             </div>
 
+
+            <!-- PHASE 02 -->
+
             <div class="step">
-                <div class="step-num-badge">PHASE 03</div>
-                <h3>03. COMPETE</h3>
+
+                <div class="step-num-badge">
+                    PHASE 02
+                </div>
+
+                <h3>
+                    02. CLAIM
+                </h3>
+
                 <p>
-                    Defend your perimeter against rival athletes. Build territory clusters, maintain activity streaks, unlock badges, and ascend the regional leaderboard.
+
+                    Move through the territory grid
+                    and convert real-world movement
+                    into virtual territory.
+
                 </p>
+
             </div>
+
+
+            <!-- PHASE 03 -->
+
+            <div class="step">
+
+                <div class="step-num-badge">
+                    PHASE 03
+                </div>
+
+                <h3>
+                    03. COMPETE
+                </h3>
+
+                <p>
+
+                    Build your territory, maintain
+                    activity streaks, earn XP, and
+                    climb the leaderboard.
+
+                </p>
+
+            </div>
+
+
         </div>
+
     </section>
 
-    <!-- =================================
-         DASHBOARD (COMMAND CENTER)
-    ================================== -->
-    <section class="dashboard" id="dashboard">
-        <!-- Dashboard Top / Header -->
+
+
+    <!-- =====================================================
+         DASHBOARD / COMMAND CENTER
+    ====================================================== -->
+
+    <section
+        class="dashboard"
+        id="dashboard"
+        style="display:none;"
+    >
+
+
+        <!-- DASHBOARD HEADER -->
+
         <div class="dashboard-top">
+
             <div>
-                <span class="dashboard-label">COMMAND CENTER TELEMETRY</span>
+
+                <span class="dashboard-label">
+                    COMMAND CENTER TELEMETRY
+                </span>
+
                 <h2>
+
                     WELCOME BACK,
-                    <span id="playerName">PLAYER.</span>
+
+                    <span id="playerName">
+                        PLAYER.
+                    </span>
+
                 </h2>
+
             </div>
+
 
             <div class="rank-box">
-                <div class="rank-icon-frame">⚡</div>
+
+                <div class="rank-icon-frame">
+                    ⚡
+                </div>
+
                 <div class="rank-content">
-                    <small>CURRENT RANK</small>
-                    <strong>#07 VANGUARD</strong>
+
+                    <small>
+                        CURRENT RANK
+                    </small>
+
+                    <strong>
+                        UNRANKED
+                    </strong>
+
                 </div>
+
             </div>
+
         </div>
 
-        <!-- =================================
-             PLAYER STATS (4-GRID)
-        ================================== -->
+
+
+        <!-- =================================================
+             PLAYER STATS
+        ================================================== -->
+
         <div class="stats">
-            <div class="stat-card">
-                <div class="stat-header">
-                    <small>TERRITORY CONTROL</small>
-                    <span class="stat-icon">⬡</span>
-                </div>
-                <div class="stat-main">
-                    <strong id="territoryCount">0</strong>
-                    <span class="unit">CELLS</span>
-                </div>
-                <span class="stat-footer-text">Grid Coverage • 121 Nearby</span>
-            </div>
+
+
+            <!-- TERRITORY -->
 
             <div class="stat-card">
+
                 <div class="stat-header">
-                    <small>TOTAL XP</small>
-                    <span class="stat-icon">⚡</span>
+
+                    <small>
+                        TERRITORY CONTROL
+                    </small>
+
+                    <span class="stat-icon">
+                        ⬡
+                    </span>
+
                 </div>
+
+
                 <div class="stat-main">
-                    <strong id="xpCount">0</strong>
-                    <span class="unit">XP</span>
+
+                    <strong id="territoryCount">
+                        0
+                    </strong>
+
+                    <span class="unit">
+                        CELLS
+                    </span>
+
                 </div>
-                <span class="stat-footer-text">+100 XP per claimed cell</span>
+
+
+                <span class="stat-footer-text">
+                    Grid Coverage
+                </span>
+
             </div>
 
-            <div class="stat-card">
-                <div class="stat-header">
-                    <small>TOTAL DISTANCE</small>
-                    <span class="stat-icon">📍</span>
-                </div>
-                <div class="stat-main">
-                    <strong id="activityCount">0.0</strong>
-                    <span class="unit">KM</span>
-                </div>
-                <span class="stat-footer-text">Verified GPS Tracked</span>
-            </div>
+
+
+            <!-- XP -->
 
             <div class="stat-card">
+
                 <div class="stat-header">
-                    <small>STREAK DAYS</small>
-                    <span class="stat-icon">🔥</span>
+
+                    <small>
+                        TOTAL XP
+                    </small>
+
+                    <span class="stat-icon">
+                        ⚡
+                    </span>
+
                 </div>
+
+
                 <div class="stat-main">
-                    <strong id="streakCount">0</strong>
-                    <span class="unit">DAYS</span>
+
+                    <strong id="xpCount">
+                        0
+                    </strong>
+
+                    <span class="unit">
+                        XP
+                    </span>
+
                 </div>
-                <span class="stat-footer-text">Combat Readiness Active</span>
+
+
+                <span class="stat-footer-text">
+                    Earned through activity
+                </span>
+
             </div>
+
+
+
+            <!-- DISTANCE -->
+
+            <div class="stat-card">
+
+                <div class="stat-header">
+
+                    <small>
+                        TOTAL DISTANCE
+                    </small>
+
+                    <span class="stat-icon">
+                        📍
+                    </span>
+
+                </div>
+
+
+                <div class="stat-main">
+
+                    <strong id="activityCount">
+                        0.0
+                    </strong>
+
+                    <span class="unit">
+                        KM
+                    </span>
+
+                </div>
+
+
+                <span class="stat-footer-text">
+                    Verified GPS Tracked
+                </span>
+
+            </div>
+
+
+
+            <!-- STREAK -->
+
+            <div class="stat-card">
+
+                <div class="stat-header">
+
+                    <small>
+                        STREAK DAYS
+                    </small>
+
+                    <span class="stat-icon">
+                        🔥
+                    </span>
+
+                </div>
+
+
+                <div class="stat-main">
+
+                    <strong id="streakCount">
+                        0
+                    </strong>
+
+                    <span class="unit">
+                        DAYS
+                    </span>
+
+                </div>
+
+
+                <span class="stat-footer-text">
+                    Activity consistency
+                </span>
+
+            </div>
+
+
         </div>
 
-        <!-- =================================
-             DASHBOARD MAIN GRID (ACTIVITY + MAP)
-        ================================== -->
+
+
+        <!-- =================================================
+             MAIN DASHBOARD GRID
+        ================================================== -->
+
         <div class="dashboard-grid">
-            <!-- ACTIVITY PANEL -->
-            <div class="activity-panel" id="activity-section">
+
+
+            <!-- =================================================
+                 ACTIVITY PANEL
+            ================================================== -->
+
+            <div
+                class="activity-panel"
+                id="activity-section"
+            >
+
                 <div class="panel-heading">
+
                     <div>
-                        <small>MISSION DISPATCH</small>
-                        <h3>START ACTIVITY</h3>
+
+                        <small>
+                            MISSION DISPATCH
+                        </small>
+
+                        <h3>
+                            START ACTIVITY
+                        </h3>
+
                     </div>
-                    <div class="activity-status" id="activityStatus">READY</div>
+
+
+                    <div
+                        class="activity-status"
+                        id="activityStatus"
+                    >
+                        READY
+                    </div>
+
                 </div>
 
-                <!-- Activity Selection -->
+
+
+                <!-- ACTIVITY TYPES -->
+
                 <div class="activity-types">
-                    <button class="activity-type active" data-type="Walking" type="button">
-                        <div class="activity-icon-wrapper">🚶</div>
-                        <span>WALK</span>
-                        <div class="activity-desc">Precision grid capture • 1.0x XP</div>
+
+
+                    <button
+                        class="activity-type active"
+                        data-type="Walking"
+                        type="button"
+                    >
+
+                        <div class="activity-icon-wrapper">
+                            🚶
+                        </div>
+
+                        <span>
+                            WALK
+                        </span>
+
+                        <div class="activity-desc">
+                            Precision grid capture
+                        </div>
+
                     </button>
 
-                    <button class="activity-type" data-type="Running" type="button">
-                        <div class="activity-icon-wrapper">🏃</div>
-                        <span>RUN</span>
-                        <div class="activity-desc">Rapid zone sweep • 1.5x XP</div>
+
+
+                    <button
+                        class="activity-type"
+                        data-type="Running"
+                        type="button"
+                    >
+
+                        <div class="activity-icon-wrapper">
+                            🏃
+                        </div>
+
+                        <span>
+                            RUN
+                        </span>
+
+                        <div class="activity-desc">
+                            Rapid zone sweep
+                        </div>
+
                     </button>
 
-                    <button class="activity-type" data-type="Cycling" type="button">
-                        <div class="activity-icon-wrapper">🚴</div>
-                        <span>CYCLE</span>
-                        <div class="activity-desc">Long range patrol • 2.0x XP</div>
+
+
+                    <button
+                        class="activity-type"
+                        data-type="Cycling"
+                        type="button"
+                    >
+
+                        <div class="activity-icon-wrapper">
+                            🚴
+                        </div>
+
+                        <span>
+                            CYCLE
+                        </span>
+
+                        <div class="activity-desc">
+                            Long range patrol
+                        </div>
+
                     </button>
+
+
                 </div>
 
-                <!-- Activity Statistics -->
+
+
+                <!-- ACTIVITY DATA -->
+
                 <div class="activity-data">
+
+
                     <div>
-                        <small>SESSION DISTANCE</small>
-                        <strong id="distance">0.00 KM</strong>
+
+                        <small>
+                            SESSION DISTANCE
+                        </small>
+
+                        <strong id="distance">
+                            0.00 KM
+                        </strong>
+
                     </div>
+
+
                     <div>
-                        <small>ELAPSED TIME</small>
-                        <strong id="timer">00:00</strong>
+
+                        <small>
+                            ELAPSED TIME
+                        </small>
+
+                        <strong id="timer">
+                            00:00
+                        </strong>
+
                     </div>
+
+
                 </div>
 
-                <!-- GPS Status -->
-                <div class="gps-status" id="gpsStatus">
+
+
+                <!-- GPS STATUS -->
+
+                <div
+                    class="gps-status"
+                    id="gpsStatus"
+                >
+
                     <span class="gps-dot"></span>
-                    GPS READY
+
+                    LOCATION REQUIRED
+
                 </div>
 
-                <!-- Activity Launch Button -->
-                <button class="activity-btn" id="activityBtn" type="button">
+
+
+                <!-- ACTIVITY BUTTON -->
+
+                <button
+                    class="activity-btn"
+                    id="activityBtn"
+                    type="button"
+                >
                     START ACTIVITY
                 </button>
+
+
             </div>
 
-            <!-- TERRITORY MAP PANEL -->
-            <div class="territory-panel" id="territory-section">
+
+
+            <!-- =================================================
+                 TERRITORY PANEL
+            ================================================== -->
+
+            <div
+                class="territory-panel"
+                id="territory-section"
+            >
+
                 <div class="panel-heading">
+
                     <div>
-                        <small>TACTICAL OVERVIEW</small>
-                        <h3>TERRITORY MESH</h3>
+
+                        <small>
+                            TACTICAL OVERVIEW
+                        </small>
+
+                        <h3>
+                            TERRITORY MESH
+                        </h3>
+
                     </div>
-                    <span class="map-live">● LIVE SATELLITE</span>
+
+
+                    <span class="map-live">
+                        ● LIVE SATELLITE
+                    </span>
+
                 </div>
-<div class="speed-monitor-card">
 
-    <div class="speed-monitor-header">
-        <div>
-            <span class="speed-monitor-label">SPEED MONITOR</span>
-            <h3 id="liveSpeed">0.0 <small>km/h</small></h3>
-        </div>
 
-        <div class="speed-status-dot" id="speedStatusDot"></div>
-    </div>
 
-    <div class="speed-limits">
+                <!-- SPEED MONITOR -->
 
-        <div class="speed-limit-item" data-speed-activity="walking">
-            <span>🚶 WALKING</span>
-            <strong>6 km/h</strong>
-        </div>
+                <div class="speed-monitor-card">
 
-        <div class="speed-limit-item" data-speed-activity="running">
-            <span>🏃 RUNNING</span>
-            <strong>11 km/h</strong>
-        </div>
 
-        <div class="speed-limit-item" data-speed-activity="cycling">
-            <span>🚴 CYCLING</span>
-            <strong>30 km/h</strong>
-        </div>
+                    <div class="speed-monitor-header">
 
-    </div>
+                        <div>
 
-    <div class="speed-bottom">
-        <span id="speedActivity">WALKING</span>
-        <span id="speedStatusText">● WITHIN LIMIT</span>
-    </div>
+                            <span class="speed-monitor-label">
+                                SPEED MONITOR
+                            </span>
 
-</div>
-                <!-- REAL LEAFLET MAP -->
+                            <h3 id="liveSpeed">
+                                0.0
+                                <small>
+                                    km/h
+                                </small>
+                            </h3>
+
+                        </div>
+
+
+                        <div
+                            class="speed-status-dot"
+                            id="speedStatusDot"
+                        ></div>
+
+                    </div>
+
+
+
+                    <div class="speed-limits">
+
+
+                        <div
+                            class="speed-limit-item"
+                            data-speed-activity="walking"
+                        >
+
+                            <span>
+                                🚶 WALKING
+                            </span>
+
+                            <strong>
+                                6 km/h
+                            </strong>
+
+                        </div>
+
+
+
+                        <div
+                            class="speed-limit-item"
+                            data-speed-activity="running"
+                        >
+
+                            <span>
+                                🏃 RUNNING
+                            </span>
+
+                            <strong>
+                                11 km/h
+                            </strong>
+
+                        </div>
+
+
+
+                        <div
+                            class="speed-limit-item"
+                            data-speed-activity="cycling"
+                        >
+
+                            <span>
+                                🚴 CYCLING
+                            </span>
+
+                            <strong>
+                                30 km/h
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="speed-bottom">
+
+                        <span id="speedActivity">
+                            WALKING
+                        </span>
+
+                        <span id="speedStatusText">
+                            ● WITHIN LIMIT
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- REAL MAP -->
+
                 <div id="realMap"></div>
 
-                <!-- Map Legend -->
+
+
+                <!-- MAP LEGEND -->
+
                 <div class="map-legend">
-                    <span><i class="your-cell"></i> YOUR TERRITORY</span>
-                    <span><i class="enemy-cell"></i> OPPONENT</span>
-                    <span><i class="neutral-cell"></i> NEUTRAL</span>
-                    <span><i class="route-cell"></i> YOUR ROUTE</span>
+
+                    <span>
+                        <i class="your-cell"></i>
+                        YOUR TERRITORY
+                    </span>
+
+                    <span>
+                        <i class="enemy-cell"></i>
+                        OPPONENT
+                    </span>
+
+                    <span>
+                        <i class="neutral-cell"></i>
+                        NEUTRAL
+                    </span>
+
+                    <span>
+                        <i class="route-cell"></i>
+                        YOUR ROUTE
+                    </span>
+
                 </div>
+
+
             </div>
+
+
         </div>
 
-        <!-- =================================
-             TERRITORY DIAGNOSTICS (4-GRID)
-        ================================== -->
+
+
+        <!-- =================================================
+             TERRITORY DIAGNOSTICS
+        ================================================== -->
+
         <div class="territory-info">
+
+
             <div>
-                <small>STRONGEST SECTOR</small>
-                <strong>SECTOR 04-ALPHA</strong>
+
+                <small>
+                    STRONGEST SECTOR
+                </small>
+
+                <strong>
+                    —
+                </strong>
+
             </div>
+
+
             <div>
-                <small>DEFENSE STRENGTH</small>
-                <strong id="territoryStrength">0%</strong>
+
+                <small>
+                    DEFENSE STRENGTH
+                </small>
+
+                <strong id="territoryStrength">
+                    0%
+                </strong>
+
             </div>
+
+
             <div>
-                <small>LAST ACTIVITY</small>
-                <strong id="lastActivity">NO ACTIVITY</strong>
+
+                <small>
+                    LAST ACTIVITY
+                </small>
+
+                <strong id="lastActivity">
+                    NO ACTIVITY
+                </strong>
+
             </div>
+
+
             <div>
-                <small>TACTICAL STATUS</small>
-                <strong class="stable" id="territoryStatus">READY</strong>
+
+                <small>
+                    TACTICAL STATUS
+                </small>
+
+                <strong
+                    class="stable"
+                    id="territoryStatus"
+                >
+                    READY
+                </strong>
+
             </div>
+
+
         </div>
 
-        <!-- =================================
-             LEADERBOARD SECTION
-        ================================== -->
-        <div class="leaderboard-section" id="leaderboard-section">
+
+
+        <!-- =================================================
+             LEADERBOARD
+        ================================================== -->
+
+        <div
+            class="leaderboard-section"
+            id="leaderboard-section"
+        >
+
             <div class="leaderboard-card">
+
+
                 <div class="leaderboard-header">
+
                     <div>
-                        <span class="dashboard-label">COMPETITIVE LEAGUE</span>
-                        <h3>REGIONAL SECTOR LEADERBOARD</h3>
+
+                        <span class="dashboard-label">
+                            COMPETITIVE LEAGUE
+                        </span>
+
+                        <h3>
+                            REGIONAL SECTOR LEADERBOARD
+                        </h3>
+
                     </div>
+
+
                     <div class="leaderboard-filter-tabs">
-                        <button class="filter-tab active" type="button">Regional</button>
-                        <button class="filter-tab" type="button">Global</button>
-                        <button class="filter-tab" type="button">Squads</button>
+
+                        <button
+                            class="filter-tab active"
+                            type="button"
+                        >
+                            Regional
+                        </button>
+
+                        <button
+                            class="filter-tab"
+                            type="button"
+                        >
+                            Global
+                        </button>
+
+                        <button
+                            class="filter-tab"
+                            type="button"
+                        >
+                            Squads
+                        </button>
+
                     </div>
+
                 </div>
+
+
 
                 <div class="leaderboard-table-wrap">
+
                     <table class="leaderboard-table">
+
+
                         <thead>
+
                             <tr>
-                                <th>Rank</th>
-                                <th>Operator</th>
-                                <th>Territory</th>
-                                <th>Distance</th>
-                                <th>XP Points</th>
+
+                                <th>
+                                    Rank
+                                </th>
+
+                                <th>
+                                    Operator
+                                </th>
+
+                                <th>
+                                    Territory
+                                </th>
+
+                                <th>
+                                    Distance
+                                </th>
+
+                                <th>
+                                    XP Points
+                                </th>
+
                             </tr>
+
                         </thead>
+
+
+
                         <tbody>
-                            <tr>
-                                <td><span class="rank-badge rank-1">#1</span></td>
+
+
+                            <!-- CURRENT USER -->
+
+                            <tr
+                                class="current-user"
+                                id="currentUserLeaderboardRow"
+                            >
+
                                 <td>
-                                    <div class="player-cell">
-                                        <div class="player-avatar">V</div>
-                                        <div>
-                                            <div class="player-info-name">VORTEX_99</div>
-                                            <div class="player-info-tag">Apex Guardian • Level 24</div>
-                                        </div>
-                                    </div>
+
+                                    <span class="rank-badge rank-other">
+                                        —
+                                    </span>
+
                                 </td>
-                                <td>184 Cells</td>
-                                <td>312.4 KM</td>
-                                <td class="xp-cell">28,400 XP</td>
-                            </tr>
-                            <tr>
-                                <td><span class="rank-badge rank-2">#2</span></td>
+
+
                                 <td>
+
                                     <div class="player-cell">
-                                        <div class="player-avatar">A</div>
-                                        <div>
-                                            <div class="player-info-name">APEX_RUNNER</div>
-                                            <div class="player-info-tag">Sector Warlord • Level 21</div>
+
+                                        <div
+                                            class="player-avatar"
+                                            id="leaderboardAvatarLetter"
+                                        >
+                                            P
                                         </div>
-                                    </div>
-                                </td>
-                                <td>142 Cells</td>
-                                <td>245.8 KM</td>
-                                <td class="xp-cell">22,900 XP</td>
-                            </tr>
-                            <tr>
-                                <td><span class="rank-badge rank-3">#3</span></td>
-                                <td>
-                                    <div class="player-cell">
-                                        <div class="player-avatar">C</div>
+
+
                                         <div>
-                                            <div class="player-info-name">CYBER_STRIDER</div>
-                                            <div class="player-info-tag">Mesh Sentinel • Level 19</div>
+
+                                            <div
+                                                class="player-info-name"
+                                                id="leaderboardPlayerName"
+                                            >
+                                                LOGIN REQUIRED
+                                            </div>
+
+                                            <div class="player-info-tag">
+                                                Operator
+                                            </div>
+
                                         </div>
+
                                     </div>
+
                                 </td>
-                                <td>118 Cells</td>
-                                <td>198.2 KM</td>
-                                <td class="xp-cell">19,150 XP</td>
-                            </tr>
-                            <tr>
-                                <td><span class="rank-badge rank-other">#4</span></td>
-                                <td>
-                                    <div class="player-cell">
-                                        <div class="player-avatar">S</div>
-                                        <div>
-                                            <div class="player-info-name">SHADOW_WALKER</div>
-                                            <div class="player-info-tag">Grid Phantom • Level 18</div>
-                                        </div>
-                                    </div>
+
+
+                                <td id="leaderboardTerritory">
+                                    0 Cells
                                 </td>
-                                <td>96 Cells</td>
-                                <td>154.0 KM</td>
-                                <td class="xp-cell">15,200 XP</td>
-                            </tr>
-                            <tr>
-                                <td><span class="rank-badge rank-other">#5</span></td>
-                                <td>
-                                    <div class="player-cell">
-                                        <div class="player-avatar">N</div>
-                                        <div>
-                                            <div class="player-info-name">NOVA_BLAZE</div>
-                                            <div class="player-info-tag">Pathfinder • Level 15</div>
-                                        </div>
-                                    </div>
+
+
+                                <td id="leaderboardDistance">
+                                    0.0 KM
                                 </td>
-                                <td>78 Cells</td>
-                                <td>122.6 KM</td>
-                                <td class="xp-cell">12,800 XP</td>
-                            </tr>
-                            <tr>
-                                <td><span class="rank-badge rank-other">#6</span></td>
-                                <td>
-                                    <div class="player-cell">
-                                        <div class="player-avatar">K</div>
-                                        <div>
-                                            <div class="player-info-name">KINETIC_X</div>
-                                            <div class="player-info-tag">Vector Scout • Level 14</div>
-                                        </div>
-                                    </div>
+
+
+                                <td
+                                    class="xp-cell"
+                                    id="leaderboardXP"
+                                >
+                                    0 XP
                                 </td>
-                                <td>62 Cells</td>
-                                <td>98.4 KM</td>
-                                <td class="xp-cell">9,900 XP</td>
+
                             </tr>
-                            <!-- CURRENT USER ROW -->
-                            <tr class="current-user" id="currentUserLeaderboardRow">
-                                <td><span class="rank-badge rank-other">#7</span></td>
-                                <td>
-                                    <div class="player-cell">
-                                        <div class="player-avatar" id="leaderboardAvatarLetter">P</div>
-                                        <div>
-                                            <div class="player-info-name" id="leaderboardPlayerName">PLAYER (YOU)</div>
-                                            <div class="player-info-tag">Vanguard Agent • Level 12</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td id="leaderboardTerritory">0 Cells</td>
-                                <td id="leaderboardDistance">0.0 KM</td>
-                                <td class="xp-cell" id="leaderboardXP">0 XP</td>
-                            </tr>
+
+
                         </tbody>
+
                     </table>
+
                 </div>
+
             </div>
+
         </div>
 
-        <!-- =================================
-             PROFILE DOSSIER SECTION
-        ================================== -->
-        <div class="profile-section" id="profile-section">
+
+
+        <!-- =================================================
+             PROFILE
+        ================================================== -->
+
+        <div
+            class="profile-section"
+            id="profile-section"
+        >
+
             <div class="profile-card">
-                <!-- Identity & Stats -->
+
+
+                <!-- IDENTITY -->
+
                 <div class="profile-identity">
+
+
                     <div class="profile-header-meta">
-                        <div class="profile-avatar-large" id="profileAvatarLetter">P</div>
-                        <div class="profile-titles">
-                            <span class="profile-tag-pill">DIAMOND VANGUARD</span>
-                            <h4 id="profilePlayerName">PLAYER</h4>
-                            <span class="player-info-tag">CALLSIGN #TF-7042 • JOINED 2026</span>
+
+
+                        <div
+                            class="profile-avatar-large"
+                            id="profileAvatarLetter"
+                        >
+                            P
                         </div>
+
+
+                        <div class="profile-titles">
+
+                            <span class="profile-tag-pill">
+                                UNRANKED OPERATOR
+                            </span>
+
+
+                            <h4 id="profilePlayerName">
+                                PLAYER
+                            </h4>
+
+
+                            <span class="player-info-tag">
+                                CALLSIGN — • JOINED —
+                            </span>
+
+                        </div>
+
+
                     </div>
+
+
+
+                    <!-- LEVEL -->
 
                     <div class="level-progression-wrap">
+
+
                         <div class="level-meta-row">
-                            <span>LEVEL 12 VANGUARD</span>
-                            <span id="profileXpProgress">2,840 / 5,000 XP (76%)</span>
+
+                            <span>
+                                LEVEL 1
+                            </span>
+
+                            <span id="profileXpProgress">
+                                0 / 5,000 XP (0%)
+                            </span>
+
                         </div>
+
+
                         <div class="progress-bar-track">
-                            <div class="progress-bar-fill" id="profileProgressBar"></div>
+
+                            <div
+                                class="progress-bar-fill"
+                                id="profileProgressBar"
+                                style="width:0%;"
+                            ></div>
+
                         </div>
+
+
                     </div>
+
+
+
+                    <!-- PROFILE STATS -->
 
                     <div class="profile-stats-grid">
+
+
                         <div class="profile-sub-stat">
-                            <small>CAREER DISTANCE</small>
-                            <strong id="profileDistanceStat">0.0 KM</strong>
+
+                            <small>
+                                CAREER DISTANCE
+                            </small>
+
+                            <strong id="profileDistanceStat">
+                                0.0 KM
+                            </strong>
+
                         </div>
+
+
                         <div class="profile-sub-stat">
-                            <small>ZONES CONQUERED</small>
-                            <strong id="profileTerritoryStat">0 CELLS</strong>
+
+                            <small>
+                                ZONES CONQUERED
+                            </small>
+
+                            <strong id="profileTerritoryStat">
+                                0 CELLS
+                            </strong>
+
                         </div>
+
+
                         <div class="profile-sub-stat">
-                            <small>SESSIONS COMPLETED</small>
-                            <strong id="profileSessionsStat">18 RUNS</strong>
+
+                            <small>
+                                SESSIONS COMPLETED
+                            </small>
+
+                            <strong id="profileSessionsStat">
+                                0 RUNS
+                            </strong>
+
                         </div>
+
+
                         <div class="profile-sub-stat">
-                            <small>CURRENT STREAK</small>
-                            <strong id="profileStreakStat">0 DAYS</strong>
+
+                            <small>
+                                CURRENT STREAK
+                            </small>
+
+                            <strong id="profileStreakStat">
+                                0 DAYS
+                            </strong>
+
                         </div>
+
+
                     </div>
+
+
                 </div>
 
-                <!-- Badges / Achievements -->
+
+
+                <!-- =================================================
+                     BADGES
+                ================================================== -->
+
                 <div class="badges-container">
+
+
                     <div class="badges-header">
-                        <h5>HONOR ROLL & COMMENDATIONS</h5>
-                        <p>Special badges earned through real-world territory milestones.</p>
+
+                        <h5>
+                            HONOR ROLL & COMMENDATIONS
+                        </h5>
+
+                        <p>
+                            Special badges earned through
+                            real-world activity milestones.
+                        </p>
+
                     </div>
+
+
 
                     <div class="badges-grid">
-                        <div class="badge-item unlocked">
-                            <div class="badge-icon">🎖️</div>
-                            <div class="badge-info">
-                                <h6>FIRST CLAIM</h6>
-                                <p>Captured first territory zone</p>
-                            </div>
-                        </div>
 
-                        <div class="badge-item unlocked">
-                            <div class="badge-icon">⚡</div>
-                            <div class="badge-info">
-                                <h6>CENTURION</h6>
-                                <p>Traveled 100+ KM overall</p>
-                            </div>
-                        </div>
-
-                        <div class="badge-item unlocked">
-                            <div class="badge-icon">🌙</div>
-                            <div class="badge-info">
-                                <h6>NIGHT PATROL</h6>
-                                <p>Completed workout past 21:00</p>
-                            </div>
-                        </div>
 
                         <div class="badge-item locked">
-                            <div class="badge-icon">👑</div>
-                            <div class="badge-info">
-                                <h6>SECTOR TITAN</h6>
-                                <p>Hold 25 simultaneous zones</p>
+
+                            <div class="badge-icon">
+                                🎖️
                             </div>
+
+                            <div class="badge-info">
+
+                                <h6>
+                                    FIRST CLAIM
+                                </h6>
+
+                                <p>
+                                    Capture your first territory zone
+                                </p>
+
+                            </div>
+
                         </div>
+
+
+
+                        <div class="badge-item locked">
+
+                            <div class="badge-icon">
+                                ⚡
+                            </div>
+
+                            <div class="badge-info">
+
+                                <h6>
+                                    CENTURION
+                                </h6>
+
+                                <p>
+                                    Travel 100+ KM overall
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="badge-item locked">
+
+                            <div class="badge-icon">
+                                🌙
+                            </div>
+
+                            <div class="badge-info">
+
+                                <h6>
+                                    NIGHT PATROL
+                                </h6>
+
+                                <p>
+                                    Complete an eligible activity at night
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="badge-item locked">
+
+                            <div class="badge-icon">
+                                👑
+                            </div>
+
+                            <div class="badge-info">
+
+                                <h6>
+                                    SECTOR TITAN
+                                </h6>
+
+                                <p>
+                                    Hold 25 simultaneous zones
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
                     </div>
+
                 </div>
+
+
             </div>
+
         </div>
+
+
     </section>
 
-    <!-- =================================
+
+
+    <!-- =====================================================
          FOOTER
-    ================================== -->
+    ====================================================== -->
+
     <footer id="about">
+
         <div class="footer-inner">
+
+
             <div class="footer-brand">
-                <div class="logo-mark">T</div>
-                <div>
-                    <strong style="font-family: var(--font-mono); letter-spacing: 1.5px;">TERRAFIT</strong>
-                    <div class="footer-tagline">Move. Claim. Compete. The GPS Territory Mesh Protocol.</div>
+
+                <div class="logo-mark">
+                    T
                 </div>
+
+
+                <div>
+
+                    <strong
+                        style="
+                            font-family:var(--font-mono);
+                            letter-spacing:1.5px;
+                        "
+                    >
+                        TERRAFIT
+                    </strong>
+
+
+                    <div class="footer-tagline">
+
+                        Move. Claim. Compete.
+                        The GPS Territory Mesh Protocol.
+
+                    </div>
+
+                </div>
+
             </div>
+
+
 
             <div class="footer-system-status">
+
                 <span class="status-indicator-dot"></span>
-                <span>SYSTEM NOMINAL • SATELLITE LOCK VERIFIED</span>
+
+                <span>
+                    SYSTEM NOMINAL • GPS READY
+                </span>
+
             </div>
+
+
         </div>
+
     </footer>
 
-    <!-- =================================
-         SCRIPTS
-    ================================== -->
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<!-- =========================================================
-     SUPABASE
-========================================================= -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-    const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
-    const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
+    <!-- =====================================================
+         JAVASCRIPT LIBRARIES
+    ====================================================== -->
 
-    const supabaseClient = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
-</script>
 
-    <!-- TERRAFIT Application JS -->
-    <script src="script.js"></script>
+    <!-- LEAFLET -->
+
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    ></script>
+
+
+
+    <!-- SUPABASE -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+
+    <!-- =====================================================
+         TERRAFIT APPLICATION
+         
+         IMPORTANT:
+         Supabase CDN MUST load before script.js.
+    ====================================================== -->
+
+    <script
+        src="script.js"
+    ></script>
+
+
 </body>
 
 </html>
