@@ -1,0 +1,213 @@
+<!-- =====================================================
+     AUTHENTICATION MODAL
+====================================================== -->
+
+<div
+    class="auth-overlay"
+    id="authOverlay"
+>
+
+    <div class="auth-box">
+
+
+        <!-- CLOSE -->
+
+        <button
+            class="auth-close"
+            id="authClose"
+            type="button"
+            aria-label="Close"
+        >
+            ×
+        </button>
+
+
+        <!-- AUTH HEADER -->
+
+        <div class="auth-header">
+
+            <div class="auth-logo">
+                T
+            </div>
+
+            <span class="auth-label">
+                TERRAFIT PROTOCOL
+            </span>
+
+            <h2 id="authTitle">
+                WELCOME BACK.
+            </h2>
+
+            <p id="authSubtitle">
+                Log in to continue your territory conquest.
+            </p>
+
+        </div>
+
+
+        <!-- AUTH TABS -->
+
+        <div class="auth-tabs">
+
+            <button
+                class="auth-tab active"
+                id="loginTab"
+                type="button"
+            >
+                LOG IN
+            </button>
+
+
+            <button
+                class="auth-tab"
+                id="signupTab"
+                type="button"
+            >
+                SIGN UP
+            </button>
+
+        </div>
+
+
+        <!-- AUTH FORM -->
+
+        <form id="authForm">
+
+
+            <!-- NAME -->
+
+            <div
+                class="auth-field"
+                id="nameField"
+                style="display:none;"
+            >
+
+                <label for="authName">
+                    FULL NAME / CALLSIGN
+                </label>
+
+                <input
+                    type="text"
+                    id="authName"
+                    placeholder="Enter your operator name"
+                    autocomplete="name"
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="auth-field">
+
+                <label for="authEmail">
+                    EMAIL ADDRESS
+                </label>
+
+                <input
+                    type="email"
+                    id="authEmail"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="auth-field">
+
+                <label for="authPassword">
+                    PASSWORD
+                </label>
+
+                <input
+                    type="password"
+                    id="authPassword"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div
+                class="auth-field"
+                id="confirmPasswordField"
+                style="display:none;"
+            >
+
+                <label for="authConfirmPassword">
+                    CONFIRM PASSWORD
+                </label>
+
+                <input
+                    type="password"
+                    id="authConfirmPassword"
+                    placeholder="Confirm your password"
+                    autocomplete="new-password"
+                >
+
+            </div>
+
+
+            <!-- LOGIN OPTIONS -->
+
+            <div
+                class="auth-options"
+                id="loginOptions"
+            >
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        id="rememberMe"
+                    >
+
+                    <span>
+                        Keep session active
+                    </span>
+
+                </label>
+
+
+                <button
+                    type="button"
+                    id="forgotPassword"
+                >
+                    Forgot password?
+                </button>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                class="auth-message"
+                id="authMessage"
+                aria-live="polite"
+            ></div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                class="auth-submit"
+                id="authSubmit"
+            >
+                LOG IN
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

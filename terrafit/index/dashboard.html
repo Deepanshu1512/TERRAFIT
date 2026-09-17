@@ -1,0 +1,668 @@
+<!-- =====================================================
+     TERRAFIT DASHBOARD
+====================================================== -->
+
+<section
+    id="dashboard"
+    class="dashboard"
+    style="display:none;"
+>
+
+    <!-- DASHBOARD HEADER -->
+
+    <div class="dashboard-header">
+
+        <div>
+            <span class="section-kicker">
+                OPERATOR DASHBOARD
+            </span>
+
+            <h2>
+                CONTROL <span>CENTER</span>
+            </h2>
+        </div>
+
+        <div class="dashboard-player">
+
+            <div class="player-avatar">
+                <span id="playerAvatarLetter">T</span>
+            </div>
+
+            <div>
+                <strong id="playerName">
+                    TERRAFIT PLAYER
+                </strong>
+
+                <small>
+                    ACTIVE OPERATOR
+                </small>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PLAYER STATS
+    ================================================== -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                DISTANCE
+            </span>
+
+            <strong id="distance">
+                0.00
+            </strong>
+
+            <small>
+                KM
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                TERRITORY
+            </span>
+
+            <strong id="territoryCount">
+                0
+            </strong>
+
+            <small>
+                CELLS
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                XP
+            </span>
+
+            <strong id="xpCount">
+                0
+            </strong>
+
+            <small>
+                POINTS
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                ACTIVITIES
+            </span>
+
+            <strong id="activityCount">
+                0
+            </strong>
+
+            <small>
+                COMPLETED
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                STREAK
+            </span>
+
+            <strong id="streakCount">
+                0
+            </strong>
+
+            <small>
+                DAYS
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                TERRITORY STRENGTH
+            </span>
+
+            <strong id="territoryStrength">
+                0%
+            </strong>
+
+            <small>
+                CONTROL
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ACTIVITY SECTION
+    ================================================== -->
+
+    <section
+        id="activity-section"
+        class="dashboard-section"
+    >
+
+        <div class="section-header">
+
+            <span class="section-kicker">
+                GPS ACTIVITY
+            </span>
+
+            <h3>
+                CAPTURE <span>TERRITORY</span>
+            </h3>
+
+            <p>
+                Move through the real world and convert
+                your route into territory.
+            </p>
+
+        </div>
+
+
+        <!-- ACTIVITY TYPES -->
+
+        <div class="activity-types">
+
+            <button
+                class="activity-type active"
+                data-type="walking"
+                type="button"
+            >
+                <span>🚶</span>
+                WALKING
+            </button>
+
+            <button
+                class="activity-type"
+                data-type="running"
+                type="button"
+            >
+                <span>🏃</span>
+                RUNNING
+            </button>
+
+            <button
+                class="activity-type"
+                data-type="cycling"
+                type="button"
+            >
+                <span>🚴</span>
+                CYCLING
+            </button>
+
+        </div>
+
+
+        <!-- ACTIVITY CONTROLS -->
+
+        <div class="activity-controls">
+
+            <div
+                class="activity-status"
+                id="activityStatus"
+            >
+                READY
+            </div>
+
+            <button
+                id="activityBtn"
+                class="primary-btn"
+                type="button"
+            >
+                START ACTIVITY
+            </button>
+
+        </div>
+
+
+        <!-- ACTIVITY METRICS -->
+
+        <div class="activity-metrics">
+
+            <div>
+
+                <span>
+                    TIME
+                </span>
+
+                <strong id="timer">
+                    00:00
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    DISTANCE
+                </span>
+
+                <strong>
+                    <span id="distanceActivity">
+                        0.00
+                    </span>
+                    KM
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    GPS STATUS
+                </span>
+
+                <strong id="gpsStatus">
+                    <span class="gps-dot"></span>
+                    LOCATION REQUIRED
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SPEED MONITOR
+        ================================================== -->
+
+        <div class="speed-monitor-card">
+
+            <div class="speed-monitor-header">
+
+                <div>
+
+                    <span class="section-kicker">
+                        MOTION MONITOR
+                    </span>
+
+                    <h4>
+                        LIVE SPEED
+                    </h4>
+
+                </div>
+
+                <div
+                    class="speed-status"
+                    id="speedStatusText"
+                >
+                    READY
+                </div>
+
+            </div>
+
+
+            <div class="speed-main">
+
+                <div class="speed-value">
+
+                    <strong id="liveSpeed">
+                        0.0
+                    </strong>
+
+                    <span>
+                        KM/H
+                    </span>
+
+                </div>
+
+
+                <div class="speed-limit">
+
+                    <span>
+                        LIMIT
+                    </span>
+
+                    <strong id="speedLimit">
+                        6
+                    </strong>
+
+                    <small>
+                        KM/H
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="speed-progress">
+
+                <div
+                    id="speedProgressBar"
+                    class="speed-progress-bar"
+                    style="width:0%;"
+                ></div>
+
+            </div>
+
+
+            <div class="speed-footer">
+
+                <span>
+                    MODE
+                </span>
+
+                <strong id="speedActivity">
+                    WALKING
+                </strong>
+
+                <span
+                    class="speed-status-dot"
+                    id="speedStatusDot"
+                ></span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             MAP
+        ================================================== -->
+
+        <div class="map-wrapper">
+
+            <div class="map-header">
+
+                <div>
+
+                    <span class="section-kicker">
+                        TERRITORY GRID
+                    </span>
+
+                    <h4>
+                        LIVE SECTOR MAP
+                    </h4>
+
+                </div>
+
+                <div
+                    class="territory-status"
+                    id="territoryStatus"
+                >
+                    WAITING FOR GPS
+                </div>
+
+            </div>
+
+
+            <div
+                id="realMap"
+                class="real-map"
+            ></div>
+
+
+            <div class="map-footer">
+
+                <span>
+                    GPS ROUTE TRACKING ACTIVE
+                </span>
+
+                <span>
+                    TERRITORY GRID ONLINE
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         LEADERBOARD
+    ================================================== -->
+
+    <section
+        id="leaderboard-section"
+        class="dashboard-section leaderboard-section"
+    >
+
+        <div class="section-header">
+
+            <span class="section-kicker">
+                COMPETITION
+            </span>
+
+            <h3>
+                TERRAFIT <span>LEADERBOARD</span>
+            </h3>
+
+        </div>
+
+
+        <div class="leaderboard-card">
+
+            <div class="leaderboard-player">
+
+                <div class="leaderboard-avatar">
+                    <span id="leaderboardAvatarLetter">
+                        T
+                    </span>
+                </div>
+
+                <div class="leaderboard-info">
+
+                    <strong id="leaderboardPlayerName">
+                        TERRAFIT PLAYER
+                    </strong>
+
+                    <small>
+                        CURRENT OPERATOR
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="leaderboard-stats">
+
+                <div>
+
+                    <span>
+                        TERRITORY
+                    </span>
+
+                    <strong id="leaderboardTerritory">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        DISTANCE
+                    </span>
+
+                    <strong id="leaderboardDistance">
+                        0.00 KM
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        XP
+                    </span>
+
+                    <strong id="leaderboardXP">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PROFILE
+    ================================================== -->
+
+    <section
+        id="profile-section"
+        class="dashboard-section profile-section"
+    >
+
+        <div class="section-header">
+
+            <span class="section-kicker">
+                OPERATOR PROFILE
+            </span>
+
+            <h3>
+                YOUR <span>PROGRESS</span>
+            </h3>
+
+        </div>
+
+
+        <div class="profile-card">
+
+            <div class="profile-main">
+
+                <div class="profile-avatar">
+                    <span id="profileAvatarLetter">
+                        T
+                    </span>
+                </div>
+
+                <div>
+
+                    <h3 id="profilePlayerName">
+                        TERRAFIT PLAYER
+                    </h3>
+
+                    <span>
+                        FIELD OPERATOR
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-stats">
+
+                <div>
+
+                    <span>
+                        DISTANCE
+                    </span>
+
+                    <strong id="profileDistanceStat">
+                        0.00 KM
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        TERRITORY
+                    </span>
+
+                    <strong id="profileTerritoryStat">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        STREAK
+                    </span>
+
+                    <strong id="profileStreakStat">
+                        0 DAYS
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- XP PROGRESS -->
+
+            <div class="profile-xp">
+
+                <div class="profile-xp-header">
+
+                    <span>
+                        XP PROGRESS
+                    </span>
+
+                    <strong id="profileXpProgress">
+                        0 / 1000
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-progress">
+
+                    <div
+                        id="profileProgressBar"
+                        class="profile-progress-bar"
+                        style="width:0%;"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- LAST ACTIVITY -->
+
+    <div class="last-activity">
+
+        <span>
+            LAST ACTIVITY
+        </span>
+
+        <strong id="lastActivity">
+            No completed activity yet.
+        </strong>
+
+    </div>
+
+</section>
