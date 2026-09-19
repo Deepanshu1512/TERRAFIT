@@ -3705,3 +3705,391 @@ body::before {
         background-size: auto, 22px 22px, 22px 22px;
     }
 }
+/* =========================================================
+   TERRAFIT — TACTICAL TERRITORY MESH
+   DARK HUD OVERRIDE
+   ========================================================= */
+
+
+/* =========================================================
+   TERRITORY SECTION
+   ========================================================= */
+
+#territory-section {
+    position: relative;
+    background: #070d14 !important;
+    color: #dce9f5;
+}
+
+
+/* =========================================================
+   TERRITORY HEADER
+   ========================================================= */
+
+#territory-section .section-header,
+#territory-section .territory-header {
+    background: #0a121c !important;
+    border: 1px solid rgba(0, 174, 255, 0.22);
+    border-radius: 18px 18px 0 0;
+}
+
+
+/* =========================================================
+   TERRITORY MESH CARD
+   ========================================================= */
+
+.territory-panel,
+.territory-card,
+.territory-mesh,
+#territory-section .panel {
+    background: #0a121c !important;
+    color: #dce9f5 !important;
+    border-color: rgba(0, 174, 255, 0.16) !important;
+}
+
+
+/* =========================================================
+   SPEED MONITOR
+   ========================================================= */
+
+.speed-monitor-card {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0b1723 0%,
+            #08121c 55%,
+            #071019 100%
+        ) !important;
+
+    color: #dce9f5 !important;
+
+    border: 1px solid rgba(0, 174, 255, 0.20) !important;
+
+    border-radius: 16px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.025),
+        0 10px 35px rgba(0,0,0,0.35);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SPEED MONITOR TITLE
+   ========================================================= */
+
+.speed-monitor-card h3,
+.speed-monitor-card h2,
+.speed-monitor-card .speed-monitor-title {
+    color: #00aeff !important;
+
+    text-shadow:
+        0 0 14px rgba(0,174,255,0.20);
+}
+
+
+/* =========================================================
+   LIVE SPEED
+   ========================================================= */
+
+#liveSpeed {
+    color: #e4f2ff !important;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 0 12px rgba(150,210,255,0.22);
+}
+
+
+/* =========================================================
+   SPEED LIMIT ITEMS
+   ========================================================= */
+
+.speed-limit-item {
+    position: relative;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,25,39,0.95),
+            rgba(6,18,29,0.92)
+        ) !important;
+
+    color: #b9cee0 !important;
+
+    border: 1px solid rgba(0,174,255,0.20) !important;
+
+    border-radius: 14px;
+
+    box-shadow:
+        inset 0 0 20px rgba(0,174,255,0.025);
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* =========================================================
+   SPEED ITEM HOVER
+   ========================================================= */
+
+.speed-limit-item:hover {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,32,50,0.98),
+            rgba(7,22,35,0.96)
+        ) !important;
+
+    border-color: rgba(0,174,255,0.42) !important;
+
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   SPEED ACTIVITY TEXT
+   ========================================================= */
+
+#speedActivity {
+    color: #a9c0d4 !important;
+}
+
+
+/* =========================================================
+   SPEED LIMIT VALUES
+   ========================================================= */
+
+.speed-limit-item strong,
+.speed-limit-item span:last-child,
+.speed-limit-value {
+    color: #00aeff !important;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 0 10px rgba(0,174,255,0.18);
+}
+
+
+/* =========================================================
+   SPEED STATUS
+   ========================================================= */
+
+#speedStatusText {
+    color: #00aeff !important;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 0 12px rgba(0,174,255,0.18);
+}
+
+
+/* =========================================================
+   SPEED STATUS DOT
+   ========================================================= */
+
+#speedStatusDot {
+    background: #00aeff !important;
+
+    box-shadow:
+        0 0 7px rgba(0,174,255,0.8),
+        0 0 18px rgba(0,174,255,0.35);
+}
+
+
+/* =========================================================
+   SPEED PROGRESS BAR
+   ========================================================= */
+
+.speed-progress,
+.speed-progress-track,
+.speed-progress-container {
+    background: #111e2a !important;
+
+    border: 1px solid rgba(0,174,255,0.12);
+}
+
+
+#speedProgressBar {
+    background:
+        linear-gradient(
+            90deg,
+            #007fc4,
+            #00aeff
+        ) !important;
+
+    box-shadow:
+        0 0 12px rgba(0,174,255,0.35);
+}
+
+
+/* =========================================================
+   MAP CONTAINER
+   ========================================================= */
+
+#realMap {
+    position: relative;
+
+    background: #08121c !important;
+
+    border: 1px solid rgba(0,174,255,0.18);
+
+    box-shadow:
+        inset 0 0 50px rgba(0,0,0,0.35);
+}
+
+
+/* =========================================================
+   LEAFLET MAP DARKEN
+   ========================================================= */
+
+#realMap .leaflet-tile {
+    filter:
+        brightness(0.48)
+        contrast(1.18)
+        saturate(0.65)
+        hue-rotate(165deg);
+}
+
+
+/* =========================================================
+   MAP OVERLAY
+   ========================================================= */
+
+#realMap::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 400;
+
+    background:
+        linear-gradient(
+            rgba(0,174,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0,174,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 48px 48px;
+
+    mix-blend-mode: screen;
+}
+
+
+/* =========================================================
+   LEAFLET CONTROLS
+   ========================================================= */
+
+#realMap .leaflet-control-zoom {
+    border: 1px solid rgba(0,174,255,0.25) !important;
+
+    border-radius: 14px !important;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.45);
+}
+
+
+#realMap .leaflet-control-zoom a {
+    width: 44px !important;
+    height: 44px !important;
+
+    line-height: 44px !important;
+
+    background: #08131f !important;
+
+    color: #dcecff !important;
+
+    border-color: rgba(0,174,255,0.16) !important;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+#realMap .leaflet-control-zoom a:hover {
+    background: #0d2436 !important;
+
+    color: #00aeff !important;
+}
+
+
+/* =========================================================
+   TERRITORY STATUS
+   ========================================================= */
+
+#territoryStatus {
+    color: #00aeff !important;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 0 12px rgba(0,174,255,0.20);
+}
+
+
+/* =========================================================
+   TERRITORY GRID CELLS
+   ========================================================= */
+
+.territory-cell {
+    background: rgba(0,174,255,0.045) !important;
+
+    border-color:
+        rgba(0,174,255,0.14) !important;
+}
+
+
+.territory-cell.captured {
+    background:
+        rgba(0,174,255,0.20) !important;
+
+    border-color:
+        rgba(0,174,255,0.55) !important;
+
+    box-shadow:
+        inset 0 0 15px rgba(0,174,255,0.12),
+        0 0 8px rgba(0,174,255,0.08);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .speed-monitor-card {
+        border-radius: 12px;
+    }
+
+    .speed-limit-item {
+        border-radius: 11px;
+    }
+
+    #realMap .leaflet-control-zoom a {
+        width: 40px !important;
+        height: 40px !important;
+        line-height: 40px !important;
+    }
+
+}
