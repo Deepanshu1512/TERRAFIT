@@ -52,6 +52,8 @@
         rel="stylesheet"
         href="style.css"
     >
+    <!-- TERRAFIT AVATAR SYSTEM -->
+<link rel="stylesheet" href="avatar/avatar.css">
 
 </head>
 
@@ -1820,12 +1822,21 @@
 
                                     <div class="player-cell">
 
-                                        <div
-                                            class="player-avatar"
-                                            id="leaderboardAvatarLetter"
-                                        >
-                                            P
-                                        </div>
+                                        <div class="tf-avatar-frame">
+    <div
+        id="leaderboardAvatarLetter"
+        class="tf-avatar tf-avatar-md"
+        aria-label="Player avatar"
+    >
+        P
+    </div>
+
+    <span
+        class="tf-avatar-status online"
+        aria-label="Online"
+    ></span>
+    <span id="playerName">Deepanshu</span>
+</div>
 
 
                                         <div>
@@ -1900,19 +1911,54 @@
                     <div class="profile-header-meta">
 
 
-                        <div
-                            class="profile-avatar-large"
-                            id="profileAvatarLetter"
-                        >
-                            P
+                        <div class="profile-avatar-large tf-avatar-frame tf-avatar-interactive" id="profileAvatarTrigger" role="button" tabindex="0" title="Click to customize avatar">
+                            <div
+                                id="profileAvatarLetter"
+                                class="tf-avatar tf-avatar-xl"
+                                aria-label="Player avatar"
+                            >
+                                P
+                            </div>
+
+                            <span
+                                class="tf-avatar-status online"
+                                aria-label="Online"
+                            ></span>
+
+                            <button
+                                class="tf-avatar-edit-badge"
+                                id="editAvatarBtn"
+                                type="button"
+                                aria-label="Customize avatar"
+                                title="Customize avatar"
+                            >
+                                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 20h9"></path>
+                                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                </svg>
+                            </button>
                         </div>
 
 
                         <div class="profile-titles">
 
-                            <span class="profile-tag-pill">
-                                UNRANKED OPERATOR
-                            </span>
+                            <div class="profile-title-header-row">
+                                <span class="profile-tag-pill">
+                                    UNRANKED OPERATOR
+                                </span>
+
+                                <button
+                                    class="tf-avatar-customize-btn"
+                                    id="openAvatarModalBtn"
+                                    type="button"
+                                >
+                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                    CUSTOMIZE AVATAR
+                                </button>
+                            </div>
 
 
                             <h4 id="profilePlayerName">
@@ -2213,55 +2259,183 @@
 
 
     <!-- =====================================================
-         JAVASCRIPT LIBRARIES
+         AVATAR CUSTOMIZATION MODAL
     ====================================================== -->
+    <div class="tf-modal-overlay" id="avatarModal" aria-hidden="true" role="dialog" aria-labelledby="avatarModalTitle">
+        <div class="tf-modal-card">
+            <!-- HEADER -->
+            <div class="tf-modal-header">
+                <div class="tf-modal-header-text">
+                    <span class="tf-modal-badge">
+                        <span class="tf-pulse-dot"></span>
+                        OPERATOR IDENTITY PROTOCOL
+                    </span>
+                    <h3 id="avatarModalTitle" class="tf-modal-title">AVATAR CUSTOMIZATION</h3>
+                    <p class="tf-modal-subtitle">Configure your tactical avatar, custom monogram, or deployment emblem.</p>
+                </div>
+                <button class="tf-modal-close" id="closeAvatarModalBtn" type="button" aria-label="Close modal">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
 
+            <!-- BODY (2-COLUMN GRID) -->
+            <div class="tf-modal-body">
+                <!-- LEFT COLUMN: LIVE PREVIEW & FRAME SELECTOR -->
+                <div class="tf-modal-left">
+                    <div class="tf-preview-container">
+                        <div class="tf-preview-stage">
+                            <div class="tf-avatar-frame frame-standard" id="avatarModalPreviewFrame">
+                                <div class="tf-avatar tf-avatar-xl" id="avatarModalPreview" aria-label="Avatar preview">
+                                    <span class="tf-avatar-letter">P</span>
+                                </div>
+                                <span class="tf-avatar-status online" id="avatarModalPreviewStatus"></span>
+                            </div>
+                        </div>
+                        <div class="tf-preview-meta">
+                            <div class="tf-preview-type" id="avatarModalPreviewType">TACTICAL PRESET: CYBER RUNNER</div>
+                            <div class="tf-preview-frame-label" id="avatarModalPreviewFrameLabel">FRAME: STANDARD</div>
+                        </div>
+                    </div>
 
-    <!-- LEAFLET -->
+                    <!-- FRAME SELECTOR -->
+                    <div class="tf-frame-selector-section">
+                        <label class="tf-section-label">TACTICAL FRAME</label>
+                        <div class="tf-frame-options" id="avatarFrameOptions">
+                            <button type="button" class="tf-frame-btn active" data-frame="standard">
+                                <span class="tf-frame-swatch frame-swatch-standard"></span>
+                                <span class="tf-frame-name">Standard</span>
+                            </button>
+                            <button type="button" class="tf-frame-btn" data-frame="titanium">
+                                <span class="tf-frame-swatch frame-swatch-titanium"></span>
+                                <span class="tf-frame-name">Titanium</span>
+                            </button>
+                            <button type="button" class="tf-frame-btn" data-frame="pulse">
+                                <span class="tf-frame-swatch frame-swatch-pulse"></span>
+                                <span class="tf-frame-name">Neon Pulse</span>
+                            </button>
+                            <button type="button" class="tf-frame-btn" data-frame="cyber">
+                                <span class="tf-frame-swatch frame-swatch-cyber"></span>
+                                <span class="tf-frame-name">Cyber Grid</span>
+                            </button>
+                            <button type="button" class="tf-frame-btn" data-frame="gold">
+                                <span class="tf-frame-swatch frame-swatch-gold"></span>
+                                <span class="tf-frame-name">Apex Gold</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-    <script
-        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    ></script>
+                <!-- RIGHT COLUMN: MODE TABS & OPTIONS -->
+                <div class="tf-modal-right">
+                    <!-- TABS -->
+                    <div class="tf-modal-tabs" role="tablist">
+                        <button type="button" class="tf-modal-tab active" id="tabPresetsBtn" role="tab" aria-selected="true" data-tab="presets">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            PRESETS
+                        </button>
+                        <button type="button" class="tf-modal-tab" id="tabMonogramBtn" role="tab" aria-selected="false" data-tab="monogram">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+                            MONOGRAM
+                        </button>
+                        <button type="button" class="tf-modal-tab" id="tabUploadBtn" role="tab" aria-selected="false" data-tab="upload">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            IMAGE UPLOAD
+                        </button>
+                    </div>
 
+                    <!-- TAB PANELS -->
+                    <div class="tf-tab-panels">
+                        <!-- PANEL 1: PRESETS -->
+                        <div class="tf-tab-panel active" id="panelPresets" role="tabpanel">
+                            <div class="tf-panel-intro">Select an official tactical operative avatar:</div>
+                            <div class="tf-preset-grid" id="avatarPresetGrid">
+                                <!-- Populated dynamically by avatar.js -->
+                            </div>
+                        </div>
 
+                        <!-- PANEL 2: MONOGRAM -->
+                        <div class="tf-tab-panel" id="panelMonogram" role="tabpanel" style="display: none;">
+                            <div class="tf-panel-intro">Craft a custom tactical monogram with your callsign initials:</div>
+                            <div class="tf-form-group">
+                                <label for="avatarMonogramInput" class="tf-field-label">CALLSIGN INITIALS (MAX 2 CHARACTERS)</label>
+                                <div class="tf-input-wrapper">
+                                    <input type="text" id="avatarMonogramInput" maxlength="2" placeholder="TF" autocomplete="off" class="tf-monogram-input">
+                                </div>
+                            </div>
+                            <div class="tf-form-group">
+                                <label class="tf-field-label">ACCENT COLOR THEME</label>
+                                <div class="tf-color-swatches" id="avatarColorSwatches">
+                                    <!-- Populated dynamically by avatar.js -->
+                                </div>
+                            </div>
+                        </div>
 
-    <!-- SUPABASE -->
+                        <!-- PANEL 3: UPLOAD -->
+                        <div class="tf-tab-panel" id="panelUpload" role="tabpanel" style="display: none;">
+                            <div class="tf-panel-intro">Upload your custom emblem or profile picture:</div>
+                            <div class="tf-upload-zone" id="avatarDropzone">
+                                <input type="file" id="avatarFileInput" accept="image/png, image/jpeg, image/webp, image/svg+xml" style="display: none;">
+                                <div class="tf-upload-content">
+                                    <div class="tf-upload-icon-circle">
+                                        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </div>
+                                    <p class="tf-upload-title">Drag & drop your image here, or <span class="tf-upload-browse">browse</span></p>
+                                    <span class="tf-upload-hint">Supports PNG, JPG, SVG, WebP. Automatically optimized & compressed.</span>
+                                </div>
+                            </div>
+                            <div class="tf-upload-actions" id="avatarUploadActions" style="display: none;">
+                                <span class="tf-upload-file-name" id="avatarFileName">custom-avatar.png</span>
+                                <button type="button" class="tf-btn-sm tf-btn-danger" id="avatarClearUploadBtn">Remove Image</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-    ></script>
+            <!-- FOOTER -->
+            <div class="tf-modal-footer">
+                <button type="button" class="tf-btn tf-btn-ghost" id="resetAvatarBtn">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    RESET DEFAULT
+                </button>
+                <div class="tf-modal-footer-actions">
+                    <button type="button" class="tf-btn tf-btn-secondary" id="cancelAvatarBtn">CANCEL</button>
+                    <button type="button" class="tf-btn tf-btn-primary" id="saveAvatarBtn">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        DEPLOY AVATAR
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- =========================================================
+         EXTERNAL LIBRARIES
+    ========================================================= -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
-    <!-- =====================================================
-         TERRAFIT APPLICATION
-         
-         IMPORTANT:
-         Supabase CDN MUST load before script.js.
-    ====================================================== -->
-
-  <!-- =========================================================
-     EXTERNAL LIBRARIES
-========================================================= -->
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-
-<!-- =========================================================
-     TERRAFIT MODULAR JAVASCRIPT
-========================================================= -->
-
-<script src="script/config.js"></script>
-<script src="script/core.js"></script>
-<script src="script/navigation.js"></script>
-<script src="script/activity-type.js"></script>
-<script src="script/map.js"></script>
-<script src="script/territory.js"></script>
-<script src="script/activity.js"></script>
-<script src="script/stats.js"></script>
-<script src="script/auth.js"></script>
-<script src="script/app.js"></script>
+    <!-- =========================================================
+         TERRAFIT MODULAR JAVASCRIPT
+    ========================================================= -->
+    <script src="script/config.js"></script>
+    <script src="script/core.js"></script>
+    <script src="script/navigation.js"></script>
+    <script src="script/activity-type.js"></script>
+    <script src="script/map.js"></script>
+    <script src="script/territory.js"></script>
+    <script src="script/activity.js"></script>
+    <script src="script/stats.js"></script>
+    <script src="script/auth.js"></script>
+    <script src="script/app.js"></script>
+    <script src="avatar/avatar.js"></script>
 
 </body>
 </html>
