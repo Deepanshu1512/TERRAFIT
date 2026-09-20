@@ -1,158 +1,152 @@
 /* =========================================================
-   TERRAFIT ACTIVITY TYPE
-   Activity selection + normalization + speed helpers.
-========================================================= */
+   TERRAFIT — ACTIVITY TYPE SELECTION
+   ========================================================= */
+
+const activityTypes = document.querySelectorAll(
+    ".activity-type"
+);
 
 
 /* =========================================================
-   ACTIVITY TYPE BUTTONS
-========================================================= */
+   SPEED LIMIT DISPLAY
+   ========================================================= */
 
-const activityTypeButtons =
-    document.querySelectorAll(
-        ".activity-type-btn"
-    );
+function updateSelectedSpeedLimitDisplay() {
 
-
-/* =========================================================
-   NORMALIZE ACTIVITY TYPE
-========================================================= */
-
-function normalizeActivityType(
-    activityType
-) {
-
-    if (!activityType) {
-        return "walking";
-    }
-
-    const normalized =
-        activityType
-            .toString()
+    const currentActivity =
+        String(selectedActivity || "walking")
             .trim()
             .toLowerCase();
 
-    if (
-        normalized === "walk" ||
-        normalized === "walking"
-    ) {
-        return "walking";
-    }
-
-    if (
-        normalized === "run" ||
-        normalized === "running"
-    ) {
-        return "running";
-    }
-
-    if (
-        normalized === "cycle" ||
-        normalized === "cycling" ||
-        normalized === "bicycle"
-    ) {
-        return "cycling";
-    }
-
-    return "walking";
-}
-
-
-/* =========================================================
-   ACTIVITY DISPLAY NAME
-========================================================= */
-
-function getActivityName(
-    activityType
-) {
-
-    const normalized =
-        normalizeActivityType(
-            activityType
+    const speedItems =
+        document.querySelectorAll(
+            ".speed-limit-item"
         );
 
-    if (normalized === "running") {
-        return "Running";
-    }
 
-    if (normalized === "cycling") {
-        return "Cycling";
-    }
+    speedItems.forEach(item => {
 
-    return "Walking";
-}
+        const activity =
+            String(
+                item.dataset.speedActivity || ""
+            )
+            .trim()
+            .toLowerCase();
 
 
-/* =========================================================
-   GET SPEED LIMIT
-========================================================= */
+        const isSelected =
+            activity === currentActivity;
 
-function getSpeedLimit(
-    activityType
-) {
 
-    const normalized =
-        normalizeActivityType(
-            activityType
+        /* -----------------------------------------
+           ONLY SHOW SELECTED ACTIVITY
+        ----------------------------------------- */
+
+        item.classList.toggle(
+            "active",
+            isSelected
         );
 
-    return (
-        TERRAFIT_SPEED_LIMITS[
-            normalized
-        ] || TERRAFIT_SPEED_LIMITS.walking
-    );
+
+        item.style.display =
+            isSelected ? "flex" : "none";
+
+    });
+
+
+    /* ---------------------------------------------
+       UPDATE SPEED ACTIVITY LABEL
+    --------------------------------------------- */
+
+    const speedActivity =
+        document.getElementById("speedActivity");
+
+
+    if (speedActivity) {
+
+        const formattedActivity =
+            currentActivity.charAt(0).toUpperCase() +
+            currentActivity.slice(1);
+
+        speedActivity.textContent =
+            formattedActivity;
+
+    }
 
 }
 
 
 /* =========================================================
-   UPDATE ACTIVITY TYPE UI
-========================================================= */
+   ACTIVITY SELECTION
+   ========================================================= */
 
-function updateActivityTypeUI() {
+activityTypes.forEach(button => {
 
-    const normalized =
-        normalizeActivityType(
-            selectedActivity
-        );
+    button.addEventListener(
+        "click",
+        () => {
 
-    const activityName =
-        getActivityName(
-            normalized
-        );
+            /* -----------------------------------------
+               DON'T CHANGE ACTIVITY WHILE RUNNING
+            ----------------------------------------- */
 
-    const speedLimit =
-        getSpeedLimit(
-            normalized
-        );
+            if (activityRunning) {
+                return;
+            }
 
 
-    /* -----------------------------------------------------
-       Update selected button
-    ----------------------------------------------------- */
+            /* -----------------------------------------
+               REMOVE OLD ACTIVE STATE
+            ----------------------------------------- */
 
-    activityTypeButtons.forEach(
-        (button) => {
+            activityTypes.forEach(btn => {
 
-            const buttonType =
-                normalizeActivityType(
-                    button.dataset.activity ||
-                    button.dataset.type ||
-                    button.textContent
+                btn.classList.remove(
+                    "active"
                 );
+
+            });
+
+
+            /* -----------------------------------------
+               ACTIVATE SELECTED ACTIVITY
+            ----------------------------------------- */
+
+            button.classList.add(
+                "active"
+            );
+
+
+            /* -----------------------------------------
+               SAVE ACTIVITY TYPE
+            ----------------------------------------- */
+
+            if (button.dataset.type) {
+
+                selectedActivity =
+                    button.dataset.type;
+
+            }
+
+
+            /* -----------------------------------------
+               UPDATE SPEED LIMIT DISPLAY
+            ----------------------------------------- */
+
+            updateSelectedSpeedLimitDisplay();
+
+
+            /* -----------------------------------------
+               UPDATE SPEED MONITOR
+            ----------------------------------------- */
 
             if (
-                buttonType === normalized
+                typeof updateSpeedUI ===
+                "function"
             ) {
 
-                button.classList.add(
-                    "active"
-                );
-
-            } else {
-
-                button.classList.remove(
-                    "active"
+                updateSpeedUI(
+                    currentSpeedKmh
                 );
 
             }
@@ -160,71 +154,11 @@ function updateActivityTypeUI() {
         }
     );
 
-
-    /* -----------------------------------------------------
-       Update speed monitor
-    ----------------------------------------------------- */
-
-    if (speedActivityDisplay) {
-
-        speedActivityDisplay.textContent =
-            activityName;
-
-    }
-
-    if (speedLimitDisplay) {
-
-        speedLimitDisplay.textContent =
-            `${speedLimit} km/h`;
-
-    }
-
-}
+});
 
 
 /* =========================================================
-   ACTIVITY TYPE CLICK HANDLERS
-========================================================= */
+   INITIAL STATE
+   ========================================================= */
 
-activityTypeButtons.forEach(
-    (button) => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const selectedType =
-                    button.dataset.activity ||
-                    button.dataset.type ||
-                    button.textContent;
-
-                selectedActivity =
-                    getActivityName(
-                        selectedType
-                    );
-
-                updateActivityTypeUI();
-
-                if (
-                    typeof updateSpeedUI ===
-                    "function"
-                ) {
-
-                    updateSpeedUI(
-                        currentSpeedKmh
-                    );
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================================
-   INITIAL ACTIVITY UI
-========================================================= */
-
-updateActivityTypeUI();
+updateSelectedSpeedLimitDisplay();

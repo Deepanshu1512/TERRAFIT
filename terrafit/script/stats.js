@@ -123,6 +123,205 @@ async function updateSupabaseStats(
 
 
 /* =========================================================
+   SPEED UI
+========================================================= */
+
+function updateSpeedUI(
+    speed = 0
+) {
+
+    const currentSpeed =
+        Math.max(
+            0,
+            Number(speed) || 0
+        );
+
+
+    /* -----------------------------------------
+       CURRENT ACTIVITY
+    ----------------------------------------- */
+
+    const activity =
+        String(
+            selectedActivity ||
+            "Walking"
+        )
+        .trim()
+        .toLowerCase();
+
+
+    /* -----------------------------------------
+       SPEED LIMIT
+    ----------------------------------------- */
+
+    const speedLimit =
+        typeof getSpeedLimit ===
+        "function"
+
+            ? Number(
+                getSpeedLimit(
+                    selectedActivity
+                )
+            )
+
+            : Number(
+                TERRAFIT_SPEED_LIMITS[
+                    activity
+                ] || 0
+            );
+
+
+    /* -----------------------------------------
+       UPDATE LIVE SPEED
+    ----------------------------------------- */
+
+    if (liveSpeedDisplay) {
+
+        liveSpeedDisplay.textContent =
+            currentSpeed.toFixed(1);
+
+    }
+
+
+    /* -----------------------------------------
+       UPDATE SPEED LIMIT
+    ----------------------------------------- */
+
+    if (speedLimitDisplay) {
+
+        speedLimitDisplay.textContent =
+            speedLimit.toFixed(0);
+
+    }
+
+
+    /* -----------------------------------------
+       UPDATE ACTIVITY LABEL
+    ----------------------------------------- */
+
+    if (speedActivityDisplay) {
+
+        speedActivityDisplay.textContent =
+            activity.charAt(0).toUpperCase() +
+            activity.slice(1);
+
+    }
+
+
+    /* -----------------------------------------
+       SPEED STATUS
+    ----------------------------------------- */
+
+    let status =
+        "READY";
+
+    if (
+        currentSpeed <= 0.5
+    ) {
+
+        status =
+            "STATIONARY";
+
+    }
+
+    else if (
+        speedLimit > 0 &&
+        currentSpeed >= speedLimit
+    ) {
+
+        status =
+            "LIMIT REACHED";
+
+    }
+
+    else {
+
+        status =
+            "WITHIN LIMIT";
+
+    }
+
+
+    if (speedStatusText) {
+
+        speedStatusText.textContent =
+            status;
+
+    }
+
+
+    /* -----------------------------------------
+       STATUS DOT
+    ----------------------------------------- */
+
+    if (speedStatusDot) {
+
+        speedStatusDot.classList.toggle(
+            "warning",
+            speedLimit > 0 &&
+            currentSpeed >= speedLimit
+        );
+
+    }
+
+
+    /* -----------------------------------------
+       SPEED PROGRESS
+       0 → 100%
+    ----------------------------------------- */
+
+    if (speedProgressBar) {
+
+        let percentage = 0;
+
+        if (speedLimit > 0) {
+
+            percentage =
+                (
+                    currentSpeed /
+                    speedLimit
+                ) * 100;
+
+        }
+
+        percentage =
+            Math.min(
+                100,
+                Math.max(
+                    0,
+                    percentage
+                )
+            );
+
+        speedProgressBar.style.width =
+            `${percentage}%`;
+
+    }
+
+
+    /* -----------------------------------------
+       CARD STATE
+    ----------------------------------------- */
+
+    if (speedMonitorCard) {
+
+        speedMonitorCard.classList.toggle(
+            "speed-warning",
+            speedLimit > 0 &&
+            currentSpeed >= speedLimit
+        );
+
+        speedMonitorCard.classList.toggle(
+            "speed-active",
+            currentSpeed > 0.5
+        );
+
+    }
+
+}
+
+
+/* =========================================================
    TIMER
 ========================================================= */
 

@@ -40,8 +40,18 @@ async function startActivity() {
         return;
     }
 
+    if (!("geolocation" in navigator)) {
+
+        alert(
+            "GPS is not supported by this browser."
+        );
+
+        return;
+    }
+
+
     /* -----------------------------------------------------
-       Reset activity state
+       RESET ACTIVITY STATE
     ----------------------------------------------------- */
 
     activityRunning = true;
@@ -66,9 +76,11 @@ async function startActivity() {
 
     currentSpeedKmh = 0;
 
+    currentActivityId = null;
+
 
     /* -----------------------------------------------------
-       Reset route line
+       RESET ROUTE LINE
     ----------------------------------------------------- */
 
     if (routeLine) {
@@ -90,7 +102,7 @@ async function startActivity() {
 
 
     /* -----------------------------------------------------
-       Reset territory state
+       RESET TERRITORY STATE
     ----------------------------------------------------- */
 
     territoryCells.forEach(
@@ -121,24 +133,27 @@ async function startActivity() {
 
 
     /* -----------------------------------------------------
-       Update UI
+       RESET UI
     ----------------------------------------------------- */
 
-    if (activityBtn) {
+    if (distanceDisplay) {
 
-        activityBtn.textContent =
-            "FINISH ACTIVITY";
+        distanceDisplay.textContent =
+            "0.00 KM";
 
-        activityBtn.classList.add(
-            "active"
-        );
+    }
+
+    if (timerDisplay) {
+
+        timerDisplay.textContent =
+            "00:00";
 
     }
 
     if (activityStatus) {
 
         activityStatus.textContent =
-            "ACTIVITY ACTIVE";
+            "ACTIVE";
 
         activityStatus.classList.add(
             "active"
@@ -146,16 +161,37 @@ async function startActivity() {
 
     }
 
-    if (gpsStatus) {
+    if (activityBtn) {
 
-        gpsStatus.textContent =
-            "GPS TRACKING";
+        activityBtn.textContent =
+            "FINISH ACTIVITY";
+
+        activityBtn.classList.add(
+            "danger-state"
+        );
+
+        activityBtn.classList.add(
+            "active"
+        );
 
     }
 
+    setGPSStatus(
+        "GPS TRACKING"
+    );
+
 
     /* -----------------------------------------------------
-       Create Supabase activity
+       RESET SPEED
+    ----------------------------------------------------- */
+
+    updateSpeedUI(
+        0
+    );
+
+
+    /* -----------------------------------------------------
+       CREATE SUPABASE ACTIVITY
     ----------------------------------------------------- */
 
     try {
@@ -167,7 +203,7 @@ async function startActivity() {
     catch (error) {
 
         console.error(
-            "TERRAFIT: Failed to create activity:",
+            "TERRAFIT: Activity creation failed:",
             error
         );
 
@@ -177,6 +213,10 @@ async function startActivity() {
 
             activityBtn.textContent =
                 "START ACTIVITY";
+
+            activityBtn.classList.remove(
+                "danger-state"
+            );
 
             activityBtn.classList.remove(
                 "active"
@@ -195,13 +235,17 @@ async function startActivity() {
 
         }
 
+        setGPSStatus(
+            "LOCATION READY"
+        );
+
         return;
 
     }
 
 
     /* -----------------------------------------------------
-       Start timer
+       START TIMER
     ----------------------------------------------------- */
 
     timerInterval =
@@ -225,682 +269,8 @@ async function startActivity() {
 
 
     /* -----------------------------------------------------
-       Start GPS watch
+       START GPS WATCH
     ----------------------------------------------------- */
-
-    if (
-        "geolocation" in navigator
-    ) {
-
-        watchId =
-            navigator.geolocation.watchPosition(
-
-                updatePlayerLocation,
-
-                handleGPSError,
-
-                {
-                    enableHighAccuracy:
-                        true,
-
-                    timeout:
-                        15000,
-
-                    maximumAge:
-                        1000
-                }
-
-            );
-
-    }
-
-    else {
-
-        alert(
-            "Geolocation is not supported by this browser."
-        );
-
-        await finishActivity();
-
-    }
-
-}
-
-
-/* =========================================================
-   CREATE SUPABASE ACTIVITY
-========================================================= */
-
-async function createSupabaseActivity() {
-
-    if (
-        !supabaseClient ||
-        !currentUser
-    ) {
-
-        return;
-
-    }
-
-    const activityType =
-        normalizeActivityType(
-            selectedActivity
-        );
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .from("activities")
-            .insert({
-
-                user_id:
-                    currentUser.id,
-
-                activity_type:
-                    activityType,
-
-                status:
-                    "active",
-
-                distance_km:
-                    0,
-
-                duration_seconds:
-                    0,
-
-                xp_earned:
-                    0
-
-            })
-            .select()
-            .single();
-
-
-    if (error) {
-
-        console.error(
-            "TERRAFIT: Activity creation error:",
-            error
-        );
-
-        throw error;
-
-    }
-
-    currentActivityId =
-        data.id;
-
-}
-
-
-/* =========================================================
-   UPDATE PLAYER LOCATION
-========================================================= */
-
-function updatePlayerLocation(
-    position
-) {
-
-    if (!position) {
-        return;
-    }
-
-    const latitude =
-        position.coords.latitude;
-
-    const longitude =
-        position.coords.longitude;
-
-    const accuracy =
-        position.coords.accuracy;
-
-
-    /* -----------------------------------------------------
-       Update current location
-    ----------------------------------------------------- */
-
-    currentUserLocation = {
-
-        latitude:
-            latitude,
-
-        longitude:
-            longitude
-
-    };
-
-    locationReady =
-        true;
-
-
-    const coordinates = [
-        latitude,
-        longitude
-    ];
-
-
-    /* -----------------------------------------------------
-       Update player marker
-    ----------------------------------------------------- */
-
-    if (
-        typeof createOrUpdatePlayerMarker ===
-        "function"
-    ) {
-
-        createOrUpdatePlayerMarker(
-            coordinates
-        );
-
-    }
-
-
-    /* -----------------------------------------------------
-       Update accuracy circle
-    ----------------------------------------------------- */
-
-    if (
-        typeof createAccuracyCircle ===
-        "function"
-    ) {
-
-        createAccuracyCircle(
-            coordinates,
-            accuracy
-        );
-
-    }
-
-
-    /* -----------------------------------------------------
-       Center map while activity is running
-    ----------------------------------------------------- */
-
-    if (
-        map &&
-        activityRunning
-    ) {
-
-        map.panTo(
-            coordinates,
-            {
-                animate:
-                    true,
-
-                duration:
-                    0.5
-            }
-        );
-
-    }
-
-
-    /* -----------------------------------------------------
-       Add route point
-    ----------------------------------------------------- */
-
-    if (
-        activityRunning
-    ) {
-
-        addRoutePoint(
-            latitude,
-            longitude,
-            position
-        );
-
-    }
-
-
-    /* -----------------------------------------------------
-       Update GPS status
-    ----------------------------------------------------- */
-
-    if (
-        typeof setGPSStatus ===
-        "function"
-    ) {
-
-        setGPSStatus(
-            activityRunning
-                ? "GPS TRACKING"
-                : "GPS READY"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   ADD ROUTE POINT
-========================================================= */
-
-function addRoutePoint(
-    latitude,
-    longitude,
-    position
-) {
-
-    if (
-        !activityRunning
-    ) {
-
-        return;
-
-    }
-
-    const now =
-        Date.now();
-
-
-    /* -----------------------------------------------------
-       First point
-    ----------------------------------------------------- */
-
-    if (
-        routeCoordinates.length === 0
-    ) {
-
-        routeCoordinates.push([
-            latitude,
-            longitude
-        ]);
-
-        lastPointTime =
-            now;
-
-        lastPointLat =
-            latitude;
-
-        lastPointLon =
-            longitude;
-
-        lastPosition =
-            position;
-
-        lastSpeedPoint = {
-
-            latitude:
-                latitude,
-
-            longitude:
-                longitude,
-
-            time:
-                now
-
-        };
-
-
-        /* Create route line */
-
-        if (map) {
-
-            routeLine =
-                L.polyline(
-                    routeCoordinates,
-                    {
-                        color:
-                            "#0066ff",
-
-                        weight:
-                            5,
-
-                        opacity:
-                            0.9,
-
-                        lineCap:
-                            "round",
-
-                        lineJoin:
-                            "round"
-                    }
-                )
-                .addTo(map);
-
-        }
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------------------
-       Distance from previous point
-    ----------------------------------------------------- */
-
-    const pointDistance =
-        calculateDistance(
-            lastPointLat,
-            lastPointLon,
-            latitude,
-            longitude
-        );
-
-
-    /* -----------------------------------------------------
-       Time from previous point
-    ----------------------------------------------------- */
-
-    const timeDifference =
-        (
-            now -
-            lastPointTime
-        ) / 1000;
-
-
-    /* -----------------------------------------------------
-       Ignore impossible / duplicate points
-    ----------------------------------------------------- */
-
-    if (
-        pointDistance <= 0
-    ) {
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------------------
-       Calculate instantaneous speed
-    ----------------------------------------------------- */
-
-    let pointSpeed =
-        0;
-
-    if (
-        timeDifference > 0
-    ) {
-
-        pointSpeed =
-            (
-                pointDistance /
-                timeDifference
-            ) *
-            3600;
-
-    }
-
-
-    /* -----------------------------------------------------
-       Reject suspicious GPS jumps
-    ----------------------------------------------------- */
-
-    const speedLimit =
-        getSpeedLimit(
-            selectedActivity
-        );
-
-
-    if (
-        pointSpeed >
-        speedLimit * 2
-    ) {
-
-        console.warn(
-            "TERRAFIT: Ignoring suspicious GPS point.",
-            {
-                speed:
-                    pointSpeed,
-
-                limit:
-                    speedLimit
-            }
-        );
-
-        return;
-
-    }
-
-
-    /* -----------------------------------------------------
-       Add valid point
-    ----------------------------------------------------- */
-
-    routeCoordinates.push([
-        latitude,
-        longitude
-    ]);
-
-    distance +=
-        pointDistance;
-
-    lastPointTime =
-        now;
-
-    lastPointLat =
-        latitude;
-
-    lastPointLon =
-        longitude;
-
-    lastPosition =
-        position;
-
-
-    /* -----------------------------------------------------
-       Update route line
-    ----------------------------------------------------- */
-
-    if (routeLine) {
-
-        routeLine.setLatLngs(
-            routeCoordinates
-        );
-
-    }
-
-
-    /* -----------------------------------------------------
-       Calculate GPS speed
-    ----------------------------------------------------- */
-
-    currentSpeedKmh =
-        calculateGpsSpeed(
-            latitude,
-            longitude,
-            now
-        );
-
-
-    /* -----------------------------------------------------
-       Update speed UI
-    ----------------------------------------------------- */
-
-    if (
-        typeof updateSpeedUI ===
-        "function"
-    ) {
-
-        updateSpeedUI(
-            currentSpeedKmh
-        );
-
-    }
-
-
-    /* -----------------------------------------------------
-       Update distance UI
-    ----------------------------------------------------- */
-
-    if (distanceDisplay) {
-
-        distanceDisplay.textContent =
-            distance.toFixed(2);
-
-    }
-
-
-    /* -----------------------------------------------------
-       Save GPS point
-    ----------------------------------------------------- */
-
-    saveActivityPoint(
-        latitude,
-        longitude,
-        currentSpeedKmh
-    );
-
-
-    /* -----------------------------------------------------
-       Check territory capture
-    ----------------------------------------------------- */
-
-    if (
-        typeof checkTerritoryCapture ===
-        "function"
-    ) {
-
-        checkTerritoryCapture(
-            latitude,
-            longitude
-        );
-
-    }
-
-}
-/* =========================================================
-   START ACTIVITY
-========================================================= */
-
-async function startActivity() {
-
-    if (!currentUser) {
-
-        showAuthMessage(
-            "Please log in before starting an activity."
-        );
-
-        if (authOverlay) {
-
-            authOverlay.classList.add(
-                "active"
-            );
-
-        }
-
-        switchAuthMode(
-            "login"
-        );
-
-        return;
-
-    }
-
-    if (!locationReady) {
-
-        showLocationSetup();
-
-        return;
-
-    }
-
-    if (
-        !("geolocation" in navigator)
-    ) {
-
-        alert(
-            "GPS is not supported by this browser."
-        );
-
-        return;
-
-    }
-
-    activityRunning =
-        true;
-
-    seconds =
-        0;
-
-    distance =
-        0;
-
-    routeCoordinates =
-        [];
-
-    capturedTerritories =
-        new Set();
-
-    lastPosition =
-        null;
-
-    lastSpeedPoint =
-        null;
-
-    currentSpeedKmh =
-        0;
-
-    lastPointTime =
-        0;
-
-    lastPointLat =
-        null;
-
-    lastPointLon =
-        null;
-
-    currentActivityId =
-        null;
-
-    if (routeLine) {
-
-        map.removeLayer(
-            routeLine
-        );
-
-        routeLine =
-            null;
-
-    }
-
-    if (distanceDisplay) {
-
-        distanceDisplay.textContent =
-            "0.00 KM";
-
-    }
-
-    if (timerDisplay) {
-
-        timerDisplay.textContent =
-            "00:00";
-
-    }
-
-    if (activityStatus) {
-
-        activityStatus.textContent =
-            "ACTIVE";
-
-    }
-
-    activityBtn.textContent =
-        "FINISH ACTIVITY";
-
-    activityBtn.classList.add(
-        "danger-state"
-    );
-
-    setGPSStatus(
-        "GPS TRACKING"
-    );
-
-    updateSpeedUI(
-        0
-    );
-
-    await createSupabaseActivity();
-
-    timerInterval =
-        setInterval(
-            updateTimer,
-            1000
-        );
 
     watchId =
         navigator.geolocation.watchPosition(
@@ -943,71 +313,66 @@ async function createSupabaseActivity() {
     }
 
     const activityType =
-        normalizeActivity(
-            selectedActivity
-        );
+        typeof normalizeActivity === "function"
+            ? normalizeActivity(
+                selectedActivity
+            )
+            : String(
+                selectedActivity || "walking"
+            ).toLowerCase();
 
-    try {
 
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .from("activities")
-                .insert({
+    const {
+        data,
+        error
+    } =
+        await supabaseClient
+            .from("activities")
+            .insert({
 
-                    user_id:
-                        currentUser.id,
+                user_id:
+                    currentUser.id,
 
-                    activity_type:
-                        activityType,
+                activity_type:
+                    activityType,
 
-                    status:
-                        "active",
+                status:
+                    "active",
 
-                    distance_km:
-                        0,
+                distance_km:
+                    0,
 
-                    duration_seconds:
-                        0,
+                duration_seconds:
+                    0,
 
-                    xp_earned:
-                        0
+                xp_earned:
+                    0
 
-                })
-                .select()
-                .single();
+            })
+            .select()
+            .single();
 
-        if (error) {
 
-            console.error(
-                "TERRAFIT: Activity creation failed:",
-                error
-            );
-
-            return;
-
-        }
-
-        currentActivityId =
-            data.id;
-
-        console.log(
-            "TERRAFIT: Activity created:",
-            currentActivityId
-        );
-
-    }
-
-    catch (error) {
+    if (error) {
 
         console.error(
-            "TERRAFIT: Activity creation error:",
+            "TERRAFIT: Activity creation failed:",
             error
         );
 
+        throw error;
+
     }
+
+
+    currentActivityId =
+        data.id;
+
+
+    console.log(
+        "TERRAFIT: Activity created:",
+        currentActivityId
+    );
 
 }
 
@@ -1019,6 +384,11 @@ async function createSupabaseActivity() {
 function updatePlayerLocation(
     position
 ) {
+
+    if (!position) {
+        return;
+    }
+
 
     const latitude =
         position.coords.latitude;
@@ -1033,10 +403,16 @@ function updatePlayerLocation(
         position.timestamp ||
         Date.now();
 
+
     const coordinates = [
         latitude,
         longitude
     ];
+
+
+    /* -----------------------------------------------------
+       SAVE CURRENT LOCATION
+    ----------------------------------------------------- */
 
     currentUserLocation = {
 
@@ -1051,14 +427,77 @@ function updatePlayerLocation(
     locationReady =
         true;
 
-    createOrUpdatePlayerMarker(
-        coordinates
-    );
 
-    createAccuracyCircle(
-        coordinates,
-        accuracy
-    );
+    /* -----------------------------------------------------
+       UPDATE PLAYER MARKER
+    ----------------------------------------------------- */
+
+    if (
+        typeof createOrUpdatePlayerMarker ===
+        "function"
+    ) {
+
+        createOrUpdatePlayerMarker(
+            coordinates
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       UPDATE ACCURACY CIRCLE
+    ----------------------------------------------------- */
+
+    if (
+        typeof createAccuracyCircle ===
+        "function"
+    ) {
+
+        createAccuracyCircle(
+            coordinates,
+            accuracy
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       MAP BEHAVIOUR
+    ----------------------------------------------------- */
+
+    if (
+        map &&
+        activityRunning
+    ) {
+
+        map.panTo(
+            coordinates,
+            {
+
+                animate:
+                    true,
+
+                duration:
+                    0.5
+
+            }
+        );
+
+    }
+
+    else if (map) {
+
+        map.setView(
+            coordinates,
+            map.getZoom()
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       ACTIVITY TRACKING
+    ----------------------------------------------------- */
 
     if (activityRunning) {
 
@@ -1068,44 +507,25 @@ function updatePlayerLocation(
             timestamp
         );
 
-        const speed =
-            calculateGpsSpeed(
-                latitude,
-                longitude,
-                timestamp
-            );
-
-        updateSpeedUI(
-            speed
-        );
-
-        saveActivityPoint(
-            latitude,
-            longitude,
-            timestamp
-        );
-
-    } else {
-
-        if (map) {
-
-            map.setView(
-                coordinates,
-                map.getZoom()
-            );
-
-        }
-
     }
 
-    lastPosition =
-        position;
 
-    setGPSStatus(
-        activityRunning
-            ? "GPS ACTIVE"
-            : "GPS READY"
-    );
+    /* -----------------------------------------------------
+       GPS STATUS
+    ----------------------------------------------------- */
+
+    if (
+        typeof setGPSStatus ===
+        "function"
+    ) {
+
+        setGPSStatus(
+            activityRunning
+                ? "GPS TRACKING"
+                : "GPS READY"
+        );
+
+    }
 
 }
 
@@ -1121,15 +541,18 @@ function addRoutePoint(
 ) {
 
     if (!activityRunning) {
-
         return;
-
     }
 
-    const now =
-        timestamp || Date.now();
 
-    /* FIRST POINT */
+    const now =
+        timestamp ||
+        Date.now();
+
+
+    /* -----------------------------------------------------
+       FIRST GPS POINT
+    ----------------------------------------------------- */
 
     if (
         routeCoordinates.length ===
@@ -1158,57 +581,134 @@ function addRoutePoint(
         lastPointLon =
             lon;
 
+        lastPosition =
+            null;
+
+        lastSpeedPoint = {
+
+            lat:
+                lat,
+
+            lon:
+                lon,
+
+            time:
+                now
+
+        };
+
         return;
 
     }
 
-    const timeDiff =
+
+    /* -----------------------------------------------------
+       TIME DIFFERENCE
+    ----------------------------------------------------- */
+
+    const timeDifference =
         (
             now -
             lastPointTime
         ) / 1000;
 
+
     if (
-        timeDiff <= 0
+        timeDifference <=
+        0
     ) {
 
         return;
 
     }
 
-    const segmentDistance =
+
+    /* -----------------------------------------------------
+       DISTANCE FROM PREVIOUS POINT
+    ----------------------------------------------------- */
+
+    const pointDistance =
         calculateDistance(
+
             lastPointLat,
+
             lastPointLon,
+
             lat,
+
             lon
+
         );
 
-    const speed =
-        (
-            segmentDistance /
-            timeDiff
-        ) * 3600;
-
-    const maxSpeed =
-        getSpeedLimit();
-
-    /*
-       Ignore suspicious GPS jumps.
-    */
 
     if (
-        speed >
-        maxSpeed
+        pointDistance <=
+        0
+    ) {
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       INSTANTANEOUS SPEED
+    ----------------------------------------------------- */
+
+    const pointSpeed =
+        (
+            pointDistance /
+            timeDifference
+        ) *
+        3600;
+
+
+    /* -----------------------------------------------------
+       SELECTED ACTIVITY SPEED LIMIT
+    ----------------------------------------------------- */
+
+    const speedLimit =
+        typeof getSpeedLimit ===
+        "function"
+            ? getSpeedLimit(
+                selectedActivity
+            )
+            : Infinity;
+
+
+    /* -----------------------------------------------------
+       IGNORE SUSPICIOUS GPS JUMPS
+    ----------------------------------------------------- */
+
+    if (
+        pointSpeed >
+        speedLimit * 2
     ) {
 
         console.warn(
-            `TERRAFIT: Suspicious speed detected: ${speed.toFixed(2)} km/h`
+            "TERRAFIT: Ignoring suspicious GPS point.",
+            {
+
+                speed:
+                    pointSpeed,
+
+                limit:
+                    speedLimit,
+
+                activity:
+                    selectedActivity
+
+            }
         );
 
         return;
 
     }
+
+
+    /* -----------------------------------------------------
+       ADD VALID ROUTE POINT
+    ----------------------------------------------------- */
 
     routeCoordinates.push({
 
@@ -1223,8 +723,10 @@ function addRoutePoint(
 
     });
 
+
     distance +=
-        segmentDistance;
+        pointDistance;
+
 
     lastPointTime =
         now;
@@ -1235,13 +737,78 @@ function addRoutePoint(
     lastPointLon =
         lon;
 
+
+    /* -----------------------------------------------------
+       CALCULATE GPS SPEED
+    ----------------------------------------------------- */
+
+    currentSpeedKmh =
+        calculateGpsSpeed(
+
+            lat,
+
+            lon,
+
+            now
+
+        );
+
+
+    /* -----------------------------------------------------
+       UPDATE SPEED UI
+    ----------------------------------------------------- */
+
+    if (
+        typeof updateSpeedUI ===
+        "function"
+    ) {
+
+        updateSpeedUI(
+            currentSpeedKmh
+        );
+
+    }
+
+
+    /* -----------------------------------------------------
+       UPDATE DISTANCE
+    ----------------------------------------------------- */
+
     updateDistanceDisplay();
+
+
+    /* -----------------------------------------------------
+       DRAW ROUTE
+    ----------------------------------------------------- */
 
     drawRoute();
 
-    checkRouteTerritories([
+
+    /* -----------------------------------------------------
+       SAVE GPS POINT
+    ----------------------------------------------------- */
+
+    saveActivityPoint(
+
         lat,
+
+        lon,
+
+        now
+
+    );
+
+
+    /* -----------------------------------------------------
+       CHECK TERRITORY
+    ----------------------------------------------------- */
+
+    checkRouteTerritories([
+
+        lat,
+
         lon
+
     ]);
 
 }
@@ -1263,19 +830,26 @@ function drawRoute() {
 
     }
 
+
     const points =
         routeCoordinates.map(
             point => [
+
                 point.lat,
+
                 point.lon
+
             ]
         );
+
 
     if (!routeLine) {
 
         routeLine =
             L.polyline(
+
                 points,
+
                 {
 
                     color:
@@ -1288,13 +862,19 @@ function drawRoute() {
                         0.85,
 
                     lineJoin:
+                        "round",
+
+                    lineCap:
                         "round"
 
                 }
+
             )
             .addTo(map);
 
-    } else {
+    }
+
+    else {
 
         routeLine.setLatLngs(
             points
@@ -1327,14 +907,20 @@ function updateDistanceDisplay() {
 ========================================================= */
 
 function calculateDistance(
+
     lat1,
+
     lon1,
+
     lat2,
+
     lon2
+
 ) {
 
     const earthRadius =
         6371;
+
 
     const dLat =
         toRadians(
@@ -1342,11 +928,13 @@ function calculateDistance(
             lat1
         );
 
+
     const dLon =
         toRadians(
             lon2 -
             lon1
         );
+
 
     const a =
 
@@ -1370,14 +958,19 @@ function calculateDistance(
             dLon / 2
         ) ** 2;
 
+
     const c =
         2 *
         Math.atan2(
+
             Math.sqrt(a),
+
             Math.sqrt(
                 1 - a
             )
+
         );
+
 
     return (
         earthRadius *
@@ -1392,17 +985,27 @@ function calculateDistance(
 ========================================================= */
 
 function haversineDistance(
+
     lat1,
+
     lon1,
+
     lat2,
+
     lon2
+
 ) {
 
     return calculateDistance(
+
         lat1,
+
         lon1,
+
         lat2,
+
         lon2
+
     );
 
 }
@@ -1417,9 +1020,11 @@ function toRadians(
 ) {
 
     return (
+
         degrees *
         Math.PI /
         180
+
     );
 
 }
@@ -1430,9 +1035,13 @@ function toRadians(
 ========================================================= */
 
 function calculateGpsSpeed(
+
     lat,
+
     lon,
+
     timestamp
+
 ) {
 
     if (!lastSpeedPoint) {
@@ -1454,11 +1063,13 @@ function calculateGpsSpeed(
 
     }
 
+
     const timeSeconds =
         (
             timestamp -
             lastSpeedPoint.time
         ) / 1000;
+
 
     if (
         timeSeconds <=
@@ -1468,6 +1079,7 @@ function calculateGpsSpeed(
         return currentSpeedKmh;
 
     }
+
 
     const segmentDistance =
         calculateDistance(
@@ -1482,11 +1094,14 @@ function calculateGpsSpeed(
 
         );
 
+
     const speedKmh =
         (
             segmentDistance /
             timeSeconds
-        ) * 3600;
+        ) *
+        3600;
+
 
     lastSpeedPoint = {
 
@@ -1501,17 +1116,24 @@ function calculateGpsSpeed(
 
     };
 
+
     return speedKmh;
 
 }
+
+
 /* =========================================================
    SAVE ACTIVITY POINT
 ========================================================= */
 
 async function saveActivityPoint(
+
     latitude,
+
     longitude,
+
     timestamp
+
 ) {
 
     if (
@@ -1523,6 +1145,7 @@ async function saveActivityPoint(
         return;
 
     }
+
 
     try {
 
@@ -1551,6 +1174,7 @@ async function saveActivityPoint(
                         ).toISOString()
 
                 });
+
 
         if (error) {
 
@@ -1597,8 +1221,10 @@ function checkRouteTerritories(
 
         }
 
+
         const bounds =
             territory.layer.getBounds();
+
 
         if (
             bounds.contains(
@@ -1635,9 +1261,11 @@ async function captureTerritory(
 
     }
 
+
     capturedTerritories.add(
         territory
     );
+
 
     territory.owner =
         "player";
@@ -1645,20 +1273,26 @@ async function captureTerritory(
     territory.strength =
         50;
 
+
     territory.layer.setStyle(
         getTerritoryStyle(
             "player"
         )
     );
 
+
     let currentTerritory =
         parseInt(
+
             territoryCount
                 ? territoryCount.textContent
                 : "0"
+
         ) || 0;
 
+
     currentTerritory++;
+
 
     if (territoryCount) {
 
@@ -1666,6 +1300,7 @@ async function captureTerritory(
             currentTerritory;
 
     }
+
 
     if (leaderboardTerritory) {
 
@@ -1675,6 +1310,7 @@ async function captureTerritory(
 
     }
 
+
     if (profileTerritoryStat) {
 
         profileTerritoryStat.textContent =
@@ -1683,15 +1319,20 @@ async function captureTerritory(
 
     }
 
+
     let currentXP =
         parseInt(
+
             xpCount
                 ? xpCount.textContent
                 : "0"
+
         ) || 0;
+
 
     currentXP +=
         100;
+
 
     if (xpCount) {
 
@@ -1699,6 +1340,7 @@ async function captureTerritory(
             currentXP;
 
     }
+
 
     if (leaderboardXP) {
 
@@ -1708,9 +1350,11 @@ async function captureTerritory(
 
     }
 
+
     updateProfileXP(
         currentXP
     );
+
 
     if (territoryStatus) {
 
@@ -1719,12 +1363,14 @@ async function captureTerritory(
 
     }
 
+
     if (territoryStrength) {
 
         territoryStrength.textContent =
             "50%";
 
     }
+
 
     territory.layer
         .bindPopup(`
@@ -1771,14 +1417,20 @@ function updateProfileXP(
 
     const xpPercent =
         Math.min(
+
             100,
+
             Math.round(
+
                 (
                     currentXP %
                     5000
                 ) / 50
+
             )
+
         );
+
 
     if (profileXpProgress) {
 
@@ -1786,6 +1438,7 @@ function updateProfileXP(
             `${currentXP} / 5,000 XP (${xpPercent}%)`;
 
     }
+
 
     if (profileProgressBar) {
 
@@ -1812,8 +1465,14 @@ async function finishActivity() {
 
     }
 
+
     activityRunning =
         false;
+
+
+    /* -----------------------------------------------------
+       STOP GPS
+    ----------------------------------------------------- */
 
     if (
         watchId !==
@@ -1829,6 +1488,11 @@ async function finishActivity() {
 
     }
 
+
+    /* -----------------------------------------------------
+       STOP TIMER
+    ----------------------------------------------------- */
+
     if (
         timerInterval !==
         null
@@ -1843,6 +1507,7 @@ async function finishActivity() {
 
     }
 
+
     const finalDistance =
         distance;
 
@@ -1856,27 +1521,53 @@ async function finishActivity() {
         captured *
         100;
 
+
+    /* -----------------------------------------------------
+       SAVE ACTIVITY
+    ----------------------------------------------------- */
+
     await updateSupabaseActivity(
+
         finalDistance,
+
         finalSeconds,
+
         earnedXP
+
     );
+
 
     await updateSupabaseStats(
+
         finalDistance,
+
         earnedXP,
+
         captured
+
     );
 
+
+    /* -----------------------------------------------------
+       UPDATE LOCAL STATS
+    ----------------------------------------------------- */
+
     const totalActivity =
+
         (
+
             parseFloat(
+
                 activityCount
                     ? activityCount.textContent
                     : "0"
+
             ) || 0
+
         ) +
+
         finalDistance;
+
 
     if (activityCount) {
 
@@ -1884,6 +1575,7 @@ async function finishActivity() {
             totalActivity.toFixed(1);
 
     }
+
 
     if (leaderboardDistance) {
 
@@ -1893,6 +1585,7 @@ async function finishActivity() {
 
     }
 
+
     if (profileDistanceStat) {
 
         profileDistanceStat.textContent =
@@ -1900,6 +1593,11 @@ async function finishActivity() {
             " KM";
 
     }
+
+
+    /* -----------------------------------------------------
+       STREAK
+    ----------------------------------------------------- */
 
     if (
         streakCount &&
@@ -1911,10 +1609,13 @@ async function finishActivity() {
                 streakCount.textContent
             ) || 0;
 
+
         streak++;
+
 
         streakCount.textContent =
             streak;
+
 
         if (profileStreakStat) {
 
@@ -1926,6 +1627,11 @@ async function finishActivity() {
 
     }
 
+
+    /* -----------------------------------------------------
+       RESET UI
+    ----------------------------------------------------- */
+
     if (activityBtn) {
 
         activityBtn.textContent =
@@ -1935,18 +1641,29 @@ async function finishActivity() {
             "danger-state"
         );
 
+        activityBtn.classList.remove(
+            "active"
+        );
+
     }
+
 
     if (activityStatus) {
 
         activityStatus.textContent =
             "COMPLETED";
 
+        activityStatus.classList.remove(
+            "active"
+        );
+
     }
+
 
     setGPSStatus(
         "LOCATION READY"
     );
+
 
     if (lastActivity) {
 
@@ -1955,12 +1672,27 @@ async function finishActivity() {
 
     }
 
+
+    /* -----------------------------------------------------
+       RESET SPEEDOMETER
+    ----------------------------------------------------- */
+
+    currentSpeedKmh =
+        0;
+
+
     updateSpeedUI(
         0
     );
 
+
     currentActivityId =
         null;
+
+
+    /* -----------------------------------------------------
+       COMPLETION MESSAGE
+    ----------------------------------------------------- */
 
     alert(
 
@@ -1996,9 +1728,13 @@ async function finishActivity() {
 ========================================================= */
 
 async function updateSupabaseActivity(
+
     finalDistance,
+
     finalSeconds,
+
     earnedXP
+
 ) {
 
     if (
@@ -2009,6 +1745,7 @@ async function updateSupabaseActivity(
         return;
 
     }
+
 
     try {
 
@@ -2036,9 +1773,13 @@ async function updateSupabaseActivity(
 
                 })
                 .eq(
+
                     "id",
+
                     currentActivityId
+
                 );
+
 
         if (error) {
 

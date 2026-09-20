@@ -1,7 +1,151 @@
 /* =========================================================
    TERRAFIT NAVIGATION
-   Dashboard navigation, landing view, logo and mobile menu.
+   Dashboard navigation, landing view, section scrolling,
+   logo and mobile menu.
 ========================================================= */
+
+
+/* =========================================================
+   SCROLL TO SECTION
+========================================================= */
+
+function scrollToDashboardSection(targetId) {
+
+    if (!targetId) {
+        return;
+    }
+
+    const target =
+        document.querySelector(targetId);
+
+    if (!target) {
+        console.warn(
+            "TERRAFIT: Navigation target not found:",
+            targetId
+        );
+
+        return;
+    }
+
+
+    /* -----------------------------------------
+       MAKE SURE DASHBOARD IS VISIBLE
+    ----------------------------------------- */
+
+    openDashboardView();
+
+
+    /* -----------------------------------------
+       WAIT FOR DASHBOARD TO RENDER
+    ----------------------------------------- */
+
+    setTimeout(() => {
+
+        const navbar =
+            document.querySelector(
+                ".navbar"
+            );
+
+        const navbarHeight =
+            navbar
+                ? navbar.offsetHeight
+                : 80;
+
+        const targetPosition =
+            target.getBoundingClientRect().top +
+            window.scrollY -
+            navbarHeight -
+            12;
+
+
+        window.scrollTo({
+
+            top:
+                Math.max(
+                    0,
+                    targetPosition
+                ),
+
+            behavior:
+                "smooth"
+
+        });
+
+
+        /* -----------------------------------------
+           UPDATE ACTIVE NAV LINK
+        ----------------------------------------- */
+
+        updateActiveNavLink(
+            targetId
+        );
+
+    }, 350);
+
+}
+
+
+/* =========================================================
+   UPDATE ACTIVE NAV LINK
+========================================================= */
+
+function updateActiveNavLink(
+    targetId
+) {
+
+    navLinks.forEach(
+        link => {
+
+            const linkTarget =
+                link.getAttribute(
+                    "data-target"
+                ) ||
+                link.getAttribute(
+                    "href"
+                );
+
+            link.classList.toggle(
+                "active",
+                linkTarget === targetId
+            );
+
+        }
+    );
+
+
+    /* -----------------------------------------
+       MOBILE NAV LINKS
+    ----------------------------------------- */
+
+    if (mobileNavDrawer) {
+
+        const mobileLinks =
+            mobileNavDrawer.querySelectorAll(
+                "a"
+            );
+
+        mobileLinks.forEach(
+            link => {
+
+                const linkTarget =
+                    link.getAttribute(
+                        "data-target"
+                    ) ||
+                    link.getAttribute(
+                        "href"
+                    );
+
+                link.classList.toggle(
+                    "active",
+                    linkTarget === targetId
+                );
+
+            }
+        );
+
+    }
+
+}
 
 
 /* =========================================================
@@ -11,26 +155,46 @@
 function openDashboardView() {
 
     if (landingPage) {
-        landingPage.style.display = "none";
+
+        landingPage.style.display =
+            "none";
+
     }
 
+
     if (dashboard) {
-        dashboard.style.display = "block";
+
+        dashboard.style.display =
+            "block";
+
     }
+
+
+    /* -----------------------------------------
+       INITIALIZE / REFRESH MAP
+    ----------------------------------------- */
 
     setTimeout(() => {
 
-        if (typeof initializeMap === "function") {
+        if (
+            typeof initializeMap ===
+            "function"
+        ) {
 
             if (!map) {
+
                 initializeMap();
+
             } else {
+
                 map.invalidateSize();
+
             }
 
         }
 
     }, 300);
+
 }
 
 
@@ -41,22 +205,51 @@ function openDashboardView() {
 function openLandingView() {
 
     if (dashboard) {
-        dashboard.style.display = "none";
+
+        dashboard.style.display =
+            "none";
+
     }
+
 
     if (landingPage) {
-        landingPage.style.display = "block";
+
+        landingPage.style.display =
+            "block";
+
     }
 
+
+    /* -----------------------------------------
+       RESET NAV ACTIVE STATE
+    ----------------------------------------- */
+
+    navLinks.forEach(
+        link => {
+
+            link.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
     window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+
+        top:
+            0,
+
+        behavior:
+            "smooth"
+
     });
+
 }
 
 
 /* =========================================================
-   START BUTTON
+   START ACTIVITY BUTTON
 ========================================================= */
 
 if (startBtn) {
@@ -67,22 +260,14 @@ if (startBtn) {
 
             openDashboardView();
 
+
             setTimeout(() => {
 
-                const activitySection =
-                    document.getElementById(
-                        "activity"
-                    );
+                scrollToDashboardSection(
+                    "#activity-section"
+                );
 
-                if (activitySection) {
-
-                    activitySection.scrollIntoView({
-                        behavior: "smooth"
-                    });
-
-                }
-
-            }, 350);
+            }, 50);
 
         }
     );
@@ -107,8 +292,33 @@ if (demoBtn) {
 
             if (howSection) {
 
-                howSection.scrollIntoView({
-                    behavior: "smooth"
+                const navbar =
+                    document.querySelector(
+                        ".navbar"
+                    );
+
+                const navbarHeight =
+                    navbar
+                        ? navbar.offsetHeight
+                        : 80;
+
+                const targetPosition =
+                    howSection.getBoundingClientRect().top +
+                    window.scrollY -
+                    navbarHeight -
+                    12;
+
+                window.scrollTo({
+
+                    top:
+                        Math.max(
+                            0,
+                            targetPosition
+                        ),
+
+                    behavior:
+                        "smooth"
+
                 });
 
             }
@@ -141,51 +351,52 @@ if (brandLogo) {
    DESKTOP NAVIGATION
 ========================================================= */
 
-navLinks.forEach((link) => {
+navLinks.forEach(
+    link => {
 
-    link.addEventListener(
-        "click",
-        (event) => {
+        link.addEventListener(
+            "click",
+            event => {
 
-            const targetId =
-                link.getAttribute(
-                    "data-target"
-                ) ||
-                link.getAttribute(
-                    "href"
-                );
-
-            if (
-                targetId &&
-                targetId.startsWith("#")
-            ) {
-
-                event.preventDefault();
-
-                const target =
-                    document.querySelector(
-                        targetId
+                const targetId =
+                    link.getAttribute(
+                        "data-target"
+                    ) ||
+                    link.getAttribute(
+                        "href"
                     );
 
-                if (target) {
 
-                    target.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
+                if (
+                    !targetId ||
+                    !targetId.startsWith("#")
+                ) {
+
+                    return;
 
                 }
 
+
+                event.preventDefault();
+
+
+                /* -----------------------------------------
+                   DASHBOARD NAVIGATION
+                ----------------------------------------- */
+
+                scrollToDashboardSection(
+                    targetId
+                );
+
             }
+        );
 
-        }
-    );
-
-});
+    }
+);
 
 
 /* =========================================================
-   MOBILE MENU
+   MOBILE MENU TOGGLE
 ========================================================= */
 
 if (mobileMenuToggle) {
@@ -195,13 +406,17 @@ if (mobileMenuToggle) {
         () => {
 
             if (!mobileNavDrawer) {
+
                 return;
+
             }
+
 
             const isOpen =
                 mobileNavDrawer.classList.contains(
                     "active"
                 );
+
 
             if (isOpen) {
 
@@ -242,28 +457,64 @@ if (mobileNavDrawer) {
             "a"
         );
 
-    mobileLinks.forEach((link) => {
 
-        link.addEventListener(
-            "click",
-            () => {
+    mobileLinks.forEach(
+        link => {
 
-                mobileNavDrawer.classList.remove(
-                    "active"
-                );
+            link.addEventListener(
+                "click",
+                event => {
 
-                if (mobileMenuToggle) {
+                    const targetId =
+                        link.getAttribute(
+                            "data-target"
+                        ) ||
+                        link.getAttribute(
+                            "href"
+                        );
 
-                    mobileMenuToggle.classList.remove(
-                        "active"
-                    );
+
+                    if (
+                        targetId &&
+                        targetId.startsWith("#")
+                    ) {
+
+                        event.preventDefault();
+
+
+                        /* -----------------------------------------
+                           CLOSE MENU FIRST
+                        ----------------------------------------- */
+
+                        mobileNavDrawer.classList.remove(
+                            "active"
+                        );
+
+
+                        if (mobileMenuToggle) {
+
+                            mobileMenuToggle.classList.remove(
+                                "active"
+                            );
+
+                        }
+
+
+                        /* -----------------------------------------
+                           NAVIGATE
+                        ----------------------------------------- */
+
+                        scrollToDashboardSection(
+                            targetId
+                        );
+
+                    }
 
                 }
+            );
 
-            }
-        );
-
-    });
+        }
+    );
 
 }
 
@@ -274,14 +525,17 @@ if (mobileNavDrawer) {
 
 document.addEventListener(
     "click",
-    (event) => {
+    event => {
 
         if (
             !mobileNavDrawer ||
             !mobileMenuToggle
         ) {
+
             return;
+
         }
+
 
         const clickedInsideMenu =
             mobileNavDrawer.contains(
@@ -292,6 +546,7 @@ document.addEventListener(
             mobileMenuToggle.contains(
                 event.target
             );
+
 
         if (
             !clickedInsideMenu &&
