@@ -3099,3 +3099,997 @@ nav {
     }
 
 }
+
+/* =========================================================
+   TERRAFIT — 3D TACTICAL EXPERIENCE UPGRADE
+   Visual-only layer: existing IDs/classes and JS behaviour
+   are intentionally preserved.
+========================================================= */
+
+/* ---------- 3D DESIGN TOKENS ---------- */
+:root {
+    --bg-canvas: #05070b;
+    --bg-surface: #0a0f16;
+    --bg-surface-elevated: #0d141d;
+    --bg-surface-hover: #111b27;
+    --bg-surface-glass: rgba(7, 11, 17, 0.78);
+
+    --border-subtle: rgba(148, 163, 184, 0.10);
+    --border-medium: rgba(148, 163, 184, 0.18);
+    --border-strong: rgba(148, 163, 184, 0.32);
+    --border-accent: rgba(0, 180, 255, 0.45);
+
+    --text-primary: #edf7ff;
+    --text-secondary: #9aabbb;
+    --text-muted: #5f7182;
+
+    --accent-neon: #00a8ff;
+    --accent-neon-dim: rgba(0, 168, 255, 0.11);
+    --accent-neon-glow: rgba(0, 168, 255, 0.35);
+    --accent-blue: #00a8ff;
+    --accent-blue-dim: rgba(0, 168, 255, 0.15);
+
+    --shadow-card:
+        0 18px 45px rgba(0, 0, 0, 0.42),
+        0 2px 10px rgba(0, 0, 0, 0.28);
+
+    --shadow-glow:
+        0 0 24px rgba(0, 168, 255, 0.28);
+
+    --shadow-popup:
+        0 24px 70px rgba(0, 0, 0, 0.65);
+
+    --transition-3d:
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s ease,
+        border-color 0.25s ease;
+}
+
+/* ---------- GLOBAL DEPTH ---------- */
+html {
+    color-scheme: dark;
+}
+
+body {
+    background:
+        radial-gradient(circle at 50% -10%, rgba(0, 168, 255, 0.10), transparent 34%),
+        radial-gradient(circle at 100% 60%, rgba(0, 168, 255, 0.045), transparent 30%),
+        var(--bg-canvas);
+    color: var(--text-primary);
+    perspective: 1400px;
+}
+
+body::before {
+    background-image:
+        linear-gradient(rgba(0, 168, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 168, 255, 0.045) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(to bottom, black, transparent 85%);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(10, 16, 24, 0.94),
+            rgba(5, 9, 14, 0.78)
+        );
+    border-bottom-color: rgba(0, 168, 255, 0.13);
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.42),
+        0 1px 0 rgba(0, 168, 255, 0.08);
+    transform: translateZ(30px);
+}
+
+.logo-mark {
+    background:
+        linear-gradient(145deg, #101b27, #070b10);
+    border-color: rgba(0, 168, 255, 0.24);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.05),
+        0 8px 20px rgba(0,0,0,0.35),
+        0 0 16px rgba(0,168,255,0.12);
+}
+
+.nav-link {
+    color: #8496a7;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent-neon);
+    background: rgba(0, 168, 255, 0.075);
+}
+
+/* ---------- HERO ---------- */
+.hero {
+    perspective: 1200px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+}
+
+.hero h1 {
+    text-shadow:
+        0 2px 0 rgba(255,255,255,0.025),
+        0 16px 40px rgba(0,0,0,0.55);
+}
+
+.hero h1 .accent-text {
+    text-shadow:
+        0 0 18px rgba(0,168,255,0.45),
+        0 0 55px rgba(0,168,255,0.16);
+}
+
+.badge,
+.hero-stats-strip {
+    position: relative;
+    z-index: 2;
+}
+
+/* ---------- UNIVERSAL 3D CARDS ---------- */
+.map-card,
+.step,
+.stat-card,
+.activity-panel,
+.territory-panel,
+.territory-info > div,
+.leaderboard-card,
+.profile-card,
+.rank-box,
+.auth-box {
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.map-card,
+.step,
+.stat-card,
+.activity-panel,
+.territory-panel,
+.territory-info > div,
+.leaderboard-card,
+.profile-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 26, 37, 0.96),
+            rgba(7, 11, 17, 0.96)
+        );
+    border-color: rgba(148, 163, 184, 0.13);
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255,255,255,0.025);
+    transition: var(--transition-3d);
+}
+
+.map-card::before,
+.activity-panel::before,
+.territory-panel::before,
+.stat-card::before,
+.step::before,
+.leaderboard-card::before,
+.profile-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            125deg,
+            rgba(255,255,255,0.045),
+            transparent 25%,
+            transparent 72%,
+            rgba(0,168,255,0.035)
+        );
+    transform: translateZ(1px);
+}
+
+.map-card:hover,
+.step:hover,
+.stat-card:hover,
+.activity-panel:hover,
+.territory-panel:hover,
+.territory-info > div:hover,
+.leaderboard-card:hover,
+.profile-card:hover {
+    transform:
+        translateY(-7px)
+        rotateX(1.6deg)
+        rotateY(-1.4deg)
+        translateZ(12px);
+    border-color: rgba(0,168,255,0.28);
+    box-shadow:
+        0 28px 60px rgba(0,0,0,0.52),
+        0 0 35px rgba(0,168,255,0.075);
+}
+
+/* ---------- HERO MAP: HOLOGRAPHIC TACTICAL GRID ---------- */
+.map-card {
+    overflow: visible;
+    isolation: isolate;
+    box-shadow:
+        0 28px 70px rgba(0,0,0,0.55),
+        0 0 45px rgba(0,168,255,0.08);
+}
+
+.map-card::after {
+    content: "";
+    position: absolute;
+    left: 7%;
+    right: 7%;
+    bottom: -15px;
+    height: 22px;
+    z-index: -1;
+    border-radius: 50%;
+    background: rgba(0,168,255,0.16);
+    filter: blur(15px);
+    transform: translateZ(-20px);
+}
+
+.map-header,
+.map-footer {
+    background: rgba(8, 13, 20, 0.92);
+}
+
+.territory-map {
+    background:
+        radial-gradient(circle at center, rgba(0,168,255,0.13), transparent 48%),
+        linear-gradient(rgba(0,168,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,168,255,0.045) 1px, transparent 1px),
+        #070c12;
+    background-size: auto, 26px 26px, 26px 26px;
+    transform-style: preserve-3d;
+    perspective: 900px;
+}
+
+.territory-map::before {
+    content: "";
+    position: absolute;
+    inset: 10%;
+    border: 1px solid rgba(0,168,255,0.14);
+    border-radius: 50%;
+    box-shadow:
+        0 0 25px rgba(0,168,255,0.10),
+        inset 0 0 25px rgba(0,168,255,0.06);
+    pointer-events: none;
+    animation: tacticalScan 4s linear infinite;
+}
+
+.grid-cell {
+    background: rgba(8, 18, 28, 0.70);
+    border-color: rgba(111, 148, 175, 0.16);
+    box-shadow:
+        inset 0 0 12px rgba(0,0,0,0.24),
+        0 1px 0 rgba(255,255,255,0.018);
+    transform:
+        translateZ(0)
+        rotateX(0deg);
+    transform-style: preserve-3d;
+}
+
+.grid-cell:hover {
+    background: rgba(0,168,255,0.11);
+    border-color: rgba(0,168,255,0.48);
+    transform: translateZ(10px) scale(1.025);
+    box-shadow:
+        0 10px 18px rgba(0,0,0,0.32),
+        0 0 16px rgba(0,168,255,0.16),
+        inset 0 0 14px rgba(0,168,255,0.12);
+}
+
+.grid-cell.blue {
+    background:
+        linear-gradient(145deg, rgba(0,168,255,0.32), rgba(0,84,150,0.12));
+    border-color: #00a8ff;
+    box-shadow:
+        0 0 18px rgba(0,168,255,0.22),
+        inset 0 0 18px rgba(0,168,255,0.24),
+        0 7px 0 rgba(0,65,115,0.28);
+    transform: translateZ(5px);
+}
+
+.grid-cell.red {
+    background:
+        linear-gradient(145deg, rgba(239,68,68,0.26), rgba(100,20,25,0.10));
+    box-shadow:
+        0 0 15px rgba(239,68,68,0.14),
+        inset 0 0 15px rgba(239,68,68,0.16),
+        0 7px 0 rgba(80,15,20,0.24);
+}
+
+/* ---------- RADAR / LIVE INDICATORS ---------- */
+.live,
+.header-gps-badge,
+.map-live,
+.activity-status,
+.gps-status {
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.035),
+        0 0 18px rgba(0,168,255,0.07);
+}
+
+/* ---------- BUTTON DEPTH ---------- */
+.primary-btn,
+.secondary-btn,
+.activity-btn,
+.login-btn {
+    position: relative;
+    transform-style: preserve-3d;
+    overflow: hidden;
+}
+
+.primary-btn::before,
+.activity-btn::before,
+.login-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(
+        100deg,
+        transparent,
+        rgba(255,255,255,0.16),
+        transparent
+    );
+    transform: skewX(-18deg);
+    transition: left 0.55s ease;
+    pointer-events: none;
+}
+
+.primary-btn:hover::before,
+.activity-btn:hover::before,
+.login-btn:hover::before {
+    left: 145%;
+}
+
+.primary-btn:hover,
+.activity-btn:hover,
+.login-btn:hover {
+    transform:
+        translateY(-3px)
+        translateZ(10px);
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.42),
+        0 0 22px rgba(0,168,255,0.18);
+}
+
+/* ---------- STAT CARDS: FLOATING HUD ---------- */
+.stat-card:nth-child(1) { transform: translateZ(3px); }
+.stat-card:nth-child(2) { transform: translateZ(7px); }
+.stat-card:nth-child(3) { transform: translateZ(5px); }
+.stat-card:nth-child(4) { transform: translateZ(9px); }
+
+.stat-card strong {
+    text-shadow: 0 5px 22px rgba(0,0,0,0.55);
+}
+
+/* ---------- REAL LEAFLET MAP ---------- */
+#realMap {
+    position: relative;
+    background: #071019 !important;
+    overflow: hidden;
+    box-shadow:
+        inset 0 0 45px rgba(0,0,0,0.48),
+        0 16px 35px rgba(0,0,0,0.32);
+}
+
+.leaflet-tile-pane {
+    filter:
+        brightness(0.62)
+        contrast(1.12)
+        saturate(0.72)
+        hue-rotate(165deg);
+}
+
+.leaflet-container {
+    background: #071019 !important;
+}
+
+.leaflet-control-zoom a {
+    background: rgba(9, 16, 24, 0.92) !important;
+    color: #b9d8eb !important;
+    border-color: rgba(148,163,184,0.12) !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background: rgba(0,168,255,0.16) !important;
+    color: #00a8ff !important;
+}
+
+.leaflet-control-attribution {
+    background: rgba(5,9,14,0.78) !important;
+    color: #607789 !important;
+}
+
+.leaflet-control-attribution a {
+    color: #8caabd !important;
+}
+
+.leaflet-popup-content-wrapper {
+    background: #0a1119 !important;
+    color: #eaf6ff !important;
+    border-color: rgba(0,168,255,0.28) !important;
+    box-shadow:
+        0 20px 55px rgba(0,0,0,0.62),
+        0 0 22px rgba(0,168,255,0.08) !important;
+}
+
+.leaflet-popup-tip {
+    background: #0a1119 !important;
+}
+
+/* ---------- MAP LEGEND ---------- */
+.map-legend {
+    background: rgba(8,13,20,0.94);
+}
+
+.map-legend span {
+    color: #8196a8;
+}
+
+/* ---------- TERRITORY DIAGNOSTICS ---------- */
+.territory-info > div {
+    position: relative;
+    overflow: hidden;
+}
+
+.territory-info > div::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    right: -55px;
+    top: -55px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(0,168,255,0.13),
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+/* ---------- LEADERBOARD ---------- */
+.leaderboard-table th {
+    background: rgba(255,255,255,0.018);
+}
+
+.leaderboard-table td {
+    border-bottom-color: rgba(148,163,184,0.075);
+}
+
+.leaderboard-table tr:hover td {
+    background: rgba(0,168,255,0.045);
+}
+
+.leaderboard-table tr.current-user td {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,168,255,0.13),
+            rgba(0,168,255,0.035)
+        );
+}
+
+/* ---------- PROFILE ---------- */
+.profile-avatar-large {
+    background:
+        radial-gradient(circle at 35% 25%, rgba(0,168,255,0.18), transparent 48%),
+        #071019;
+    box-shadow:
+        0 12px 28px rgba(0,0,0,0.45),
+        0 0 25px rgba(0,168,255,0.15);
+}
+
+/* ---------- AUTH MODAL ---------- */
+.auth-overlay {
+    background: rgba(0,0,0,0.68);
+}
+
+.auth-box {
+    background:
+        linear-gradient(145deg, #0d151f, #070b10);
+    border-color: rgba(0,168,255,0.20);
+    box-shadow:
+        0 35px 100px rgba(0,0,0,0.72),
+        0 0 40px rgba(0,168,255,0.08);
+}
+
+/* ---------- SCANLINE EFFECT ---------- */
+.map-card,
+.territory-panel {
+    isolation: isolate;
+}
+
+.map-card > .map-header,
+.map-card > .territory-map,
+.map-card > .map-footer {
+    position: relative;
+    z-index: 1;
+}
+
+.map-card .territory-map::after,
+.territory-panel::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    top: -5%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0,168,255,0.38),
+        transparent
+    );
+    box-shadow: 0 0 14px rgba(0,168,255,0.28);
+    pointer-events: none;
+    animation: verticalScan 5s linear infinite;
+}
+
+/* ---------- KEYFRAMES ---------- */
+@keyframes tacticalScan {
+    0%, 100% {
+        transform: scale(0.94);
+        opacity: 0.28;
+    }
+    50% {
+        transform: scale(1.04);
+        opacity: 0.72;
+    }
+}
+
+@keyframes verticalScan {
+    0% {
+        top: -5%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        top: 105%;
+        opacity: 0;
+    }
+}
+
+/* ---------- REDUCE MOTION ACCESSIBILITY ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ---------- MOBILE SAFETY ---------- */
+@media (max-width: 768px) {
+    body {
+        perspective: none;
+    }
+
+    .navbar {
+        transform: none;
+    }
+
+    .map-card:hover,
+    .step:hover,
+    .stat-card:hover,
+    .activity-panel:hover,
+    .territory-panel:hover,
+    .territory-info > div:hover,
+    .leaderboard-card:hover,
+    .profile-card:hover {
+        transform: translateY(-3px);
+    }
+
+    #realMap {
+        box-shadow: inset 0 0 28px rgba(0,0,0,0.40);
+    }
+
+    .territory-map {
+        background-size: auto, 22px 22px, 22px 22px;
+    }
+}
+/* =========================================================
+   TERRAFIT — TACTICAL TERRITORY MESH
+   DARK HUD OVERRIDE
+   ========================================================= */
+
+
+/* =========================================================
+   TERRITORY SECTION
+   ========================================================= */
+
+#territory-section {
+    position: relative;
+    background: #070d14 !important;
+    color: #dce9f5;
+}
+
+
+/* =========================================================
+   TERRITORY HEADER
+   ========================================================= */
+
+#territory-section .section-header,
+#territory-section .territory-header {
+    background: #0a121c !important;
+    border: 1px solid rgba(0, 174, 255, 0.22);
+    border-radius: 18px 18px 0 0;
+}
+
+
+/* =========================================================
+   TERRITORY MESH CARD
+   ========================================================= */
+
+.territory-panel,
+.territory-card,
+.territory-mesh,
+#territory-section .panel {
+    background: #0a121c !important;
+    color: #dce9f5 !important;
+    border-color: rgba(0, 174, 255, 0.16) !important;
+}
+
+
+/* =========================================================
+   SPEED MONITOR
+   ========================================================= */
+
+.speed-monitor-card {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0b1723 0%,
+            #08121c 55%,
+            #071019 100%
+        ) !important;
+
+    color: #dce9f5 !important;
+
+    border: 1px solid rgba(0, 174, 255, 0.20) !important;
+
+    border-radius: 16px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.025),
+        0 10px 35px rgba(0,0,0,0.35);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SPEED MONITOR TITLE
+   ========================================================= */
+
+.speed-monitor-card h3,
+.speed-monitor-card h2,
+.speed-monitor-card .speed-monitor-title {
+    color: #00aeff !important;
+
+    text-shadow:
+        0 0 14px rgba(0,174,255,0.20);
+}
+
+
+/* =========================================================
+   LIVE SPEED
+   ========================================================= */
+
+#liveSpeed {
+    color: #e4f2ff !important;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 0 12px rgba(150,210,255,0.22);
+}
+
+
+/* =========================================================
+   SPEED LIMIT ITEMS
+   ========================================================= */
+
+.speed-limit-item {
+    position: relative;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,25,39,0.95),
+            rgba(6,18,29,0.92)
+        ) !important;
+
+    color: #b9cee0 !important;
+
+    border: 1px solid rgba(0,174,255,0.20) !important;
+
+    border-radius: 14px;
+
+    box-shadow:
+        inset 0 0 20px rgba(0,174,255,0.025);
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* =========================================================
+   SPEED ITEM HOVER
+   ========================================================= */
+
+.speed-limit-item:hover {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,32,50,0.98),
+            rgba(7,22,35,0.96)
+        ) !important;
+
+    border-color: rgba(0,174,255,0.42) !important;
+
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   SPEED ACTIVITY TEXT
+   ========================================================= */
+
+#speedActivity {
+    color: #a9c0d4 !important;
+}
+
+
+/* =========================================================
+   SPEED LIMIT VALUES
+   ========================================================= */
+
+.speed-limit-item strong,
+.speed-limit-item span:last-child,
+.speed-limit-value {
+    color: #00aeff !important;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 0 10px rgba(0,174,255,0.18);
+}
+
+
+/* =========================================================
+   SPEED STATUS
+   ========================================================= */
+
+#speedStatusText {
+    color: #00aeff !important;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 0 12px rgba(0,174,255,0.18);
+}
+
+
+/* =========================================================
+   SPEED STATUS DOT
+   ========================================================= */
+
+#speedStatusDot {
+    background: #00aeff !important;
+
+    box-shadow:
+        0 0 7px rgba(0,174,255,0.8),
+        0 0 18px rgba(0,174,255,0.35);
+}
+
+
+/* =========================================================
+   SPEED PROGRESS BAR
+   ========================================================= */
+
+.speed-progress,
+.speed-progress-track,
+.speed-progress-container {
+    background: #111e2a !important;
+
+    border: 1px solid rgba(0,174,255,0.12);
+}
+
+
+#speedProgressBar {
+    background:
+        linear-gradient(
+            90deg,
+            #007fc4,
+            #00aeff
+        ) !important;
+
+    box-shadow:
+        0 0 12px rgba(0,174,255,0.35);
+}
+
+
+/* =========================================================
+   MAP CONTAINER
+   ========================================================= */
+
+#realMap {
+    position: relative;
+
+    background: #08121c !important;
+
+    border: 1px solid rgba(0,174,255,0.18);
+
+    box-shadow:
+        inset 0 0 50px rgba(0,0,0,0.35);
+}
+
+
+/* =========================================================
+   LEAFLET MAP DARKEN
+   ========================================================= */
+
+#realMap .leaflet-tile {
+    filter:
+        brightness(0.48)
+        contrast(1.18)
+        saturate(0.65)
+        hue-rotate(165deg);
+}
+
+
+/* =========================================================
+   MAP OVERLAY
+   ========================================================= */
+
+#realMap::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 400;
+
+    background:
+        linear-gradient(
+            rgba(0,174,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0,174,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 48px 48px;
+
+    mix-blend-mode: screen;
+}
+
+
+/* =========================================================
+   LEAFLET CONTROLS
+   ========================================================= */
+
+#realMap .leaflet-control-zoom {
+    border: 1px solid rgba(0,174,255,0.25) !important;
+
+    border-radius: 14px !important;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.45);
+}
+
+
+#realMap .leaflet-control-zoom a {
+    width: 44px !important;
+    height: 44px !important;
+
+    line-height: 44px !important;
+
+    background: #08131f !important;
+
+    color: #dcecff !important;
+
+    border-color: rgba(0,174,255,0.16) !important;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+#realMap .leaflet-control-zoom a:hover {
+    background: #0d2436 !important;
+
+    color: #00aeff !important;
+}
+
+
+/* =========================================================
+   TERRITORY STATUS
+   ========================================================= */
+
+#territoryStatus {
+    color: #00aeff !important;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 0 12px rgba(0,174,255,0.20);
+}
+
+
+/* =========================================================
+   TERRITORY GRID CELLS
+   ========================================================= */
+
+.territory-cell {
+    background: rgba(0,174,255,0.045) !important;
+
+    border-color:
+        rgba(0,174,255,0.14) !important;
+}
+
+
+.territory-cell.captured {
+    background:
+        rgba(0,174,255,0.20) !important;
+
+    border-color:
+        rgba(0,174,255,0.55) !important;
+
+    box-shadow:
+        inset 0 0 15px rgba(0,174,255,0.12),
+        0 0 8px rgba(0,174,255,0.08);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .speed-monitor-card {
+        border-radius: 12px;
+    }
+
+    .speed-limit-item {
+        border-radius: 11px;
+    }
+
+    #realMap .leaflet-control-zoom a {
+        width: 40px !important;
+        height: 40px !important;
+        line-height: 40px !important;
+    }
+
+}
