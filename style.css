@@ -4847,116 +4847,524 @@ body::before {
 html[data-theme="light"] body {
     background: #f0f4f8 !important;
     color: #1a2734 !important;
+/* =========================================================
+   ROYAL WHITE & LIGHT BLUE THEME MODE OVERRIDES
+   ========================================================= */
+
+html[data-theme="light"] body {
+    background: #f4f8fd !important;
+    color: #0b1f35 !important;
 }
 
+/* NAVBAR LIGHT THEME */
+html[data-theme="light"] .navbar {
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(16px) !important;
+    border-bottom: 1px solid rgba(0, 136, 255, 0.18) !important;
+    box-shadow: 0 4px 25px rgba(0, 120, 255, 0.08) !important;
+}
+
+html[data-theme="light"] .logo-text {
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .logo-sub {
+    color: #0077ff !important;
+}
+
+html[data-theme="light"] .logo-mark {
+    background: linear-gradient(135deg, #0077ff, #00b4ff) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 15px rgba(0, 119, 255, 0.35) !important;
+}
+
+html[data-theme="light"] .nav-link {
+    color: #244365 !important;
+}
+
+html[data-theme="light"] .nav-link:hover {
+    color: #0077ff !important;
+    background: rgba(0, 136, 255, 0.08) !important;
+}
+
+html[data-theme="light"] .nav-link.active {
+    color: #0077ff !important;
+    background: rgba(0, 136, 255, 0.12) !important;
+}
+
+html[data-theme="light"] .header-gps-badge {
+    background: #eef6ff !important;
+    border-color: rgba(0, 136, 255, 0.35) !important;
+    color: #0066dd !important;
+}
+
+html[data-theme="light"] .header-gps-dot {
+    background: #0077ff !important;
+    box-shadow: 0 0 8px #0077ff !important;
+}
+
+html[data-theme="light"] .login-btn {
+    background: linear-gradient(135deg, #0077ff, #00a2ff) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(0, 119, 255, 0.3) !important;
+}
+
+html[data-theme="light"] .login-btn:hover {
+    background: linear-gradient(135deg, #0066dd, #0088ff) !important;
+    box-shadow: 0 6px 20px rgba(0, 119, 255, 0.4) !important;
+}
+
+html[data-theme="light"] .mobile-nav-drawer {
+    background: #ffffff !important;
+    border-right: 1px solid rgba(0, 136, 255, 0.2) !important;
+    box-shadow: 10px 0 35px rgba(0, 120, 255, 0.1) !important;
+}
+
+html[data-theme="light"] .mobile-nav-drawer a {
+    color: #143250 !important;
+    border-bottom: 1px solid rgba(0, 136, 255, 0.08) !important;
+}
+
+html[data-theme="light"] .mobile-nav-drawer a:hover,
+html[data-theme="light"] .mobile-nav-drawer a.active {
+    background: #eef6ff !important;
+    color: #0077ff !important;
+}
+
+html[data-theme="light"] .mobile-toggle {
+    color: #0a2240 !important;
+    background: #eef6ff !important;
+    border-color: rgba(0, 136, 255, 0.3) !important;
+}
+
+
+/* HERO LIGHT THEME */
+html[data-theme="light"] .hero {
+    background:
+        radial-gradient(circle at 60% 10%, rgba(0, 140, 255, 0.12), transparent 45%),
+        radial-gradient(circle at 10% 80%, rgba(0, 180, 255, 0.08), transparent 40%),
+        #f4f8fd !important;
+}
+
+html[data-theme="light"] .hero h1 {
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .hero-description {
+    color: #35526e !important;
+}
+
+html[data-theme="light"] .badge {
+    background: #e8f3ff !important;
+    border-color: rgba(0, 136, 255, 0.35) !important;
+    color: #0066dd !important;
+}
+
+html[data-theme="light"] .badge span {
+    background: #0077ff !important;
+    box-shadow: 0 0 8px #0077ff !important;
+}
+
+html[data-theme="light"] .primary-btn {
+    background: linear-gradient(135deg, #0077ff, #00a2ff) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 25px rgba(0, 119, 255, 0.35) !important;
+}
+
+html[data-theme="light"] .secondary-btn {
+    background: #ffffff !important;
+    border-color: rgba(0, 136, 255, 0.3) !important;
+    color: #0066dd !important;
+    box-shadow: 0 4px 15px rgba(0, 120, 255, 0.06) !important;
+}
+
+html[data-theme="light"] .secondary-btn:hover {
+    background: #eef6ff !important;
+    border-color: #0077ff !important;
+}
+
+html[data-theme="light"] .hero-settings-btn {
+    background: #eaf4ff !important;
+    border-color: #70b5ff !important;
+    color: #0066dd !important;
+}
+
+html[data-theme="light"] .hero-settings-btn:hover {
+    background: #0077ff !important;
+    color: #ffffff !important;
+    border-color: #0077ff !important;
+    box-shadow: 0 6px 20px rgba(0, 119, 255, 0.35) !important;
+}
+
+html[data-theme="light"] .hero-stat-item {
+    background: #ffffff !important;
+    border-color: rgba(0, 136, 255, 0.18) !important;
+    box-shadow: 0 6px 20px rgba(0, 120, 255, 0.06) !important;
+}
+
+html[data-theme="light"] .hero-stat-item .val {
+    color: #0077ff !important;
+}
+
+html[data-theme="light"] .hero-stat-item .lbl {
+    color: #507090 !important;
+}
+
+html[data-theme="light"] .map-card {
+    background: #ffffff !important;
+    border-color: rgba(0, 136, 255, 0.22) !important;
+    box-shadow: 0 15px 40px rgba(0, 110, 220, 0.1) !important;
+}
+
+html[data-theme="light"] .map-header .hud-title {
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .map-header .live {
+    background: #eaf6ff !important;
+    border-color: rgba(0, 136, 255, 0.3) !important;
+    color: #0066dd !important;
+}
+
+html[data-theme="light"] .territory-map {
+    background: #f0f6fc !important;
+    border-color: rgba(0, 136, 255, 0.15) !important;
+}
+
+html[data-theme="light"] .grid-cell {
+    border-color: rgba(0, 136, 255, 0.1) !important;
+}
+
+html[data-theme="light"] .grid-cell:hover {
+    background: rgba(0, 136, 255, 0.2) !important;
+}
+
+html[data-theme="light"] .map-footer {
+    background: #f7fbff !important;
+    border-top: 1px solid rgba(0, 136, 255, 0.12) !important;
+}
+
+html[data-theme="light"] .map-footer small {
+    color: #507090 !important;
+}
+
+html[data-theme="light"] .map-footer strong {
+    color: #0a2240 !important;
+}
+
+
+/* SETTINGS SECTION ROYAL WHITE & LIGHT BLUE */
 html[data-theme="light"] .settings-section {
     background:
         radial-gradient(
             circle at 50% 0%,
-            rgba(0,140,220,0.08),
-            transparent 45%
+            rgba(0, 150, 255, 0.14),
+            transparent 50%
         ),
-        #f0f4f8;
-    color: #1a2734;
+        #f4f8fd !important;
+    color: #0b1f35 !important;
 }
 
-html[data-theme="light"] .settings-header h1,
-html[data-theme="light"] .settings-card h2,
-html[data-theme="light"] .settings-name,
-html[data-theme="light"] .safety-shuffle-title,
-html[data-theme="light"] .theme-text strong,
-html[data-theme="light"] .settings-action-label strong,
-html[data-theme="light"] .about-description strong {
-    color: #102030;
+html[data-theme="light"] .settings-kicker {
+    color: #0077ff !important;
 }
 
-html[data-theme="light"] .settings-card {
-    background: #ffffff;
-    border-color: rgba(20, 60, 90, 0.12);
-    box-shadow: 0 10px 30px rgba(15, 45, 75, 0.06);
+html[data-theme="light"] .settings-kicker::before {
+    background: #0077ff !important;
+    box-shadow: 0 0 10px #0077ff !important;
 }
 
-html[data-theme="light"] .settings-card:hover {
-    border-color: rgba(0, 140, 220, 0.4);
+html[data-theme="light"] .settings-header h1 {
+    color: #0a2240 !important;
 }
 
-html[data-theme="light"] .settings-header p,
-html[data-theme="light"] .settings-card-desc,
-html[data-theme="light"] .theme-text small,
-html[data-theme="light"] .settings-email,
-html[data-theme="light"] .settings-action-label small,
-html[data-theme="light"] .safety-shuffle-body,
-html[data-theme="light"] .about-description p,
-html[data-theme="light"] .about-pillar-card p {
-    color: #556c80;
-}
-
-html[data-theme="light"] .theme-option,
-html[data-theme="light"] .settings-action-btn,
-html[data-theme="light"] .safety-ctrl-btn {
-    background: #f8fafc;
-    border-color: rgba(20, 60, 90, 0.12);
-    color: #1a2734;
-}
-
-html[data-theme="light"] .theme-option:hover,
-html[data-theme="light"] .settings-action-btn:hover {
-    background: #eef5fa;
-    border-color: #0088cc;
-}
-
-html[data-theme="light"] .theme-option.active {
-    background: rgba(0, 140, 220, 0.08);
-    border-color: #0088cc;
-}
-
-html[data-theme="light"] .settings-profile-avatar {
-    background: linear-gradient(145deg, #e6f3fa, #cce4f3);
-    border-color: #0088cc;
-}
-
-html[data-theme="light"] .settings-profile-avatar span {
-    color: #006699;
-}
-
-html[data-theme="light"] .settings-stat-box,
-html[data-theme="light"] .about-pillar-card,
-html[data-theme="light"] .about-specs-strip {
-    background: #f4f8fb;
-    border-color: rgba(20, 60, 90, 0.08);
-}
-
-html[data-theme="light"] .safety-shuffle-box {
-    background: #f4f8fb;
-    border-color: rgba(0, 140, 220, 0.2);
-}
-
-html[data-theme="light"] .about-motto-banner {
-    background: radial-gradient(circle at 50% 50%, rgba(0, 140, 220, 0.12), #ffffff);
-    border-color: rgba(0, 140, 220, 0.3);
-}
-
-html[data-theme="light"] .motto-headline {
-    color: #0c2338;
-    text-shadow: 0 0 15px rgba(0, 140, 220, 0.3);
-}
-
-html[data-theme="light"] .motto-tagline {
-    color: #4f687d;
+html[data-theme="light"] .settings-header p {
+    color: #3d5975 !important;
 }
 
 html[data-theme="light"] .settings-back-btn {
-    background: #eef6fb;
-    border-color: rgba(0, 140, 220, 0.3);
-    color: #0077b6;
+    background: #eaf4ff !important;
+    border-color: rgba(0, 136, 255, 0.35) !important;
+    color: #0066dd !important;
+    box-shadow: 0 4px 15px rgba(0, 120, 255, 0.06) !important;
 }
 
-html[data-theme="light"] .settings-dot {
-    background: rgba(20, 60, 90, 0.2);
+html[data-theme="light"] .settings-back-btn:hover {
+    background: #0077ff !important;
+    border-color: #0077ff !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 20px rgba(0, 119, 255, 0.3) !important;
 }
 
-html[data-theme="light"] .settings-dot.active {
-    background: #0088cc;
+html[data-theme="light"] .settings-card {
+    background: #ffffff !important;
+    border-color: rgba(0, 136, 255, 0.22) !important;
+    box-shadow: 0 12px 35px rgba(0, 110, 220, 0.08), 0 2px 8px rgba(0, 110, 220, 0.04) !important;
+}
+
+html[data-theme="light"] .settings-card:hover {
+    border-color: #0088ff !important;
+    box-shadow: 0 16px 45px rgba(0, 136, 255, 0.14) !important;
+}
+
+html[data-theme="light"] .settings-label {
+    color: #0077ff !important;
+}
+
+html[data-theme="light"] .settings-card h2 {
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .settings-card-desc {
+    color: #446380 !important;
+}
+
+html[data-theme="light"] .settings-status-pill,
+html[data-theme="light"] .settings-version-pill {
+    background: #eaf4ff !important;
+    border-color: rgba(0, 136, 255, 0.35) !important;
+    color: #0066dd !important;
+}
+
+/* THEME SELECTOR */
+html[data-theme="light"] .theme-option {
+    background: #f7faff !important;
+    border-color: rgba(0, 136, 255, 0.18) !important;
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .theme-option:hover {
+    background: #eef6ff !important;
+    border-color: #0088ff !important;
+}
+
+html[data-theme="light"] .theme-option.active {
+    background: linear-gradient(145deg, #e8f3ff, #d8ecff) !important;
+    border: 2px solid #0088ff !important;
+    box-shadow: 0 0 20px rgba(0, 136, 255, 0.2) !important;
+}
+
+html[data-theme="light"] .theme-text strong {
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .theme-text small {
+    color: #446380 !important;
+}
+
+/* PROFILE CARD */
+html[data-theme="light"] .settings-profile-avatar {
+    background: radial-gradient(circle, #eaf4ff, #cde6ff) !important;
+    border-color: #0088ff !important;
+    box-shadow: 0 0 20px rgba(0, 136, 255, 0.25) !important;
+}
+
+html[data-theme="light"] .settings-profile-avatar span {
+    color: #0066dd !important;
+}
+
+html[data-theme="light"] .settings-name {
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .settings-role-tag {
+    background: #eaf4ff !important;
+    border-color: rgba(0, 136, 255, 0.35) !important;
+    color: #0066dd !important;
+}
+
+html[data-theme="light"] .settings-email {
+    color: #3d5975 !important;
+}
+
+html[data-theme="light"] .settings-stats-row {
+    border-top: 1px solid rgba(0, 136, 255, 0.12) !important;
+}
+
+html[data-theme="light"] .settings-stat-box {
+    background: #f2f7fc !important;
+    border-color: rgba(0, 136, 255, 0.15) !important;
+}
+
+html[data-theme="light"] .settings-stat-val {
+    color: #0077ff !important;
+}
+
+html[data-theme="light"] .settings-stat-lbl {
+    color: #507090 !important;
+}
+
+/* AUTH CONTROLS */
+html[data-theme="light"] .settings-action-btn.primary-auth {
+    background: linear-gradient(135deg, #0077ff, #00a2ff) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 8px 25px rgba(0, 119, 255, 0.35) !important;
+}
+
+html[data-theme="light"] .settings-action-btn.primary-auth:hover {
+    background: linear-gradient(135deg, #0066dd, #0088ff) !important;
+    box-shadow: 0 10px 30px rgba(0, 119, 255, 0.45) !important;
+    transform: translateY(-2px) !important;
+}
+
+html[data-theme="light"] .settings-action-btn.primary-auth .settings-action-label strong {
+    color: #ffffff !important;
+}
+
+html[data-theme="light"] .settings-action-btn.primary-auth .settings-action-label small {
+    color: #e1f0ff !important;
+}
+
+html[data-theme="light"] .settings-action-btn.danger-auth {
+    background: linear-gradient(135deg, #fff2f2, #ffe4e4) !important;
+    border-color: rgba(255, 68, 68, 0.4) !important;
+    color: #cc1111 !important;
+}
+
+html[data-theme="light"] .settings-action-btn.danger-auth:hover {
+    background: #ff4444 !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 25px rgba(255, 68, 68, 0.35) !important;
+}
+
+html[data-theme="light"] .settings-action-btn.danger-auth:hover .settings-action-label strong,
+html[data-theme="light"] .settings-action-btn.danger-auth:hover .settings-action-label small {
+    color: #ffffff !important;
+}
+
+/* SAFETY SHUFFLE */
+html[data-theme="light"] .safety-counter {
+    color: #0077ff !important;
+}
+
+html[data-theme="light"] .safety-badge {
+    background: #eaf4ff !important;
+    border-color: rgba(0, 136, 255, 0.35) !important;
+    color: #0066dd !important;
+}
+
+html[data-theme="light"] .safety-shuffle-box {
+    background: linear-gradient(145deg, #f2f8ff, #e6f2ff) !important;
+    border-color: rgba(0, 136, 255, 0.28) !important;
+    box-shadow: 0 8px 25px rgba(0, 120, 255, 0.08) !important;
+}
+
+html[data-theme="light"] .safety-protocol-tag {
+    color: #0077ff !important;
+}
+
+html[data-theme="light"] .safety-shuffle-title {
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .safety-shuffle-body {
+    color: #35526e !important;
+}
+
+html[data-theme="light"] .safety-timer-bar {
+    background: rgba(0, 136, 255, 0.12) !important;
+}
+
+html[data-theme="light"] .safety-timer-fill {
+    background: linear-gradient(90deg, #0077ff, #00d2ff) !important;
+    box-shadow: 0 0 8px #0077ff !important;
+}
+
+html[data-theme="light"] .safety-ctrl-btn {
+    background: #ffffff !important;
+    border-color: rgba(0, 136, 255, 0.25) !important;
+    color: #0a2240 !important;
+    box-shadow: 0 2px 8px rgba(0, 120, 255, 0.05) !important;
+}
+
+html[data-theme="light"] .safety-ctrl-btn:hover {
+    background: #eaf4ff !important;
+    border-color: #0077ff !important;
+    color: #0066dd !important;
+}
+
+html[data-theme="light"] .safety-ctrl-btn.shuffle-btn {
+    background: linear-gradient(135deg, #0077ff, #0099ff) !important;
+    color: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 6px 20px rgba(0, 119, 255, 0.3) !important;
+}
+
+html[data-theme="light"] .safety-ctrl-btn.shuffle-btn:hover {
+    background: linear-gradient(135deg, #0066dd, #0088ff) !important;
+    box-shadow: 0 8px 25px rgba(0, 119, 255, 0.4) !important;
+}
+
+html[data-theme="light"] .safety-dot {
+    background: rgba(0, 136, 255, 0.25) !important;
+}
+
+html[data-theme="light"] .safety-dot.active {
+    background: #0077ff !important;
+    box-shadow: 0 0 10px #0077ff !important;
+}
+
+/* ABOUT & MOTTO BANNER */
+html[data-theme="light"] .about-motto-banner {
+    background: linear-gradient(135deg, #e8f4ff 0%, #ffffff 50%, #e1efff 100%) !important;
+    border: 2px solid rgba(0, 136, 255, 0.4) !important;
+    box-shadow: 0 12px 35px rgba(0, 136, 255, 0.16) !important;
+}
+
+html[data-theme="light"] .motto-eyebrow {
+    color: #0077ff !important;
+}
+
+html[data-theme="light"] .motto-headline {
+    color: #0a2240 !important;
+    text-shadow: 0 0 25px rgba(0, 136, 255, 0.4) !important;
+}
+
+html[data-theme="light"] .motto-tagline {
+    color: #3d5975 !important;
+}
+
+html[data-theme="light"] .about-description p {
+    color: #3d5975 !important;
+}
+
+html[data-theme="light"] .about-description strong {
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .about-pillar-card {
+    background: #ffffff !important;
+    border-color: rgba(0, 136, 255, 0.2) !important;
+    box-shadow: 0 6px 20px rgba(0, 120, 255, 0.06) !important;
+}
+
+html[data-theme="light"] .about-pillar-card:hover {
+    border-color: #0088ff !important;
+    background: #f7fbff !important;
+    box-shadow: 0 10px 25px rgba(0, 120, 255, 0.12) !important;
+}
+
+html[data-theme="light"] .about-pillar-card h4 {
+    color: #0077ff !important;
+}
+
+html[data-theme="light"] .about-pillar-card p {
+    color: #3d5975 !important;
+}
+
+html[data-theme="light"] .about-specs-strip {
+    background: #f0f7ff !important;
+    border-color: rgba(0, 136, 255, 0.18) !important;
+}
+
+html[data-theme="light"] .spec-item {
+    color: #3d5975 !important;
+}
+
+html[data-theme="light"] .spec-dot {
+    background: #0077ff !important;
 }
 
 
@@ -5008,4 +5416,5 @@ html[data-theme="light"] .settings-dot.active {
         flex-direction: column;
         align-items: flex-start;
     }
-}
+}
+
