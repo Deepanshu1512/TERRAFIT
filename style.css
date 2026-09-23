@@ -4841,14 +4841,7 @@ body::before {
 
 
 /* =========================================================
-   LIGHT THEME MODE OVERRIDES
-   ========================================================= */
-
-html[data-theme="light"] body {
-    background: #f0f4f8 !important;
-    color: #1a2734 !important;
-/* =========================================================
-   ROYAL WHITE & LIGHT BLUE THEME MODE OVERRIDES
+   ROYAL WHITE, LIGHT BLUE & FROSTED LIGHT BLUR THEME
    ========================================================= */
 
 html[data-theme="light"] body {
@@ -4856,10 +4849,17 @@ html[data-theme="light"] body {
     color: #0b1f35 !important;
 }
 
-/* NAVBAR LIGHT THEME */
+html[data-theme="light"] body::before {
+    background-image: 
+        linear-gradient(rgba(0, 136, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 136, 255, 0.05) 1px, transparent 1px) !important;
+}
+
+/* NAVBAR LIGHT BLUR */
 html[data-theme="light"] .navbar {
-    background: rgba(255, 255, 255, 0.94) !important;
-    backdrop-filter: blur(16px) !important;
+    background: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
     border-bottom: 1px solid rgba(0, 136, 255, 0.18) !important;
     box-shadow: 0 4px 25px rgba(0, 120, 255, 0.08) !important;
 }
@@ -4875,7 +4875,8 @@ html[data-theme="light"] .logo-sub {
 html[data-theme="light"] .logo-mark {
     background: linear-gradient(135deg, #0077ff, #00b4ff) !important;
     color: #ffffff !important;
-    box-shadow: 0 0 15px rgba(0, 119, 255, 0.35) !important;
+    border-color: #0077ff !important;
+    box-shadow: 0 0 18px rgba(0, 119, 255, 0.35) !important;
 }
 
 html[data-theme="light"] .nav-link {
@@ -4893,7 +4894,8 @@ html[data-theme="light"] .nav-link.active {
 }
 
 html[data-theme="light"] .header-gps-badge {
-    background: #eef6ff !important;
+    background: rgba(238, 246, 255, 0.9) !important;
+    backdrop-filter: blur(8px) !important;
     border-color: rgba(0, 136, 255, 0.35) !important;
     color: #0066dd !important;
 }
@@ -4916,7 +4918,9 @@ html[data-theme="light"] .login-btn:hover {
 }
 
 html[data-theme="light"] .mobile-nav-drawer {
-    background: #ffffff !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
     border-right: 1px solid rgba(0, 136, 255, 0.2) !important;
     box-shadow: 10px 0 35px rgba(0, 120, 255, 0.1) !important;
 }
@@ -4928,7 +4932,7 @@ html[data-theme="light"] .mobile-nav-drawer a {
 
 html[data-theme="light"] .mobile-nav-drawer a:hover,
 html[data-theme="light"] .mobile-nav-drawer a.active {
-    background: #eef6ff !important;
+    background: rgba(238, 246, 255, 0.9) !important;
     color: #0077ff !important;
 }
 
@@ -4939,7 +4943,7 @@ html[data-theme="light"] .mobile-toggle {
 }
 
 
-/* HERO LIGHT THEME */
+/* HERO LIGHT BLUR */
 html[data-theme="light"] .hero {
     background:
         radial-gradient(circle at 60% 10%, rgba(0, 140, 255, 0.12), transparent 45%),
@@ -4956,7 +4960,8 @@ html[data-theme="light"] .hero-description {
 }
 
 html[data-theme="light"] .badge {
-    background: #e8f3ff !important;
+    background: rgba(232, 243, 255, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
     border-color: rgba(0, 136, 255, 0.35) !important;
     color: #0066dd !important;
 }
@@ -4973,7 +4978,8 @@ html[data-theme="light"] .primary-btn {
 }
 
 html[data-theme="light"] .secondary-btn {
-    background: #ffffff !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
     border-color: rgba(0, 136, 255, 0.3) !important;
     color: #0066dd !important;
     box-shadow: 0 4px 15px rgba(0, 120, 255, 0.06) !important;
@@ -4985,7 +4991,8 @@ html[data-theme="light"] .secondary-btn:hover {
 }
 
 html[data-theme="light"] .hero-settings-btn {
-    background: #eaf4ff !important;
+    background: rgba(234, 244, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
     border-color: #70b5ff !important;
     color: #0066dd !important;
 }
@@ -4998,8 +5005,9 @@ html[data-theme="light"] .hero-settings-btn:hover {
 }
 
 html[data-theme="light"] .hero-stat-item {
-    background: #ffffff !important;
-    border-color: rgba(0, 136, 255, 0.18) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(12px) !important;
+    border-color: rgba(0, 136, 255, 0.2) !important;
     box-shadow: 0 6px 20px rgba(0, 120, 255, 0.06) !important;
 }
 
@@ -5012,8 +5020,10 @@ html[data-theme="light"] .hero-stat-item .lbl {
 }
 
 html[data-theme="light"] .map-card {
-    background: #ffffff !important;
-    border-color: rgba(0, 136, 255, 0.22) !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-color: rgba(0, 136, 255, 0.25) !important;
     box-shadow: 0 15px 40px rgba(0, 110, 220, 0.1) !important;
 }
 
@@ -5041,7 +5051,8 @@ html[data-theme="light"] .grid-cell:hover {
 }
 
 html[data-theme="light"] .map-footer {
-    background: #f7fbff !important;
+    background: rgba(247, 251, 255, 0.92) !important;
+    backdrop-filter: blur(10px) !important;
     border-top: 1px solid rgba(0, 136, 255, 0.12) !important;
 }
 
@@ -5054,7 +5065,7 @@ html[data-theme="light"] .map-footer strong {
 }
 
 
-/* SETTINGS SECTION ROYAL WHITE & LIGHT BLUE */
+/* SETTINGS SECTION ROYAL WHITE, LIGHT BLUE & FROSTED BLUR */
 html[data-theme="light"] .settings-section {
     background:
         radial-gradient(
@@ -5084,7 +5095,8 @@ html[data-theme="light"] .settings-header p {
 }
 
 html[data-theme="light"] .settings-back-btn {
-    background: #eaf4ff !important;
+    background: rgba(234, 244, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
     border-color: rgba(0, 136, 255, 0.35) !important;
     color: #0066dd !important;
     box-shadow: 0 4px 15px rgba(0, 120, 255, 0.06) !important;
@@ -5098,7 +5110,9 @@ html[data-theme="light"] .settings-back-btn:hover {
 }
 
 html[data-theme="light"] .settings-card {
-    background: #ffffff !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
     border-color: rgba(0, 136, 255, 0.22) !important;
     box-shadow: 0 12px 35px rgba(0, 110, 220, 0.08), 0 2px 8px rgba(0, 110, 220, 0.04) !important;
 }
@@ -5122,14 +5136,16 @@ html[data-theme="light"] .settings-card-desc {
 
 html[data-theme="light"] .settings-status-pill,
 html[data-theme="light"] .settings-version-pill {
-    background: #eaf4ff !important;
+    background: rgba(234, 244, 255, 0.9) !important;
+    backdrop-filter: blur(8px) !important;
     border-color: rgba(0, 136, 255, 0.35) !important;
     color: #0066dd !important;
 }
 
 /* THEME SELECTOR */
 html[data-theme="light"] .theme-option {
-    background: #f7faff !important;
+    background: rgba(247, 250, 255, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
     border-color: rgba(0, 136, 255, 0.18) !important;
     color: #0a2240 !important;
 }
@@ -5140,7 +5156,7 @@ html[data-theme="light"] .theme-option:hover {
 }
 
 html[data-theme="light"] .theme-option.active {
-    background: linear-gradient(145deg, #e8f3ff, #d8ecff) !important;
+    background: linear-gradient(145deg, rgba(232, 243, 255, 0.95), rgba(216, 236, 255, 0.9)) !important;
     border: 2px solid #0088ff !important;
     box-shadow: 0 0 20px rgba(0, 136, 255, 0.2) !important;
 }
@@ -5169,7 +5185,7 @@ html[data-theme="light"] .settings-name {
 }
 
 html[data-theme="light"] .settings-role-tag {
-    background: #eaf4ff !important;
+    background: rgba(234, 244, 255, 0.9) !important;
     border-color: rgba(0, 136, 255, 0.35) !important;
     color: #0066dd !important;
 }
@@ -5183,7 +5199,8 @@ html[data-theme="light"] .settings-stats-row {
 }
 
 html[data-theme="light"] .settings-stat-box {
-    background: #f2f7fc !important;
+    background: rgba(242, 247, 252, 0.85) !important;
+    backdrop-filter: blur(8px) !important;
     border-color: rgba(0, 136, 255, 0.15) !important;
 }
 
@@ -5218,7 +5235,8 @@ html[data-theme="light"] .settings-action-btn.primary-auth .settings-action-labe
 }
 
 html[data-theme="light"] .settings-action-btn.danger-auth {
-    background: linear-gradient(135deg, #fff2f2, #ffe4e4) !important;
+    background: linear-gradient(135deg, rgba(255, 242, 242, 0.9), rgba(255, 228, 228, 0.9)) !important;
+    backdrop-filter: blur(10px) !important;
     border-color: rgba(255, 68, 68, 0.4) !important;
     color: #cc1111 !important;
 }
@@ -5240,13 +5258,14 @@ html[data-theme="light"] .safety-counter {
 }
 
 html[data-theme="light"] .safety-badge {
-    background: #eaf4ff !important;
+    background: rgba(234, 244, 255, 0.9) !important;
     border-color: rgba(0, 136, 255, 0.35) !important;
     color: #0066dd !important;
 }
 
 html[data-theme="light"] .safety-shuffle-box {
-    background: linear-gradient(145deg, #f2f8ff, #e6f2ff) !important;
+    background: linear-gradient(145deg, rgba(242, 248, 255, 0.95), rgba(230, 242, 255, 0.88)) !important;
+    backdrop-filter: blur(14px) !important;
     border-color: rgba(0, 136, 255, 0.28) !important;
     box-shadow: 0 8px 25px rgba(0, 120, 255, 0.08) !important;
 }
@@ -5273,7 +5292,8 @@ html[data-theme="light"] .safety-timer-fill {
 }
 
 html[data-theme="light"] .safety-ctrl-btn {
-    background: #ffffff !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
     border-color: rgba(0, 136, 255, 0.25) !important;
     color: #0a2240 !important;
     box-shadow: 0 2px 8px rgba(0, 120, 255, 0.05) !important;
@@ -5308,7 +5328,8 @@ html[data-theme="light"] .safety-dot.active {
 
 /* ABOUT & MOTTO BANNER */
 html[data-theme="light"] .about-motto-banner {
-    background: linear-gradient(135deg, #e8f4ff 0%, #ffffff 50%, #e1efff 100%) !important;
+    background: linear-gradient(135deg, rgba(232, 244, 255, 0.92) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(225, 239, 255, 0.9) 100%) !important;
+    backdrop-filter: blur(16px) !important;
     border: 2px solid rgba(0, 136, 255, 0.4) !important;
     box-shadow: 0 12px 35px rgba(0, 136, 255, 0.16) !important;
 }
@@ -5335,7 +5356,8 @@ html[data-theme="light"] .about-description strong {
 }
 
 html[data-theme="light"] .about-pillar-card {
-    background: #ffffff !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(12px) !important;
     border-color: rgba(0, 136, 255, 0.2) !important;
     box-shadow: 0 6px 20px rgba(0, 120, 255, 0.06) !important;
 }
@@ -5355,7 +5377,8 @@ html[data-theme="light"] .about-pillar-card p {
 }
 
 html[data-theme="light"] .about-specs-strip {
-    background: #f0f7ff !important;
+    background: rgba(240, 247, 255, 0.88) !important;
+    backdrop-filter: blur(10px) !important;
     border-color: rgba(0, 136, 255, 0.18) !important;
 }
 
@@ -5365,6 +5388,243 @@ html[data-theme="light"] .spec-item {
 
 html[data-theme="light"] .spec-dot {
     background: #0077ff !important;
+}
+
+
+/* AUTH MODAL FROSTED LIGHT BLUR */
+html[data-theme="light"] .auth-overlay {
+    background: rgba(225, 238, 255, 0.72) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+}
+
+html[data-theme="light"] .auth-box {
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(0, 136, 255, 0.28) !important;
+    box-shadow: 0 25px 70px rgba(0, 119, 255, 0.18) !important;
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .auth-header h2 {
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .auth-header p,
+html[data-theme="light"] .auth-label {
+    color: #3d5975 !important;
+}
+
+html[data-theme="light"] .auth-tab {
+    background: rgba(238, 246, 255, 0.9) !important;
+    color: #20456b !important;
+    border: 1px solid rgba(0, 136, 255, 0.18) !important;
+}
+
+html[data-theme="light"] .auth-tab.active {
+    background: linear-gradient(135deg, #0077ff, #00a2ff) !important;
+    color: #ffffff !important;
+    border-color: #0077ff !important;
+    box-shadow: 0 4px 15px rgba(0, 119, 255, 0.3) !important;
+}
+
+html[data-theme="light"] .auth-input-wrap input,
+html[data-theme="light"] .auth-box input {
+    background: rgba(244, 249, 255, 0.9) !important;
+    border: 1px solid rgba(0, 136, 255, 0.22) !important;
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .auth-input-wrap input:focus,
+html[data-theme="light"] .auth-box input:focus {
+    background: #ffffff !important;
+    border-color: #0077ff !important;
+    box-shadow: 0 0 15px rgba(0, 119, 255, 0.25) !important;
+}
+
+html[data-theme="light"] .auth-input-wrap label {
+    color: #0066dd !important;
+}
+
+html[data-theme="light"] .auth-close {
+    color: #507090 !important;
+    background: rgba(238, 246, 255, 0.9) !important;
+    border: 1px solid rgba(0, 136, 255, 0.2) !important;
+}
+
+html[data-theme="light"] .auth-close:hover {
+    color: #0077ff !important;
+    background: #e0f0ff !important;
+}
+
+html[data-theme="light"] .auth-submit {
+    background: linear-gradient(135deg, #0077ff, #00a2ff) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 25px rgba(0, 119, 255, 0.35) !important;
+}
+
+
+/* DASHBOARD, STATS & LEADERBOARD FROSTED LIGHT BLUR */
+html[data-theme="light"] .dashboard {
+    background: #f4f8fd !important;
+}
+
+html[data-theme="light"] .hud-card,
+html[data-theme="light"] .stat-card,
+html[data-theme="light"] .stats-card,
+html[data-theme="light"] .dashboard-card,
+html[data-theme="light"] .activity-card,
+html[data-theme="light"] .profile-card,
+html[data-theme="light"] .speed-monitor-card {
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(0, 136, 255, 0.22) !important;
+    box-shadow: 0 10px 30px rgba(0, 119, 255, 0.08) !important;
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .speed-limit-item {
+    background: rgba(238, 246, 255, 0.9) !important;
+    border-color: rgba(0, 136, 255, 0.2) !important;
+    color: #20456b !important;
+}
+
+html[data-theme="light"] .speed-limit-item.active {
+    background: #0077ff !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="light"] .speed-progress-track {
+    background: rgba(0, 136, 255, 0.12) !important;
+}
+
+html[data-theme="light"] .speed-progress-bar {
+    background: linear-gradient(90deg, #0077ff, #00d2ff) !important;
+}
+
+html[data-theme="light"] .leaderboard-table {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border: 1px solid rgba(0, 136, 255, 0.2) !important;
+}
+
+html[data-theme="light"] .leaderboard-table th {
+    background: rgba(238, 246, 255, 0.95) !important;
+    color: #0066dd !important;
+    border-bottom: 2px solid rgba(0, 136, 255, 0.2) !important;
+}
+
+html[data-theme="light"] .leaderboard-table td {
+    color: #0a2240 !important;
+    border-bottom: 1px solid rgba(0, 136, 255, 0.1) !important;
+}
+
+html[data-theme="light"] .leaderboard-table tr:hover td {
+    background: #f0f7ff !important;
+}
+
+html[data-theme="light"] .current-user td {
+    background: #e8f3ff !important;
+    font-weight: 700 !important;
+}
+
+html[data-theme="light"] .filter-tab {
+    background: rgba(238, 246, 255, 0.9) !important;
+    color: #244b75 !important;
+    border: 1px solid rgba(0, 136, 255, 0.2) !important;
+}
+
+html[data-theme="light"] .filter-tab.active {
+    background: #0077ff !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="light"] .activity-btn {
+    background: linear-gradient(135deg, #0077ff, #00a2ff) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 25px rgba(0, 119, 255, 0.35) !important;
+}
+
+/* HOW IT WORKS / INFO SECTION FROSTED BLUR */
+html[data-theme="light"] .info-section {
+    background: #f4f8fd !important;
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .briefing-card,
+html[data-theme="light"] .info-card {
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(0, 136, 255, 0.22) !important;
+    box-shadow: 0 10px 30px rgba(0, 119, 255, 0.08) !important;
+}
+
+html[data-theme="light"] .section-heading {
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .section-eyebrow {
+    color: #0077ff !important;
+}
+
+/* AVATAR SYSTEM MODAL FROSTED BLUR */
+html[data-theme="light"] .avatar-modal-overlay,
+html[data-theme="light"] .tf-modal-overlay {
+    background: rgba(225, 238, 255, 0.72) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+}
+
+html[data-theme="light"] .avatar-modal-card,
+html[data-theme="light"] .tf-modal-box {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(0, 136, 255, 0.25) !important;
+    box-shadow: 0 25px 70px rgba(0, 119, 255, 0.18) !important;
+    color: #0a2240 !important;
+}
+
+html[data-theme="light"] .tf-modal-header {
+    border-bottom: 1px solid rgba(0, 136, 255, 0.15) !important;
+}
+
+html[data-theme="light"] .tf-modal-footer {
+    background: rgba(247, 251, 255, 0.95) !important;
+    border-top: 1px solid rgba(0, 136, 255, 0.15) !important;
+}
+
+html[data-theme="light"] .tf-tab-btn {
+    background: rgba(238, 246, 255, 0.9) !important;
+    color: #20456b !important;
+    border: 1px solid rgba(0, 136, 255, 0.18) !important;
+}
+
+html[data-theme="light"] .tf-tab-btn.active {
+    background: #0077ff !important;
+    color: #ffffff !important;
+}
+
+html[data-theme="light"] .tf-avatar-grid-item {
+    background: rgba(244, 249, 255, 0.9) !important;
+    border: 1px solid rgba(0, 136, 255, 0.2) !important;
+}
+
+html[data-theme="light"] .tf-avatar-grid-item:hover,
+html[data-theme="light"] .tf-avatar-grid-item.active {
+    background: #e1efff !important;
+    border-color: #0077ff !important;
+    box-shadow: 0 0 15px rgba(0, 119, 255, 0.25) !important;
+}
+
+html[data-theme="light"] .tf-upload-dropzone {
+    background: rgba(247, 251, 255, 0.9) !important;
+    border: 2px dashed rgba(0, 136, 255, 0.35) !important;
+}
+
+html[data-theme="light"] .tf-upload-dropzone:hover {
+    background: #edf6ff !important;
+    border-color: #0077ff !important;
 }
 
 
@@ -5417,4 +5677,5 @@ html[data-theme="light"] .spec-dot {
         align-items: flex-start;
     }
 }
+
 
