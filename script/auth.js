@@ -771,6 +771,10 @@ function showLoggedInUser(
 
     }
 
+    if (window.TerraFitSettings && typeof window.TerraFitSettings.updateSettingsProfile === "function") {
+        window.TerraFitSettings.updateSettingsProfile();
+    }
+
 }
 
 
@@ -1308,6 +1312,10 @@ if (logoutBtn) {
                 "TERRAFIT: Operator logged out."
             );
 
+            if (window.TerraFitSettings && typeof window.TerraFitSettings.updateSettingsProfile === "function") {
+                window.TerraFitSettings.updateSettingsProfile();
+            }
+
         }
     );
 
@@ -1362,6 +1370,10 @@ async function restoreSupabaseSession() {
             console.log(
                 "TERRAFIT: Existing Supabase session restored."
             );
+
+            if (window.TerraFitSettings && typeof window.TerraFitSettings.updateSettingsProfile === "function") {
+                window.TerraFitSettings.updateSettingsProfile();
+            }
 
         }
 

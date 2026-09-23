@@ -15,6 +15,13 @@ function scrollToDashboardSection(targetId) {
         return;
     }
 
+    if (targetId === "#settings-section") {
+        if (window.TerraFitSettings && typeof window.TerraFitSettings.openSettings === "function") {
+            window.TerraFitSettings.openSettings();
+            return;
+        }
+    }
+
     const target =
         document.querySelector(targetId);
 
@@ -154,6 +161,19 @@ function updateActiveNavLink(
 
 function openDashboardView() {
 
+    const settingsSection =
+        document.getElementById(
+            "settings-section"
+        );
+
+    if (settingsSection) {
+
+        settingsSection.style.display =
+            "none";
+
+    }
+
+
     if (landingPage) {
 
         landingPage.style.display =
@@ -203,6 +223,19 @@ function openDashboardView() {
 ========================================================= */
 
 function openLandingView() {
+
+    const settingsSection =
+        document.getElementById(
+            "settings-section"
+        );
+
+    if (settingsSection) {
+
+        settingsSection.style.display =
+            "none";
+
+    }
+
 
     if (dashboard) {
 

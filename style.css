@@ -4093,3 +4093,919 @@ body::before {
     }
 
 }
+/* =========================================================
+   TERRAFIT — SETTINGS PAGE
+   ========================================================= */
+
+.settings-section {
+    min-height: 100vh;
+    padding: 100px 6% 80px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(0,174,255,0.09),
+            transparent 45%
+        ),
+        #050a10;
+
+    color: #dce9f5;
+    animation: fadeInSettings 0.3s ease-out;
+}
+
+@keyframes fadeInSettings {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.settings-container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   SETTINGS HEADER
+   ========================================================= */
+
+.settings-header {
+    margin-bottom: 28px;
+}
+
+.settings-header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.settings-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+
+    color: #00aeff;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.settings-kicker::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #00aeff;
+    border-radius: 2px;
+    box-shadow: 0 0 10px #00aeff;
+}
+
+.settings-header h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 800;
+    color: #edf7ff;
+    letter-spacing: -0.5px;
+}
+
+.settings-header p {
+    margin-top: 8px;
+    color: #7d96ab;
+    font-size: 14px;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.settings-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(0, 174, 255, 0.08);
+    border: 1px solid rgba(0, 174, 255, 0.35);
+    border-radius: 10px;
+    color: #00aeff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.settings-back-btn:hover {
+    background: rgba(0, 174, 255, 0.2);
+    border-color: #00aeff;
+    color: #ffffff;
+    transform: translateX(-3px);
+}
+
+.hero-settings-btn {
+    border-color: rgba(0, 174, 255, 0.4) !important;
+    background: rgba(0, 174, 255, 0.08) !important;
+    color: #dce9f5 !important;
+}
+
+.hero-settings-btn:hover {
+    background: rgba(0, 174, 255, 0.2) !important;
+    border-color: #00aeff !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   SETTINGS CARD BASE
+   ========================================================= */
+
+.settings-card {
+    margin-bottom: 24px;
+    padding: 26px 28px;
+
+    background: linear-gradient(145deg, #0b1521, #070e16);
+    border: 1px solid rgba(0, 174, 255, 0.16);
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    transition: 0.25s ease;
+}
+
+.settings-card:hover {
+    border-color: rgba(0, 174, 255, 0.32);
+}
+
+.settings-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.settings-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #5f7a91;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+.settings-card h2 {
+    margin: 0;
+    color: #edf7ff;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.settings-card-desc {
+    margin: -6px 0 18px;
+    color: #7b94a8;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.settings-status-pill,
+.settings-version-pill {
+    padding: 6px 12px;
+    background: rgba(0, 174, 255, 0.08);
+    border: 1px solid rgba(0, 174, 255, 0.25);
+    border-radius: 20px;
+    color: #00aeff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   1. THEME SWITCHER
+   ========================================================= */
+
+.theme-selector {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    background: #09131e;
+    color: #dcecff;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.theme-option:hover {
+    border-color: rgba(0, 174, 255, 0.4);
+    background: #0d1b2a;
+    transform: translateY(-2px);
+}
+
+.theme-option.active {
+    border-color: #00aeff;
+    background: rgba(0, 174, 255, 0.12);
+    box-shadow: 0 0 20px rgba(0, 174, 255, 0.15), inset 0 0 15px rgba(0, 174, 255, 0.05);
+}
+
+.theme-icon {
+    font-size: 26px;
+    line-height: 1;
+}
+
+.theme-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.theme-text strong {
+    color: #edf7ff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.theme-text small {
+    color: #71899d;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   2. & 3. OPERATOR PROFILE & EMAIL
+   ========================================================= */
+
+.settings-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.settings-badge.online {
+    background: rgba(0, 230, 118, 0.1);
+    border: 1px solid rgba(0, 230, 118, 0.4);
+    color: #00e676;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.15);
+}
+
+.settings-badge.guest {
+    background: rgba(255, 170, 0, 0.1);
+    border: 1px solid rgba(255, 170, 0, 0.35);
+    color: #ffaa00;
+}
+
+.settings-profile-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.settings-profile-main {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.settings-profile-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+
+    border: 2px solid #00aeff;
+    border-radius: 50%;
+    background: radial-gradient(circle, #1a324b, #07121c);
+    box-shadow: 0 0 25px rgba(0, 174, 255, 0.25);
+}
+
+.settings-profile-avatar span {
+    color: #edf8ff;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.settings-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.settings-profile-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.settings-name {
+    color: #edf7ff;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.settings-role-tag {
+    padding: 3px 10px;
+    background: rgba(0, 174, 255, 0.1);
+    border: 1px solid rgba(0, 174, 255, 0.3);
+    border-radius: 12px;
+    color: #00aeff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.settings-email-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #7b94a8;
+    font-size: 13px;
+    word-break: break-all;
+}
+
+.settings-email-icon {
+    font-size: 14px;
+}
+
+.settings-email {
+    color: #9db2c4;
+    font-weight: 500;
+}
+
+.settings-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.settings-stat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 14px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.settings-stat-val {
+    color: #00aeff;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.settings-stat-lbl {
+    color: #647f96;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   4. ACCOUNT & AUTH ACTIONS
+   ========================================================= */
+
+.settings-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+}
+
+.settings-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 60px;
+    padding: 12px 20px;
+
+    border: 1px solid rgba(0, 174, 255, 0.22);
+    border-radius: 14px;
+    background: #091420;
+    color: #dcecff;
+    cursor: pointer;
+    transition: 0.2s ease;
+    text-align: left;
+}
+
+.settings-action-btn.primary-auth {
+    border-color: rgba(0, 174, 255, 0.4);
+    background: linear-gradient(135deg, rgba(0, 174, 255, 0.15), rgba(9, 20, 32, 0.8));
+}
+
+.settings-action-btn.primary-auth:hover {
+    border-color: #00aeff;
+    background: rgba(0, 174, 255, 0.25);
+    box-shadow: 0 0 20px rgba(0, 174, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.settings-action-btn.danger-auth {
+    border-color: rgba(255, 68, 68, 0.35);
+    background: linear-gradient(135deg, rgba(255, 68, 68, 0.1), rgba(15, 10, 15, 0.8));
+}
+
+.settings-action-btn.danger-auth:hover {
+    border-color: #ff4444;
+    background: rgba(255, 68, 68, 0.2);
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.2);
+    transform: translateY(-2px);
+}
+
+.settings-action-icon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.settings-action-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.settings-action-label strong {
+    color: #edf7ff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.settings-action-label small {
+    color: #71899d;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   5. AUTO-SHUFFLING SAFETY MESSAGES
+   ========================================================= */
+
+.safety-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.safety-counter {
+    font-size: 11px;
+    font-weight: 800;
+    color: #00aeff;
+    letter-spacing: 1px;
+}
+
+.safety-shuffle-box {
+    position: relative;
+    padding: 20px 22px;
+    background: rgba(0, 174, 255, 0.03);
+    border: 1px solid rgba(0, 174, 255, 0.18);
+    border-radius: 14px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    overflow: hidden;
+}
+
+.safety-shuffle-box.fade-switch {
+    opacity: 0.2;
+    transform: scale(0.99);
+}
+
+.safety-shuffle-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+}
+
+.safety-shuffle-icon {
+    font-size: 28px;
+    line-height: 1;
+}
+
+.safety-shuffle-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.safety-protocol-tag {
+    font-size: 9px;
+    font-weight: 800;
+    color: #00aeff;
+    letter-spacing: 1.5px;
+}
+
+.safety-shuffle-title {
+    color: #edf7ff;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.safety-shuffle-body {
+    margin: 0 0 14px 0;
+    color: #8fa6ba;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.safety-timer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.safety-timer-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00aeff, #00ffd5);
+    box-shadow: 0 0 8px #00aeff;
+}
+
+.safety-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.safety-ctrl-btn {
+    padding: 10px 16px;
+    background: #091420;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #dcecff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.safety-ctrl-btn:hover {
+    background: rgba(0, 174, 255, 0.15);
+    border-color: #00aeff;
+    color: #ffffff;
+}
+
+.safety-ctrl-btn.shuffle-btn {
+    flex-grow: 1;
+    background: rgba(0, 174, 255, 0.1);
+    border-color: rgba(0, 174, 255, 0.35);
+    color: #00aeff;
+}
+
+.safety-ctrl-btn.shuffle-btn:hover {
+    background: rgba(0, 174, 255, 0.25);
+    border-color: #00aeff;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 174, 255, 0.25);
+}
+
+.safety-dots-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.safety-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.safety-dot.active {
+    width: 22px;
+    border-radius: 10px;
+    background: #00aeff;
+    box-shadow: 0 0 10px #00aeff;
+}
+
+
+/* =========================================================
+   6. ABOUT & MOTTO SECTION
+   ========================================================= */
+
+.about-motto-banner {
+    position: relative;
+    padding: 24px;
+    margin-bottom: 20px;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 174, 255, 0.15), rgba(7, 14, 22, 0.95));
+    border: 1px solid rgba(0, 174, 255, 0.35);
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 174, 255, 0.1);
+}
+
+.motto-eyebrow {
+    display: block;
+    margin-bottom: 6px;
+    color: #00aeff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+}
+
+.motto-headline {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 900;
+    color: #edf8ff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(0, 174, 255, 0.6);
+}
+
+.motto-tagline {
+    margin: 10px auto 0;
+    color: #8fa6ba;
+    font-size: 13px;
+    max-width: 550px;
+    line-height: 1.5;
+}
+
+.about-description p {
+    margin: 0 0 20px;
+    color: #8ca4b8;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.about-description strong {
+    color: #edf7ff;
+}
+
+.about-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.about-pillar-card {
+    padding: 18px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    transition: 0.2s ease;
+}
+
+.about-pillar-card:hover {
+    border-color: rgba(0, 174, 255, 0.3);
+    background: rgba(0, 174, 255, 0.04);
+    transform: translateY(-2px);
+}
+
+.pillar-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.about-pillar-card h4 {
+    margin: 0 0 6px;
+    color: #00aeff;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.about-pillar-card p {
+    margin: 0;
+    color: #7991a4;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.about-specs-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    flex-wrap: wrap;
+}
+
+.spec-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #6a8499;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.spec-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #00aeff;
+}
+
+
+/* =========================================================
+   LIGHT THEME MODE OVERRIDES
+   ========================================================= */
+
+html[data-theme="light"] body {
+    background: #f0f4f8 !important;
+    color: #1a2734 !important;
+}
+
+html[data-theme="light"] .settings-section {
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(0,140,220,0.08),
+            transparent 45%
+        ),
+        #f0f4f8;
+    color: #1a2734;
+}
+
+html[data-theme="light"] .settings-header h1,
+html[data-theme="light"] .settings-card h2,
+html[data-theme="light"] .settings-name,
+html[data-theme="light"] .safety-shuffle-title,
+html[data-theme="light"] .theme-text strong,
+html[data-theme="light"] .settings-action-label strong,
+html[data-theme="light"] .about-description strong {
+    color: #102030;
+}
+
+html[data-theme="light"] .settings-card {
+    background: #ffffff;
+    border-color: rgba(20, 60, 90, 0.12);
+    box-shadow: 0 10px 30px rgba(15, 45, 75, 0.06);
+}
+
+html[data-theme="light"] .settings-card:hover {
+    border-color: rgba(0, 140, 220, 0.4);
+}
+
+html[data-theme="light"] .settings-header p,
+html[data-theme="light"] .settings-card-desc,
+html[data-theme="light"] .theme-text small,
+html[data-theme="light"] .settings-email,
+html[data-theme="light"] .settings-action-label small,
+html[data-theme="light"] .safety-shuffle-body,
+html[data-theme="light"] .about-description p,
+html[data-theme="light"] .about-pillar-card p {
+    color: #556c80;
+}
+
+html[data-theme="light"] .theme-option,
+html[data-theme="light"] .settings-action-btn,
+html[data-theme="light"] .safety-ctrl-btn {
+    background: #f8fafc;
+    border-color: rgba(20, 60, 90, 0.12);
+    color: #1a2734;
+}
+
+html[data-theme="light"] .theme-option:hover,
+html[data-theme="light"] .settings-action-btn:hover {
+    background: #eef5fa;
+    border-color: #0088cc;
+}
+
+html[data-theme="light"] .theme-option.active {
+    background: rgba(0, 140, 220, 0.08);
+    border-color: #0088cc;
+}
+
+html[data-theme="light"] .settings-profile-avatar {
+    background: linear-gradient(145deg, #e6f3fa, #cce4f3);
+    border-color: #0088cc;
+}
+
+html[data-theme="light"] .settings-profile-avatar span {
+    color: #006699;
+}
+
+html[data-theme="light"] .settings-stat-box,
+html[data-theme="light"] .about-pillar-card,
+html[data-theme="light"] .about-specs-strip {
+    background: #f4f8fb;
+    border-color: rgba(20, 60, 90, 0.08);
+}
+
+html[data-theme="light"] .safety-shuffle-box {
+    background: #f4f8fb;
+    border-color: rgba(0, 140, 220, 0.2);
+}
+
+html[data-theme="light"] .about-motto-banner {
+    background: radial-gradient(circle at 50% 50%, rgba(0, 140, 220, 0.12), #ffffff);
+    border-color: rgba(0, 140, 220, 0.3);
+}
+
+html[data-theme="light"] .motto-headline {
+    color: #0c2338;
+    text-shadow: 0 0 15px rgba(0, 140, 220, 0.3);
+}
+
+html[data-theme="light"] .motto-tagline {
+    color: #4f687d;
+}
+
+html[data-theme="light"] .settings-back-btn {
+    background: #eef6fb;
+    border-color: rgba(0, 140, 220, 0.3);
+    color: #0077b6;
+}
+
+html[data-theme="light"] .settings-dot {
+    background: rgba(20, 60, 90, 0.2);
+}
+
+html[data-theme="light"] .settings-dot.active {
+    background: #0088cc;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN (MOBILE & TABLET)
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .settings-section {
+        padding: 90px 18px 60px;
+    }
+
+    .settings-header-top {
+        flex-direction: column;
+    }
+
+    .settings-header h1 {
+        font-size: 28px;
+    }
+
+    .settings-card {
+        padding: 20px 18px;
+    }
+
+    .theme-selector,
+    .settings-actions,
+    .about-pillars-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-stats-row {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-profile-main {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .settings-profile-title-row {
+        justify-content: center;
+    }
+
+    .motto-headline {
+        font-size: 22px;
+    }
+
+    .about-specs-strip {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

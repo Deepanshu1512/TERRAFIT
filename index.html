@@ -383,6 +383,15 @@
                 Profile
             </a>
 
+
+            <a
+                href="#settings-section"
+                class="nav-link"
+                id="navSettingsDesktop"
+            >
+                Settings
+            </a>
+
         </div>
 
 
@@ -493,6 +502,16 @@
             id="mobNavProfile"
         >
             Profile
+            <span>→</span>
+        </a>
+
+
+        <a
+            href="#settings-section"
+            class="nav-link"
+            id="mobNavSettings"
+        >
+            Settings
             <span>→</span>
         </a>
 
@@ -789,6 +808,17 @@
 
                 </button>
 
+
+                <button
+                    class="secondary-btn hero-settings-btn"
+                    id="heroSettingsBtn"
+                    type="button"
+                >
+
+                    ⚙️ SETTINGS
+
+                </button>
+
             </div>
 
 
@@ -956,6 +986,569 @@
         </div>
 
     </main>
+
+
+    <!-- =====================================================
+         TERRAFIT SETTINGS PAGE
+         Contains:
+         1. Light / Dark Mode Toggle
+         2. Operator Profile
+         3. Operator Email
+         4. Integrated Login & Logout Controls
+         5. Dynamic Auto-shuffling Safety Messages
+         6. About TERRAFIT with "MOVE • CLAIM • COMPETE" Motto
+    ====================================================== -->
+
+    <section
+        id="settings-section"
+        class="settings-section"
+        style="display: none;"
+    >
+
+        <div class="settings-container">
+
+            <!-- SETTINGS HEADER & NAVIGATION -->
+
+            <div class="settings-header">
+
+                <div class="settings-header-top">
+
+                    <div>
+                        <span class="settings-kicker">
+                            SYSTEM CONFIGURATION // PROTOCOL
+                        </span>
+
+                        <h1>
+                            SETTINGS
+                        </h1>
+
+                        <p>
+                            Configure your operator profile, visual HUD mode, account credentials, and safety protocols.
+                        </p>
+                    </div>
+
+                    <button
+                        id="settingsBackBtn"
+                        class="settings-back-btn"
+                        type="button"
+                    >
+                        <span>←</span> BACK TO HERO
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- 1. APPEARANCE // THEME SWITCHER -->
+
+            <div class="settings-card">
+
+                <div class="settings-card-header">
+
+                    <div>
+                        <span class="settings-label">
+                            INTERFACE DISPLAY // 01
+                        </span>
+
+                        <h2>
+                            THEME & APPEARANCE
+                        </h2>
+                    </div>
+
+                    <span class="settings-status-pill" id="themeStatusPill">
+                        ACTIVE: DARK HUD
+                    </span>
+
+                </div>
+
+                <p class="settings-card-desc">
+                    Switch between stealth night tactical HUD and high-contrast daylight mode.
+                </p>
+
+                <div class="theme-selector">
+
+                    <button
+                        id="themeDarkBtn"
+                        class="theme-option active"
+                        type="button"
+                    >
+                        <span class="theme-icon">
+                            🌙
+                        </span>
+
+                        <span class="theme-text">
+                            <strong>
+                                DARK MODE
+                            </strong>
+                            <small>
+                                Tactical stealth interface for low-light operations
+                            </small>
+                        </span>
+                    </button>
+
+
+                    <button
+                        id="themeLightBtn"
+                        class="theme-option"
+                        type="button"
+                    >
+                        <span class="theme-icon">
+                            ☀️
+                        </span>
+
+                        <span class="theme-text">
+                            <strong>
+                                LIGHT MODE
+                            </strong>
+                            <small>
+                                High-visibility interface optimized for direct sunlight
+                            </small>
+                        </span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- 2. & 3. OPERATOR PROFILE & EMAIL -->
+
+            <div class="settings-card">
+
+                <div class="settings-card-header">
+
+                    <div>
+                        <span class="settings-label">
+                            OPERATOR CREDENTIALS // 02 & 03
+                        </span>
+
+                        <h2>
+                            PROFILE & IDENTITY
+                        </h2>
+                    </div>
+
+                    <span
+                        class="settings-badge"
+                        id="settingsAuthBadge"
+                    >
+                        GUEST OPERATOR
+                    </span>
+
+                </div>
+
+
+                <div class="settings-profile-container">
+
+                    <div class="settings-profile-main">
+
+                        <div class="settings-profile-avatar">
+                            <span id="settingsAvatarLetter">
+                                P
+                            </span>
+                        </div>
+
+
+                        <div class="settings-profile-info">
+
+                            <div class="settings-profile-title-row">
+                                <span
+                                    id="settingsName"
+                                    class="settings-name"
+                                >
+                                    GUEST OPERATOR
+                                </span>
+
+                                <span
+                                    class="settings-role-tag"
+                                    id="settingsRoleTag"
+                                >
+                                    SCOUT
+                                </span>
+                            </div>
+
+
+                            <div class="settings-email-row">
+                                <span class="settings-email-icon">
+                                    ✉️
+                                </span>
+                                <span
+                                    id="settingsEmail"
+                                    class="settings-email"
+                                >
+                                    Not logged in (Guest Session)
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MINI STATS STRIP -->
+
+                    <div class="settings-stats-row">
+
+                        <div class="settings-stat-box">
+                            <span class="settings-stat-val" id="settingsTerritoryStat">
+                                0
+                            </span>
+                            <span class="settings-stat-lbl">
+                                Sectors Claimed
+                            </span>
+                        </div>
+
+                        <div class="settings-stat-box">
+                            <span class="settings-stat-val" id="settingsXpStat">
+                                0 XP
+                            </span>
+                            <span class="settings-stat-lbl">
+                                Operator XP
+                            </span>
+                        </div>
+
+                        <div class="settings-stat-box">
+                            <span class="settings-stat-val" id="settingsDistanceStat">
+                                0.00 KM
+                            </span>
+                            <span class="settings-stat-lbl">
+                                Total Conquered
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- 4. ACCOUNT ACCESS // LOGIN & LOGOUT -->
+
+            <div class="settings-card">
+
+                <div class="settings-card-header">
+
+                    <div>
+                        <span class="settings-label">
+                            SECURITY & ACCESS // 04
+                        </span>
+
+                        <h2>
+                            ACCOUNT & AUTHENTICATION
+                        </h2>
+                    </div>
+
+                </div>
+
+                <p
+                    class="settings-card-desc"
+                    id="settingsAuthDesc"
+                >
+                    Log in with your TERRAFIT credentials to synchronize GPS territories, climb global leaderboards, and save workout history.
+                </p>
+
+
+                <div class="settings-actions">
+
+                    <button
+                        id="settingsLoginBtn"
+                        class="settings-action-btn primary-auth"
+                        type="button"
+                    >
+                        <span class="settings-action-icon">
+                            🔐
+                        </span>
+
+                        <span class="settings-action-label">
+                            <strong>LOG IN / REGISTER</strong>
+                            <small>Connect operator account</small>
+                        </span>
+                    </button>
+
+
+                    <button
+                        id="settingsLogoutBtn"
+                        class="settings-action-btn danger-auth"
+                        type="button"
+                        style="display: none;"
+                    >
+                        <span class="settings-action-icon">
+                            ⏻
+                        </span>
+
+                        <span class="settings-action-label">
+                            <strong>LOG OUT</strong>
+                            <small>Terminate current session</small>
+                        </span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- 5. DYNAMIC SHUFFLING SAFETY MESSAGES -->
+
+            <div class="settings-card safety-card">
+
+                <div class="settings-card-header">
+
+                    <div>
+                        <span class="settings-label">
+                            OPERATOR PROTECTION // 05
+                        </span>
+
+                        <h2>
+                            TACTICAL SAFETY PROTOCOL
+                        </h2>
+                    </div>
+
+                    <div class="safety-header-right">
+                        <span
+                            class="safety-counter"
+                            id="safetyCounter"
+                        >
+                            TIP 01 / 07
+                        </span>
+                        <span class="safety-badge">
+                            AUTO-SHUFFLING
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- SHUFFLING MESSAGE CONTAINER -->
+
+                <div
+                    class="safety-shuffle-box"
+                    id="safetyShuffleBox"
+                >
+
+                    <div class="safety-shuffle-header">
+                        <span
+                            class="safety-shuffle-icon"
+                            id="safetyShuffleIcon"
+                        >
+                            🛡️
+                        </span>
+
+                        <div class="safety-shuffle-title-wrap">
+                            <span class="safety-protocol-tag">SAFETY TIP</span>
+                            <strong
+                                id="safetyShuffleTitle"
+                                class="safety-shuffle-title"
+                            >
+                                STAY AWARE OF YOUR SURROUNDINGS
+                            </strong>
+                        </div>
+                    </div>
+
+                    <p
+                        id="safetyShuffleBody"
+                        class="safety-shuffle-body"
+                    >
+                        Avoid wearing noise-canceling headphones when exercising near traffic or unfamiliar routes. Always maintain 360-degree situational awareness.
+                    </p>
+
+                    <!-- PROGRESS BAR FOR AUTO-SHUFFLE TIMER -->
+                    <div class="safety-timer-bar">
+                        <div
+                            id="safetyTimerFill"
+                            class="safety-timer-fill"
+                        ></div>
+                    </div>
+
+                </div>
+
+
+                <!-- CONTROLS: PREV, SHUFFLE, NEXT -->
+
+                <div class="safety-controls">
+
+                    <button
+                        id="safetyPrevBtn"
+                        class="safety-ctrl-btn"
+                        type="button"
+                        title="Previous Tip"
+                    >
+                        ◀ PREV
+                    </button>
+
+                    <button
+                        id="safetyShuffleBtn"
+                        class="safety-ctrl-btn shuffle-btn"
+                        type="button"
+                    >
+                        🔀 SHUFFLE MESSAGE
+                    </button>
+
+                    <button
+                        id="safetyNextBtn"
+                        class="safety-ctrl-btn"
+                        type="button"
+                        title="Next Tip"
+                    >
+                        NEXT ▶
+                    </button>
+
+                </div>
+
+
+                <!-- DOTS INDICATORS -->
+
+                <div
+                    class="safety-dots-row"
+                    id="safetyDotsRow"
+                >
+                    <!-- Generated via JS -->
+                </div>
+
+            </div>
+
+
+            <!-- 6. ABOUT TERRAFIT & MOTTO -->
+
+            <div class="settings-card about-card">
+
+                <div class="settings-card-header">
+
+                    <div>
+                        <span class="settings-label">
+                            ABOUT THE PROTOCOL // 06
+                        </span>
+
+                        <h2>
+                            PROJECT TERRAFIT
+                        </h2>
+                    </div>
+
+                    <span class="settings-version-pill">
+                        v2.4 PRO
+                    </span>
+
+                </div>
+
+
+                <!-- MOTTO BANNER -->
+
+                <div class="about-motto-banner">
+
+                    <span class="motto-eyebrow">
+                        OUR CORE PHILOSOPHY
+                    </span>
+
+                    <h3 class="motto-headline">
+                        MOVE • CLAIM • COMPETE
+                    </h3>
+
+                    <p class="motto-tagline">
+                        Every step conquers ground. Every run expands your grid. Every ride commands the sector.
+                    </p>
+
+                </div>
+
+
+                <!-- PROJECT OVERVIEW -->
+
+                <div class="about-description">
+
+                    <p>
+                        <strong>TERRAFIT</strong> is an advanced GPS-powered fitness conquest platform designed to transform ordinary outdoor workouts into competitive tactical territory battles. By mapping physical movement onto a live regional grid, TERRAFIT gives physical effort a real-world digital footprint.
+                    </p>
+
+                </div>
+
+
+                <!-- THREE PILLARS BREAKDOWN -->
+
+                <div class="about-pillars-grid">
+
+                    <div class="about-pillar-card">
+
+                        <div class="pillar-icon">
+                            🏃
+                        </div>
+
+                        <h4>
+                            MOVE
+                        </h4>
+
+                        <p>
+                            Step outdoors and record your walks, runs, and bike rides with sub-meter GPS accuracy, dynamic cadence analysis, and real-time speed monitoring.
+                        </p>
+
+                    </div>
+
+
+                    <div class="about-pillar-card">
+
+                        <div class="pillar-icon">
+                            🗺️
+                        </div>
+
+                        <h4>
+                            CLAIM
+                        </h4>
+
+                        <p>
+                            Convert physical distance into virtual hexagonal sectors on the live tactical mesh. Paint your city in your colors and establish territorial supremacy.
+                        </p>
+
+                    </div>
+
+
+                    <div class="about-pillar-card">
+
+                        <div class="pillar-icon">
+                            🏆
+                        </div>
+
+                        <h4>
+                            COMPETE
+                        </h4>
+
+                        <p>
+                            Climb global and local leaderboards, earn XP, maintain activity streaks, unlock tactical operator avatars, and dominate rival operators.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PLATFORM TECH SPECS -->
+
+                <div class="about-specs-strip">
+
+                    <div class="spec-item">
+                        <span class="spec-dot"></span>
+                        <span>GPS Mesh Engine</span>
+                    </div>
+
+                    <div class="spec-item">
+                        <span class="spec-dot"></span>
+                        <span>Anti-Cheat Speed Validation</span>
+                    </div>
+
+                    <div class="spec-item">
+                        <span class="spec-dot"></span>
+                        <span>Supabase Cloud Sync</span>
+                    </div>
+
+                    <div class="spec-item">
+                        <span class="spec-dot"></span>
+                        <span>Leaflet Tactical HUD</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
 
 
 
@@ -2434,6 +3027,7 @@
     <script src="script/activity.js"></script>
     <script src="script/stats.js"></script>
     <script src="script/auth.js"></script>
+    <script src="script/setting.js"></script>
     <script src="script/app.js"></script>
     <script src="avatar/avatar.js"></script>
 
