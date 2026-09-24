@@ -10,41 +10,31 @@
 
 const TERRITORY_SIZE_METERS = 500;
 
-function getTerritoryCellSize(latitude) {
-    const metersPerLatitudeDegree = 111320;
-
-    return {
-        latitude:
-            TERRITORY_SIZE_METERS / metersPerLatitudeDegree,
-
-        longitude:
-            TERRITORY_SIZE_METERS /
-            (111320 * Math.cos(latitude * Math.PI / 180))
-    };
-}
-
-// Territory size: 500m × 500m
-const TERRITORY_SIZE_METERS = 500;
 
 /*
  * Convert 500 meters into latitude/longitude degrees.
- * Latitude is approximately constant.
- * Longitude depends on the current latitude.
  */
 function getTerritoryCellSize(latitude) {
+
     const metersPerLatitudeDegree = 111320;
 
-    const latitudeSize =
-        TERRITORY_SIZE_METERS / metersPerLatitudeDegree;
-
-    const longitudeSize =
-        TERRITORY_SIZE_METERS /
-        (111320 * Math.cos(latitude * Math.PI / 180));
-
     return {
-        latitude: latitudeSize,
-        longitude: longitudeSize
+
+        latitude:
+            TERRITORY_SIZE_METERS /
+            metersPerLatitudeDegree,
+
+        longitude:
+            TERRITORY_SIZE_METERS /
+            (
+                metersPerLatitudeDegree *
+                Math.cos(
+                    latitude * Math.PI / 180
+                )
+            )
+
     };
+
 }
 
 
@@ -58,8 +48,11 @@ function createTerritoriesAroundUser() {
         !map ||
         !currentUserLocation
     ) {
+
         return;
+
     }
+
 
     /* Remove old territory cells */
 
@@ -84,112 +77,133 @@ function createTerritoriesAroundUser() {
 
     territoryCells = [];
 
+
+    /* User location */
+
     const centerLat =
         currentUserLocation.latitude;
 
     const centerLon =
         currentUserLocation.longitude;
 
-    const bounds = map.getBounds();
 
-const southWest = bounds.getSouthWest();
-const northEast = bounds.getNorthEast();
+    /* Current visible map area */
 
-const centerLat = currentUserLocation.latitude;
-const centerLon = currentUserLocation.longitude;
+    const mapBounds =
+        map.getBounds();
 
-const cellSize = getTerritoryCellSize(centerLat);
+    const southWest =
+        mapBounds.getSouthWest();
 
-const minRow = Math.floor(
-    (southWest.lat - centerLat) /
-    cellSize.latitude
-);
+    const northEast =
+        mapBounds.getNorthEast();
 
-const maxRow = Math.ceil(
-    (northEast.lat - centerLat) /
-    cellSize.latitude
-);
 
-const minCol = Math.floor(
-    (southWest.lng - centerLon) /
-    cellSize.longitude
-);
+    /* 500m cell size */
 
-const maxCol = Math.ceil(
-    (northEast.lng - centerLon) /
-    cellSize.longitude
-);
+    const cellSize =
+        getTerritoryCellSize(
+            centerLat
+        );
 
-for (let row = minRow; row <= maxRow; row++) {
 
-    for (let col = minCol; col <= maxCol; col++) {
+    /*
+     * Calculate which rows and columns
+     * are visible on the current map.
+     */
 
-        const south =
-            centerLat +
-            row * cellSize.latitude;
+    const minRow =
+        Math.floor(
+            (
+                southWest.lat -
+                centerLat
+            ) /
+            cellSize.latitude
+        );
 
-        const west =
-            centerLon +
-            col * cellSize.longitude;
+    const maxRow =
+        Math.ceil(
+            (
+                northEast.lat -
+                centerLat
+            ) /
+            cellSize.latitude
+        );
 
-        const north =
-            south +
-            cellSize.latitude;
+    const minCol =
+        Math.floor(
+            (
+                southWest.lng -
+                centerLon
+            ) /
+            cellSize.longitude
+        );
 
-        const east =
-            west +
-            cellSize.longitude;
+    const maxCol =
+        Math.ceil(
+            (
+                northEast.lng -
+                centerLon
+            ) /
+            cellSize.longitude
+        );
 
-        const cellBounds = [
-            [south, west],
-            [north, east]
-        ];
 
-        // existing cell creation code continues here
-    }
-}
+    /* =====================================================
+       CREATE GRID
+    ===================================================== */
+
+    for (
+        let row = minRow;
+        row <= maxRow;
+        row++
     ) {
 
         for (
-            let col = -half;
-            col <= half;
+            let col = minCol;
+            col <= maxCol;
             col++
         ) {
 
-           const cellSize =
-    getTerritoryCellSize(centerLat);
 
-const south =
-    centerLat +
-    row *
-    cellSize.latitude;
+            const south =
+                centerLat +
+                row *
+                cellSize.latitude;
 
-const west =
-    centerLon +
-    col *
-    cellSize.longitude;
+            const west =
+                centerLon +
+                col *
+                cellSize.longitude;
 
-const north =
-    south +
-    cellSize.latitude;
 
-const east =
-    west +
-    cellSize.longitude;
+            const north =
+                south +
+                cellSize.latitude;
 
-            const bounds = [
+            const east =
+                west +
+                cellSize.longitude;
+
+
+            const cellBounds = [
+
                 [
                     south,
                     west
                 ],
+
                 [
                     north,
                     east
                 ]
+
             ];
+
 
             const cellId =
                 `${row}_${col}`;
+
 
             const cellData = {
 
@@ -216,16 +230,20 @@ const east =
 
             };
 
-            const rectangle =
-    L.rectangle(
-        cellBounds,
-        getTerritoryStyle(
-            "neutral"
-        )
-    );
 
-            rectangle
-                .addTo(map);
+            const rectangle =
+                L.rectangle(
+                    cellBounds,
+                    getTerritoryStyle(
+                        "neutral"
+                    )
+                );
+
+
+            rectangle.addTo(
+                map
+            );
+
 
             rectangle.on(
                 "click",
@@ -238,8 +256,10 @@ const east =
                 }
             );
 
+
             cellData.layer =
                 rectangle;
+
 
             territoryCells.push(
                 cellData
@@ -249,7 +269,11 @@ const east =
 
     }
 
- 
+
+    updateTerritoryUI();
+
+}
+
 
 /* =========================================================
    TERRITORY STYLE
@@ -284,6 +308,7 @@ function getTerritoryStyle(
 
     }
 
+
     if (
         owner === "enemy"
     ) {
@@ -308,6 +333,7 @@ function getTerritoryStyle(
         };
 
     }
+
 
     return {
 
@@ -348,6 +374,7 @@ function updateTerritoryCell(
 
     }
 
+
     cell.layer.setStyle(
         getTerritoryStyle(
             cell.owner
@@ -375,29 +402,34 @@ function findNearestTerritoryCell(
 
     }
 
+
     let nearestCell =
         null;
 
     let nearestDistance =
         Infinity;
 
+
+    const cellSize =
+        getTerritoryCellSize(
+            currentUserLocation.latitude
+        );
+
+
     territoryCells.forEach(
         (cell) => {
 
-           const cellSize =
-    getTerritoryCellSize(
-        currentUserLocation.latitude
-    );
+            const cellLat =
+                currentUserLocation.latitude +
+                cell.row *
+                cellSize.latitude;
 
-const cellLat =
-    currentUserLocation.latitude +
-    cell.row *
-    cellSize.latitude;
 
-const cellLon =
-    currentUserLocation.longitude +
-    cell.col *
-    cellSize.longitude;
+            const cellLon =
+                currentUserLocation.longitude +
+                cell.col *
+                cellSize.longitude;
+
 
             const cellDistance =
                 calculateDistance(
@@ -406,6 +438,7 @@ const cellLon =
                     cellLat,
                     cellLon
                 );
+
 
             if (
                 cellDistance <
@@ -422,6 +455,7 @@ const cellLon =
 
         }
     );
+
 
     return nearestCell;
 
@@ -445,17 +479,20 @@ function checkTerritoryCapture(
 
     }
 
+
     const cell =
         findNearestTerritoryCell(
             latitude,
             longitude
         );
 
+
     if (!cell) {
 
         return;
 
     }
+
 
     /*
        Only neutral territory is captured
@@ -484,13 +521,12 @@ function captureTerritory(
     cell
 ) {
 
-    if (
-        !cell
-    ) {
+    if (!cell) {
 
         return;
 
     }
+
 
     if (
         cell.owner !==
@@ -501,24 +537,31 @@ function captureTerritory(
 
     }
 
+
     cell.owner =
         "player";
+
 
     cell.strength =
         100;
 
+
     cell.captured =
         true;
+
 
     capturedTerritories.add(
         cell.id
     );
 
+
     updateTerritoryCell(
         cell
     );
 
+
     updateTerritoryUI();
+
 
     /*
        Each captured territory gives
@@ -534,6 +577,7 @@ function captureTerritory(
 
     }
 
+
     if (
         typeof updateLeaderboard ===
         "function"
@@ -542,6 +586,7 @@ function captureTerritory(
         updateLeaderboard();
 
     }
+
 
     showTerritoryPopup(
         cell,
@@ -570,8 +615,10 @@ function showTerritoryPopup(
 
     }
 
+
     let ownerText =
         "UNCLAIMED";
+
 
     if (
         cell.owner ===
@@ -583,6 +630,7 @@ function showTerritoryPopup(
 
     }
 
+
     if (
         cell.owner ===
         "enemy"
@@ -593,10 +641,12 @@ function showTerritoryPopup(
 
     }
 
+
     const message =
         justCaptured
             ? "SECTOR CAPTURED • +100 XP"
             : ownerText;
+
 
     const popupHTML = `
 
@@ -635,6 +685,7 @@ function showTerritoryPopup(
 
     `;
 
+
     cell.layer
         .bindPopup(
             popupHTML
@@ -653,6 +704,7 @@ function updateTerritoryUI() {
     const capturedCount =
         capturedTerritories.size;
 
+
     if (
         territoryCount
     ) {
@@ -662,6 +714,7 @@ function updateTerritoryUI() {
 
     }
 
+
     if (
         territoryStrength
     ) {
@@ -670,6 +723,7 @@ function updateTerritoryUI() {
             `${capturedCount * 100}%`;
 
     }
+
 
     if (
         territoryStatus
@@ -706,6 +760,7 @@ function resetTerritories() {
 
     capturedTerritories.clear();
 
+
     territoryCells.forEach(
         (cell) => {
 
@@ -718,12 +773,14 @@ function resetTerritories() {
             cell.captured =
                 false;
 
+
             updateTerritoryCell(
                 cell
             );
 
         }
     );
+
 
     updateTerritoryUI();
 
