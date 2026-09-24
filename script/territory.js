@@ -217,12 +217,12 @@ const east =
             };
 
             const rectangle =
-                L.rectangle(
-                    bounds,
-                    getTerritoryStyle(
-                        "neutral"
-                    )
-                );
+    L.rectangle(
+        cellBounds,
+        getTerritoryStyle(
+            "neutral"
+        )
+    );
 
             rectangle
                 .addTo(map);
@@ -249,9 +249,8 @@ const east =
 
     }
 
-    updateTerritoryUI();
-
-}
+  map.on("moveend", createTerritoriesAroundUser);
+map.on("zoomend", createTerritoriesAroundUser);
 
 
 /* =========================================================
