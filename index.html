@@ -3010,6 +3010,60 @@
     </div>
 
     <!-- =========================================================
+         PROFILE SETUP — SNAP-STYLE ONBOARDING
+    ========================================================= -->
+    <section class="profile-setup" id="profileSetup" aria-hidden="true" aria-labelledby="profileSetupTitle">
+        <div class="profile-setup-card">
+            <button class="profile-setup-skip" id="profileSetupSkip" type="button">Skip for now</button>
+            <div class="profile-setup-progress" aria-label="Profile setup progress">
+                <span class="active"></span><span></span><span></span>
+            </div>
+
+            <div class="profile-setup-step active" data-step="1">
+                <div class="profile-setup-mark">👻</div>
+                <p class="profile-setup-eyebrow">YOUR TERRAFIT PROFILE</p>
+                <h2 id="profileSetupTitle">Show the world<br>who's moving.</h2>
+                <p class="profile-setup-copy">Start with a profile photo. You can always change this later.</p>
+                <label class="profile-photo-picker" for="profileSetupPhoto">
+                    <input id="profileSetupPhoto" type="file" accept="image/png, image/jpeg, image/webp" hidden>
+                    <span class="profile-photo-preview" id="profileSetupPreview">+</span>
+                    <span class="profile-photo-action">Add a selfie</span>
+                </label>
+                <button class="profile-setup-next" type="button" data-next>Continue</button>
+            </div>
+
+            <div class="profile-setup-step" data-step="2">
+                <div class="profile-setup-mark">✦</div>
+                <p class="profile-setup-eyebrow">MAKE IT YOURS</p>
+                <h2>Pick your<br>public identity.</h2>
+                <p class="profile-setup-copy">This is how friends will find you on the territory map.</p>
+                <label class="profile-setup-label" for="profileSetupName">Display name</label>
+                <input class="profile-setup-input" id="profileSetupName" type="text" maxlength="24" placeholder="Your name">
+                <label class="profile-setup-label" for="profileSetupHandle">Username</label>
+                <div class="profile-handle-field"><span>@</span><input id="profileSetupHandle" type="text" maxlength="20" placeholder="username"></div>
+                <button class="profile-setup-next" type="button" data-next>Continue</button>
+                <button class="profile-setup-back" type="button" data-back>Back</button>
+            </div>
+
+            <div class="profile-setup-step" data-step="3">
+                <div class="profile-setup-mark">⚡</div>
+                <p class="profile-setup-eyebrow">ALMOST READY</p>
+                <h2>What gets you<br>outside?</h2>
+                <p class="profile-setup-copy">Choose your favorite ways to move. We'll tailor your challenges.</p>
+                <div class="profile-interests" id="profileSetupInterests">
+                    <button type="button" data-interest="Walking">🚶 Walking</button>
+                    <button type="button" data-interest="Running">🏃 Running</button>
+                    <button type="button" data-interest="Cycling">🚴 Cycling</button>
+                    <button type="button" data-interest="Exploring">🗺️ Exploring</button>
+                </div>
+                <label class="profile-privacy"><input id="profileSetupPrivate" type="checkbox"> <span>Keep my profile private</span></label>
+                <button class="profile-setup-next finish" type="button" data-finish>Start exploring</button>
+                <button class="profile-setup-back" type="button" data-back>Back</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================
          EXTERNAL LIBRARIES
     ========================================================= -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -3027,6 +3081,7 @@
     <script src="script/activity.js"></script>
     <script src="script/stats.js"></script>
     <script src="script/auth.js"></script>
+    <script src="script/profile-setup.js"></script>
     <script src="script/setting.js"></script>
     <script src="script/app.js"></script>
     <script src="avatar/avatar.js"></script>

@@ -10,7 +10,29 @@
 
 const TERRITORY_GRID_SIZE = 11;
 
-const TERRITORY_CELL_SIZE = 0.0015;
+// Territory size: 500m × 500m
+const TERRITORY_SIZE_METERS = 500;
+
+/*
+ * Convert 500 meters into latitude/longitude degrees.
+ * Latitude is approximately constant.
+ * Longitude depends on the current latitude.
+ */
+function getTerritoryCellSize(latitude) {
+    const metersPerLatitudeDegree = 111320;
+
+    const latitudeSize =
+        TERRITORY_SIZE_METERS / metersPerLatitudeDegree;
+
+    const longitudeSize =
+        TERRITORY_SIZE_METERS /
+        (111320 * Math.cos(latitude * Math.PI / 180));
+
+    return {
+        latitude: latitudeSize,
+        longitude: longitudeSize
+    };
+}
 
 
 /* =========================================================
@@ -72,23 +94,26 @@ function createTerritoriesAroundUser() {
             col++
         ) {
 
-            const south =
-                centerLat +
-                row *
-                TERRITORY_CELL_SIZE;
+           const cellSize =
+    getTerritoryCellSize(centerLat);
 
-            const west =
-                centerLon +
-                col *
-                TERRITORY_CELL_SIZE;
+const south =
+    centerLat +
+    row *
+    cellSize.latitude;
 
-            const north =
-                south +
-                TERRITORY_CELL_SIZE;
+const west =
+    centerLon +
+    col *
+    cellSize.longitude;
 
-            const east =
-                west +
-                TERRITORY_CELL_SIZE;
+const north =
+    south +
+    cellSize.latitude;
+
+const east =
+    west +
+    cellSize.longitude;
 
             const bounds = [
                 [
@@ -300,15 +325,20 @@ function findNearestTerritoryCell(
     territoryCells.forEach(
         (cell) => {
 
-            const cellLat =
-                currentUserLocation.latitude +
-                cell.row *
-                TERRITORY_CELL_SIZE;
+           const cellSize =
+    getTerritoryCellSize(
+        currentUserLocation.latitude
+    );
 
-            const cellLon =
-                currentUserLocation.longitude +
-                cell.col *
-                TERRITORY_CELL_SIZE;
+const cellLat =
+    currentUserLocation.latitude +
+    cell.row *
+    cellSize.latitude;
+
+const cellLon =
+    currentUserLocation.longitude +
+    cell.col *
+    cellSize.longitude;
 
             const cellDistance =
                 calculateDistance(

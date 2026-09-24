@@ -3101,6 +3101,110 @@ nav {
 }
 
 /* =========================================================
+   SNAP-STYLE PROFILE SETUP
+========================================================= */
+.profile-setup {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    place-items: center;
+    padding: 24px;
+    overflow-y: auto;
+    background: rgba(7, 12, 26, 0.78);
+    backdrop-filter: blur(12px);
+}
+
+.profile-setup.active { display: grid; }
+
+.profile-setup-card {
+    position: relative;
+    width: min(100%, 470px);
+    min-height: 610px;
+    overflow: hidden;
+    padding: 54px 48px 38px;
+    border-radius: 30px;
+    color: #111827;
+    background: #fffc00;
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+}
+
+.profile-setup-card::after {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    right: -130px;
+    bottom: -150px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.profile-setup-skip {
+    position: absolute;
+    top: 22px;
+    right: 26px;
+    z-index: 1;
+    border: 0;
+    padding: 6px;
+    color: #3e4200;
+    background: transparent;
+    font: 700 13px var(--font-main, Inter, sans-serif);
+    cursor: pointer;
+}
+
+.profile-setup-progress { display: flex; gap: 6px; position: relative; z-index: 1; }
+.profile-setup-progress span { width: 42px; height: 5px; border-radius: 99px; background: rgba(17, 24, 39, 0.18); }
+.profile-setup-progress span.active { background: #111827; }
+
+.profile-setup-step { display: none; position: relative; z-index: 1; padding-top: 36px; }
+.profile-setup-step.active { display: block; animation: profileSetupIn 260ms ease-out; }
+@keyframes profileSetupIn { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: translateX(0); } }
+
+.profile-setup-mark {
+    display: grid;
+    width: 54px;
+    height: 54px;
+    margin-bottom: 22px;
+    place-items: center;
+    border-radius: 18px;
+    color: white;
+    background: #111827;
+    font-size: 27px;
+}
+
+.profile-setup-eyebrow { margin: 0 0 10px; color: #626600; font: 800 11px var(--font-main, Inter, sans-serif); letter-spacing: 1.4px; }
+.profile-setup-step h2 { margin: 0; color: #111827; font-family: var(--font-display, 'Space Grotesk', sans-serif); font-size: clamp(34px, 8vw, 47px); line-height: .96; letter-spacing: -2.4px; }
+.profile-setup-copy { max-width: 330px; margin: 18px 0 25px; color: #4d5000; font-size: 15px; line-height: 1.5; }
+
+.profile-photo-picker { display: flex; align-items: center; gap: 14px; width: fit-content; margin: 10px auto 28px; cursor: pointer; }
+.profile-photo-preview { display: grid; width: 106px; height: 106px; place-items: center; overflow: hidden; border: 4px solid #111827; border-radius: 50%; color: #111827; background: white; font-size: 40px; font-weight: 300; }
+.profile-photo-preview img { width: 100%; height: 100%; object-fit: cover; }
+.profile-photo-action { color: #111827; font-size: 14px; font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
+
+.profile-setup-label { display: block; margin: 18px 0 7px; font-size: 12px; font-weight: 800; letter-spacing: .2px; }
+.profile-setup-input, .profile-handle-field { box-sizing: border-box; width: 100%; height: 52px; border: 2px solid rgba(17, 24, 39, .26); border-radius: 14px; color: #111827; background: rgba(255,255,255,.82); font: 600 16px var(--font-main, Inter, sans-serif); outline: none; }
+.profile-setup-input { padding: 0 15px; }
+.profile-handle-field { display: flex; align-items: center; padding: 0 15px; gap: 2px; }
+.profile-handle-field input { width: 100%; border: 0; outline: 0; color: #111827; background: transparent; font: 600 16px var(--font-main, Inter, sans-serif); }
+.profile-setup-input:focus, .profile-handle-field:focus-within { border-color: #111827; box-shadow: 0 0 0 3px rgba(255,255,255,.7); }
+
+.profile-interests { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.profile-interests button { border: 2px solid rgba(17,24,39,.2); border-radius: 15px; padding: 14px 8px; color: #111827; background: rgba(255,255,255,.55); font-weight: 800; cursor: pointer; }
+.profile-interests button.selected { border-color: #111827; color: white; background: #111827; }
+.profile-privacy { display: flex; align-items: center; gap: 8px; margin: 20px 0; font-size: 13px; font-weight: 700; cursor: pointer; }
+.profile-privacy input { width: 18px; height: 18px; accent-color: #111827; }
+
+.profile-setup-next { width: 100%; margin-top: 10px; border: 0; border-radius: 15px; padding: 16px 20px; color: white; background: #111827; box-shadow: 0 7px 0 rgba(17,24,39,.17); font: 800 15px var(--font-main, Inter, sans-serif); text-transform: uppercase; letter-spacing: .4px; cursor: pointer; }
+.profile-setup-next:hover { transform: translateY(-1px); }
+.profile-setup-back { display: block; margin: 16px auto 0; border: 0; color: #4d5000; background: transparent; font-weight: 800; cursor: pointer; }
+
+@media (max-width: 520px) {
+    .profile-setup { padding: 0; align-items: end; }
+    .profile-setup-card { width: 100%; min-height: 590px; padding: 48px 27px 30px; border-radius: 28px 28px 0 0; }
+}
+
+/* =========================================================
    TERRAFIT — 3D TACTICAL EXPERIENCE UPGRADE
    Visual-only layer: existing IDs/classes and JS behaviour
    are intentionally preserved.
@@ -6392,4 +6496,4 @@ html[data-theme="light"] .tf-preview-frame-label {
     }
 }
 
-
+

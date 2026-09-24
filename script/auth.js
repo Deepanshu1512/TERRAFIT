@@ -429,6 +429,10 @@ if (authForm) {
 
                                 closeAuth();
 
+                                if (window.TerraFitProfileSetup) {
+                                    window.TerraFitProfileSetup.open();
+                                }
+
                             },
                             700
                         );
@@ -541,12 +545,16 @@ if (authForm) {
                     "Operator authorization confirmed."
                 );
 
-                setTimeout(
-                    () => {
+                        setTimeout(
+                            () => {
 
-                        closeAuth();
+                                closeAuth();
 
-                    },
+                                if (window.TerraFitProfileSetup) {
+                                    window.TerraFitProfileSetup.open();
+                                }
+
+                            },
                     700
                 );
 
