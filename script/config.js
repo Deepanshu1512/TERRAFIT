@@ -4,12 +4,16 @@
 ========================================================= */
 
 const SUPABASE_URL =
-    "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
+     "https://bfkedcihkgkqlqedybkk.supabase.co";
 
 const SUPABASE_KEY =
-    "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE";
+   "sb_publishable_N2xvqLd_mj9M5npcHGoIPg_zABk4NQt";
 
-let supabaseClient = null;
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 if (
     window.supabase &&
