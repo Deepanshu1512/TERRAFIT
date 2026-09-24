@@ -249,9 +249,7 @@ const east =
 
     }
 
-  map.on("moveend", createTerritoriesAroundUser);
-map.on("zoomend", createTerritoriesAroundUser);
-
+ 
 
 /* =========================================================
    TERRITORY STYLE
