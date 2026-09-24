@@ -8,7 +8,20 @@
    TERRITORY GRID CONFIG
 ========================================================= */
 
-const TERRITORY_GRID_SIZE = 11;
+const TERRITORY_SIZE_METERS = 500;
+
+function getTerritoryCellSize(latitude) {
+    const metersPerLatitudeDegree = 111320;
+
+    return {
+        latitude:
+            TERRITORY_SIZE_METERS / metersPerLatitudeDegree,
+
+        longitude:
+            TERRITORY_SIZE_METERS /
+            (111320 * Math.cos(latitude * Math.PI / 180))
+    };
+}
 
 // Territory size: 500m × 500m
 const TERRITORY_SIZE_METERS = 500;
@@ -77,15 +90,64 @@ function createTerritoriesAroundUser() {
     const centerLon =
         currentUserLocation.longitude;
 
-    const half =
-        Math.floor(
-            TERRITORY_GRID_SIZE / 2
-        );
+    const bounds = map.getBounds();
 
-    for (
-        let row = -half;
-        row <= half;
-        row++
+const southWest = bounds.getSouthWest();
+const northEast = bounds.getNorthEast();
+
+const centerLat = currentUserLocation.latitude;
+const centerLon = currentUserLocation.longitude;
+
+const cellSize = getTerritoryCellSize(centerLat);
+
+const minRow = Math.floor(
+    (southWest.lat - centerLat) /
+    cellSize.latitude
+);
+
+const maxRow = Math.ceil(
+    (northEast.lat - centerLat) /
+    cellSize.latitude
+);
+
+const minCol = Math.floor(
+    (southWest.lng - centerLon) /
+    cellSize.longitude
+);
+
+const maxCol = Math.ceil(
+    (northEast.lng - centerLon) /
+    cellSize.longitude
+);
+
+for (let row = minRow; row <= maxRow; row++) {
+
+    for (let col = minCol; col <= maxCol; col++) {
+
+        const south =
+            centerLat +
+            row * cellSize.latitude;
+
+        const west =
+            centerLon +
+            col * cellSize.longitude;
+
+        const north =
+            south +
+            cellSize.latitude;
+
+        const east =
+            west +
+            cellSize.longitude;
+
+        const cellBounds = [
+            [south, west],
+            [north, east]
+        ];
+
+        // existing cell creation code continues here
+    }
+}
     ) {
 
         for (
